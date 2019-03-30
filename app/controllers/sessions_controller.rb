@@ -7,13 +7,13 @@ class SessionsController < ApplicationController
     user = User.find_by(login_id: params[:session][:login_id])
     if user && user.authenticate(params[:session][:password])
       log_in user
-      if user.role == "Admin"
+      if user.role == "Administrator"
         redirect_back_or(user)
       elsif user.role == "Decision Maker"
         redirect_back_or(user)
       elsif user.role == "Validtor"
         redirect_back_or(user)
-      elsif user.role == "Company Representatives"
+      elsif user.role == "Company Representative"
         redirect_back_or(user)
       end
     else

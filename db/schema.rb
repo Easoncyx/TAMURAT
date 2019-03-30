@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20190330014721) do
     t.string "role"
     t.integer "login_id"
     t.boolean "approved"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

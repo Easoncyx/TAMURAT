@@ -7,4 +7,11 @@ class User < ApplicationRecord
                     # uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :login_id, presence: true, uniqueness: true
+  VALID_ROLE_REGEX = /Decision Maker|Company Representative|Validtor|Administrator/i
+  validates :role, presence: true, format: { with: VALID_ROLE_REGEX }
+
+  def admin?
+    self.role == "Administrator"
+  end
 end
