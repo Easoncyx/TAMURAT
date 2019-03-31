@@ -4,10 +4,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
+    user = User.find_by(login_id: params[:session][:login_id])
     if user && user.authenticate(params[:session][:password])
       log_in user
-      redirect_to user_url(user)
+      if user.role == "Administrator"
+        redirect_back_or(user)
+      elsif user.role == "Decision Maker"
+        redirect_back_or(user)
+      elsif user.role == "Validtor"
+        redirect_back_or(user)
+      elsif user.role == "Company Representative"
+        redirect_back_or(user)
+      end
     else
       flash[:danger] = 'Invalid email/password combination' # 不完全正确
       render 'new'
