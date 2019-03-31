@@ -62,6 +62,8 @@ group :test do
   gem 'minitest-reporters', '1.1.14'
   gem 'guard', '2.13.0'
   gem 'guard-minitest', '2.4.4'
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels'
 end
 
 group :production do
@@ -70,3 +72,4 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
