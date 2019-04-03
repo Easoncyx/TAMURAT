@@ -19,7 +19,7 @@ class CategoriesController < ApplicationController
   end
   
   def update
-    @category = Category.find_by_id
+    @category = Category.find_by_id(params[:id])
     warning(@category)
     @category.update_attributes!(category_params)
     flash[:success] = "#{@category.name} was successfully updated."
@@ -27,7 +27,9 @@ class CategoriesController < ApplicationController
   end
   
   def create
-    @category = Category.create!(category_params)
+    result = category_params
+    result[:weight_sum] = 0
+    @category = Category.create!(result)
     flash[:success] = "#{@category.name} was successfully created."
     redirect_to questions_path
   end

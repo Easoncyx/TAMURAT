@@ -8,6 +8,10 @@
       <h4 class="panel-title">
         <a data-toggle="collapse" href=#<%="collapse_category#{category.id}"%>>
           <%= category.name %>
+          </br>
+          <% if false%>
+          <small>Weight_sum = <%= category.weight_sum %></small>
+          <% end %>
           <div>
           <button type="button" class="btn btn-outline-dark">
             <%=link_to 'Edit', edit_category_path(category.id), :method => :get%>
@@ -29,13 +33,18 @@
                 <h4 class="panel-title">
                   <a data-toggle="collapse" href=<%="#collapse_subcategory#{subcat.id}"%>>
                     <%=subcat.name %>
+                    </br>
+                    <% if false %>
+                    <small>Weight_sum = <%= subcat.weight_sum %></small>
+                    <% end %>
                     <div>
                     <button type="button" class="btn btn-outline-dark">
-                      <%=link_to 'Edit', edit_subcategory_path(category.id), :method => :get %>
+                      <%=link_to 'Edit', edit_subcategory_path(subcat.id), :method => :get %>
                     </button>
                     <button type="button" class="btn btn-outline-dark">
-                      <%=link_to 'Delete', subcategory_path(category.id), :method => :delete %>
+                      <%=link_to 'Delete', subcategory_path(subcat.id), :method => :delete %>
                     </button>
+                    
                     </div>
                   </a>
                 </h4>
@@ -79,7 +88,7 @@
         </li>
       </ul>
       <div class="panel-footer">
-        <%=link_to 'New Category',new_subcategory_path %>
+        <%=link_to 'New Subcategory',new_subcategory_path %>
       </div>
     </div>
   </div>

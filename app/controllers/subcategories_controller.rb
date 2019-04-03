@@ -11,37 +11,58 @@ class SubcategoriesController < ApplicationController
   end
   
   def warning(subcategory)
-    if not subcategory
+    if !subcategory
       flash[:warning] = "No record found of this subcategory."
       redirect_to questions_path
     end
   end
   
   def update
-    @subcategory = Subategory.find_by_id([:id])
-    weight = params[:weight]
-    category = Category.find_by_id(params[:category_id])
-    old_category = Category.find_by_id(@subcategory.category_id)
-    
-    new_weight_sum = category.weight_sum + weight
-    old_weight_sum = old_category.weight_sum - weight
-    
-    old_category.update_attributes!(old_weight_sum)
-    category.update_attributes!(weight_sum)
-    @subcategory.update_attributes!(subcategory_params)
-    flash[:success] = "#{@subcategory.name} was successfully updated."
-    redirect_to questions_path
+    if(params[:subcategory][:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+      @subcategory = Subcategory.find_by_id(params[:id])
+      warning(@subcategory)
+      
+      #update weight_sum
+      new_category = Category.find_by_id(params[:subcategory][:category_id])
+      warning(new_category)
+      
+      old_category = Category.find_by_id(@subcategory.category_id)
+      warning(old_category)
+      
+      weight_sum = new_category.weight_sum + Float(params[:subcategory][:weight])
+      old_weight_sum = [old_category.weight_sum - @subcategory.weight, 0].max
+      
+      old_category.update_attributes!(weight_sum: old_weight_sum)
+      new_category.update_attributes!(weight_sum: weight_sum)
+      
+      @subcategory.update_attributes!(subcategory_params)
+      flash[:success] = "#{@subcategory.name} was successfully updated."
+      
+      redirect_to questions_path
+    else
+      flash[:warning] = "Weight Invalid, you need to type a float."
+      redirect_to edit_subcategory_path(params[:id])
+    end
   end
   
   def create
-    @subcategory = Subcategory.create!(subcategory_params)
-    weight = params[:weight]
-    category = Category.find_by_id(params[:category_id])
-    new_weight_sum = category.weight_sum + weight
-    
-    category.update_attributes!(weight_sum)
-    flash[:success] = "#{@subcategory.name} was successfully created."
-    redirect_to questions_path
+    #update weight_sum
+    result = subcategory_params
+    result[:weight_sum] = 0
+    if(params[:subcategory][:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+      category = Category.find_by_id(params[:subcategory][:category_id])
+      warning(category)
+      weight_sum = category.weight_sum + Float(params[:subcategory][:weight])
+      category.update_attributes!(weight_sum: weight_sum)
+      
+      @subcategory = Subcategory.create!(result)
+      
+      flash[:success] = "#{@subcategory.name} was successfully created."
+      redirect_to questions_path
+    else
+      flash[:warning] = "Weight Invalid, you need to type a float."
+      redirect_to new_subcategory_path(params[:id])
+    end
   end
   
   def new
@@ -58,6 +79,14 @@ class SubcategoriesController < ApplicationController
   def destroy
     @subcategory = Subcategory.find_by_id(params[:id])
     warning(@subcategory)
+    #update weight_sum
+    category = Category.find_by_id(@subcategory.category_id)
+    warning(category)
+    
+    weight_sum = [category.weight_sum - @subcategory.weight, 0].max
+    
+    category.update_attributes!(weight_sum: weight_sum)
+    
     questions = Question.where("subcategory_id = ?", params[:id])
     questions.each do |q|
       q.destroy
