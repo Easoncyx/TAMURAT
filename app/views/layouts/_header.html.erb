@@ -8,7 +8,8 @@
         <% if logged_in? %>
           <% if admin?%>
             <li><%= link_to "Users", users_path %></li>
-          <% elsif company_representative? or admin?%>
+          <% end %>
+          <% if company_representative? %>
             <li><%= link_to "Question", questions_path %></li>
           <% end %>
           <li class="dropdown">
