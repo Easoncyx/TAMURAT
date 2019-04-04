@@ -56,7 +56,7 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-
+  # 用户得到批准后添加到company数据库
   def create_company
     if self.role == "Company Representative"
       @company = Company.new(user_id:self.id, company_score:0)
@@ -68,6 +68,14 @@ class User < ApplicationRecord
       end
     end
   end
+
+
+  #subcompany relationship
+  has_many :parent_company_links, :foreign_key => :parent_company_user_id, :dependent => :destroy, :class_name => "Subcompany"
+  has_one :child_company_links, :foreign_key => :child_company_user_id, :dependent => :destroy, :class_name => "Subcompany"
+  has_many :parent_companies, :through => :parent_company_links
+  has_one :child_companies, :through => :child_company_links
+
 
   private
     # 把电子邮件地址转换成小写
