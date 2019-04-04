@@ -10,7 +10,10 @@ User.create!(name:  "Example User",
              password:              "foobar",
              password_confirmation: "foobar",
              role: "Administrator",
-             login_id: 1000
+             login_id: 1000,
+             approved: true,
+             activated: true,
+             activated_at: Time.zone.now
            )
 
 99.times do |n|
@@ -24,7 +27,10 @@ User.create!(name:  "Example User",
                password:              password,
                password_confirmation: password,
                role: role,
-               login_id: login_id
+               login_id: login_id,
+               approved: true,
+               activated: true,
+               activated_at: Time.zone.now
              )
 end
 

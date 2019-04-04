@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  get    '/activate',to: 'activate#activate'
   resources :users
   
   #questions
@@ -20,4 +21,6 @@ Rails.application.routes.draw do
   #category
   resources :categories
   #get '/categories/edit/:id', to: 'categories#edit', as: 'category_edit'
+
+  resources :account_activations, only: [:edit]
 end

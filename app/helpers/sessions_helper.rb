@@ -21,6 +21,23 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+  
+  #if the current user is admin, return true
+  def admin?
+    current_user.role == "Administrator"
+  end
+  
+  def decision_maker?
+    current_user.role == "Decision Maker"
+  end
+  
+  def validator?
+    current_user.role == "Validator"
+  end
+  
+  def company_representative?
+    current_user.role == "Company Representative"
+  end
 
   # 退出当前用户
  def log_out

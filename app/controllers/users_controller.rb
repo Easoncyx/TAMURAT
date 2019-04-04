@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:destory, :index, :show, :edit, :update]
   before_action :correct_user,   only: [:show, :edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:destroy, :index]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -23,9 +23,9 @@ class UsersController < ApplicationController
       @user.login_id = 1000
     end
     if @user.save
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
-      # redirect_to user_url(@user)
+      #UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
+      redirect_to root_url
     else
       render 'new'
     end
@@ -75,6 +75,6 @@ class UsersController < ApplicationController
 
     # 确保是管理员
     def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      redirect_to(root_url) unless admin?
     end
 end
