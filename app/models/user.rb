@@ -34,6 +34,12 @@ class User < ApplicationRecord
   #   BCrypt::Password.create(string, cost: cost)
   # end
   
+  #subcompany relationship
+  has_many :parent_company_links, :foreign_key => :parent_company_user_id, :dependent => :destroy, :class_name => "Subcompany"
+  has_one :child_company_links, :foreign_key => :child_company_user_id, :dependent => :destroy, :class_name => "Subcompany"
+  has_many :parent_companies, :through => :parent_company_links
+  has_one :child_companies, :through => :child_company_links
+  
   private
     # 把电子邮件地址转换成小写
     def downcase_email
