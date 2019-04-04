@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
           redirect_back_or(user)
         elsif user.role == "Decision Maker"
           redirect_back_or(user)
-        elsif user.role == "Validtor"
+        elsif user.role == "Validator"
           redirect_back_or(user)
         elsif user.role == "Company Representative"
           redirect_back_or(user)
