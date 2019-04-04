@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190330014721) do
+ActiveRecord::Schema.define(version: 20190403154948) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -20,8 +20,11 @@ ActiveRecord::Schema.define(version: 20190330014721) do
     t.string "password_digest"
     t.string "role"
     t.integer "login_id"
-    t.boolean "approved"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.boolean "approved", default: false
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
+    t.index ["login_id"], name: "index_users_on_login_id", unique: true
   end
 
 end
