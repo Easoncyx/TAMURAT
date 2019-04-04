@@ -78,8 +78,9 @@ RSpec.describe UsersController, type: :controller do
         
         describe "UsersController#update" do
             it 'should render the home in views/new if information updated successfully' do
+                
 #                put :update, params: { id: @admin.id }
-                patch :update, params: { :id => session[:user_id] }
+                patch :update, params: { :id => session[:user_id], :user => attributes_for(:admin)   }
 #                put :update, params: {:user => attributes_for(:admin) } 
                 
                 expect(response).to redirect_to user_url(session[:user_id])
@@ -91,6 +92,19 @@ RSpec.describe UsersController, type: :controller do
 #           end                  
         
         end        
+        
+        
+        describe "UsersController#destroy" do
+            
+            it 'should render the home in views/users' do
+                
+                delete :destroy, params: { :id => session[:user_id] }
+                expect(response).to redirect_to user_url
+                
+        end               
+        
+    end    
+        
         
         
     end
@@ -106,13 +120,7 @@ end
 
     
 
-    describe "UsersController#destroy" do
-        it 'should render the home in views/users' do
-            delete :destroy, user: attributes_for(:user)
-            expect(response).to redirect_to user_url(@user)
-        end               
-        
-    end
+
 =end
    
    

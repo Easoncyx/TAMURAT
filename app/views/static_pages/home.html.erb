@@ -1,13 +1,19 @@
 <% if logged_in? %>
-  <h3>User Name: </h3>
-  <h2><%= @user.name %></h2>
-  <h3>User Login_id: </h3>
-  <h2><%= @user.login_id %></h2>
-  <h3>User Email: </h3>
-  <h2><%= @user.email %></h2>
-  <h3>User Role: </h3>
-  <h2><%= @user.role %></h2>
-  
+  <div class="center jumbotron">
+    <h1>Welcome to the TAMURAT</h1>
+    <h2> This is the home page for the
+      <a href="https://github.com/teamtreenewbee/TAMUART_new">Risk Assessment Tool</a>
+      application.
+    </h2>
+    <h3>User Name: </h3>
+    <h2><%= @user.name %></h2>
+    <h3>User Login_id: </h3>
+    <h2><%= @user.login_id %></h2>
+    <h3>User Email: </h3>
+    <h2><%= @user.email %></h2>
+    <h3>User Role: </h3>
+    <h2><%= @user.role %></h2>
+  </div>
   <div class="row">
     <aside class="col-md-4">
       <section class="user_info">

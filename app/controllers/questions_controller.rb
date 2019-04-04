@@ -1,16 +1,12 @@
+require 'sessions_helper.rb'
+
 class QuestionsController < ApplicationController
-  def question_params
-    params.require(:question).permit(:name, :weight, :subcategory_id)
-  end
   
-  def warning(question)
-    if not question
-      flash[:warning] = "No record found of this question."
-      redirect_to questions_path and return
-    end
-  end
+  before_action :logged_in_user
+  before_action :correct_user
   
   def index
+    
     @category = Category.all
     @result = {}
     @subcategory = Subcategory.all
@@ -24,7 +20,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    redirect_to questions_path
+    redirect_to questions_url
   end
   
   def update
@@ -46,10 +42,10 @@ class QuestionsController < ApplicationController
       
       @question.update_attributes!(question_params)
       flash[:success] = "#{@question.name} was successfully updated."
-      redirect_to questions_path
+      redirect_to questions_url
     else
       flash[:warning] = "Weight Invalid, you need to type a float."
-      redirect_to edit_question_path(params[:id])
+      redirect_to edit_question_url(params[:id])
     end
   end
   
@@ -62,10 +58,10 @@ class QuestionsController < ApplicationController
       
       @question = Question.create!(question_params)
       flash[:success] = "#{@question.name} was successfully created."
-      redirect_to questions_path
+      redirect_to questions_url
     else
       flash[:warning] = "Weight Invalid, you need to type a float."
-      redirect_to new_question_path
+      redirect_to new_question_url
     end
   end
   
@@ -89,17 +85,38 @@ class QuestionsController < ApplicationController
     
     @question.destroy
     flash[:success] = "Question '#{@question.name}' deleted."
-    redirect_to questions_path
+    redirect_to questions_url
   end
   
   
-  def all_subcategories
-    result = []
-    allsubs = Subcategory.all
-    allsubs.each do |subcat|
-      result << [subcat.name, subcat.id]
+  
+  private
+    
+    def all_subcategories
+      result = []
+      allsubs = Subcategory.all
+      allsubs.each do |subcat|
+        result << [subcat.name, subcat.id]
+      end
+      return result
     end
-    return result
-  end
+    
+    def warning(question)
+      if not question
+        flash[:danger] = "No record found of this question."
+        redirect_to questions_url and return
+      end
+    end
   
+    
+    def question_params
+      params.require(:question).permit(:name, :weight, :subcategory_id)
+    end
+  
+    def correct_user
+      if !admin? && !decision_maker?
+        flash[:danger] = "Please log in as correct user."
+        redirect_to root_url and return
+      end
+    end
 end
