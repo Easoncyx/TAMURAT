@@ -29,20 +29,20 @@ class QuestionsController < ApplicationController
   
   def update
 
-    if(params[:question][:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+    if(question_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
       @question = Question.find_by_id(params[:id])
       warning(@question)
   
-      new_subcat = Subcategory.find_by_id(params[:question][:subcategory_id])
+      new_subcat = Subcategory.find_by_id(question_params[:subcategory_id])
       warning(new_subcat)
-      weight_sum = new_subcat.weight_sum + Float(params[:question][:weight])
+      weight_sum = new_subcat.weight_sum + Float(question_params[:weight])
       new_subcat.update_attributes!(weight_sum: weight_sum)
-      if @question.subcategory_id != params[:subcategory_id]
-        old_subcat = Subcategory.find_by_id(@question.subcategory_id)
-        warning(old_subcat)
-        old_weight_sum = [old_subcat.weight_sum - @question.weight, 0].max
-        old_subcat.update_attributes!(weight_sum: old_weight_sum)
-      end
+      
+      old_subcat = Subcategory.find_by_id(@question.subcategory_id)
+      warning(old_subcat)
+      old_weight_sum = [old_subcat.weight_sum - @question.weight, 0].max
+      old_subcat.update_attributes!(weight_sum: old_weight_sum)
+      
       
       @question.update_attributes!(question_params)
       flash[:success] = "#{@question.name} was successfully updated."
@@ -54,10 +54,10 @@ class QuestionsController < ApplicationController
   end
   
   def create
-    if(params[:question][:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
-      subcategory = Subcategory.find_by_id(params[:question][:subcategory_id])
+    if(question_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+      subcategory = Subcategory.find_by_id(question_params[:subcategory_id])
       warning(subcategory)
-      weight_sum = subcategory.weight_sum + Float(params[:question][:weight])
+      weight_sum = subcategory.weight_sum + Float(question_params[:weight])
       subcategory.update_attributes!(weight_sum: weight_sum)
       
       @question = Question.create!(question_params)

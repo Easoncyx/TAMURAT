@@ -18,18 +18,18 @@ class SubcategoriesController < ApplicationController
   end
   
   def update
-    if(params[:subcategory][:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+    if(subcategory_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
       @subcategory = Subcategory.find_by_id(params[:id])
       warning(@subcategory)
       
       #update weight_sum
-      new_category = Category.find_by_id(params[:subcategory][:category_id])
+      new_category = Category.find_by_id(subcategory_params[:category_id])
       warning(new_category)
       
       old_category = Category.find_by_id(@subcategory.category_id)
       warning(old_category)
       
-      weight_sum = new_category.weight_sum + Float(params[:subcategory][:weight])
+      weight_sum = new_category.weight_sum + Float(subcategory_params[:weight])
       old_weight_sum = [old_category.weight_sum - @subcategory.weight, 0].max
       
       old_category.update_attributes!(weight_sum: old_weight_sum)
@@ -49,10 +49,10 @@ class SubcategoriesController < ApplicationController
     #update weight_sum
     result = subcategory_params
     result[:weight_sum] = 0
-    if(params[:subcategory][:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
-      category = Category.find_by_id(params[:subcategory][:category_id])
+    if(subcategory_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+      category = Category.find_by_id(subcategory_params[:category_id])
       warning(category)
-      weight_sum = category.weight_sum + Float(params[:subcategory][:weight])
+      weight_sum = category.weight_sum + Float(subcategory_params[:weight])
       category.update_attributes!(weight_sum: weight_sum)
       
       @subcategory = Subcategory.create!(result)
@@ -87,10 +87,10 @@ class SubcategoriesController < ApplicationController
     
     category.update_attributes!(weight_sum: weight_sum)
     
-    questions = Question.where("subcategory_id = ?", params[:id])
-    questions.each do |q|
-      q.destroy
-    end
+    #questions = Question.where("subcategory_id = ?", params[:id])
+    #questions.each do |q|
+    #  q.destroy
+    #end
       
     @subcategory.destroy
     flash[:success] = "Subcategory '#{@subcategory.name}' deleted."

@@ -48,14 +48,15 @@ class CategoriesController < ApplicationController
     
     warning(@category)
     
-    subcategories = Subcategory.where("category_id = ?", params[:id])
-    subcategories.each do |subcat|
-      questions = Question.where("subcategory_id = ?", subcat.id)
-      questions.each do |q|
-        q.destroy
-      end
-      subcat.destroy
-    end
+    #subcategories = Subcategory.where("category_id = ?", params[:id])
+    #subcategories.each do |subcat|
+    #  questions = Question.where("subcategory_id = ?", subcat.id)
+    #  questions.each do |q|
+    #    q.destroy
+    #  end
+    #  subcat.destroy
+    #end
+    
     @category.destroy
     flash[:success] = "Category '#{@category.name}' deleted."
     redirect_to questions_path
