@@ -40,6 +40,8 @@ gem 'jbuilder', '2.7.0'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem "rspec-rails"
+  gem "factory_bot_rails"
   gem 'sqlite3', '1.3.13'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '9.0.6', platforms: :mri
@@ -58,14 +60,20 @@ group :development do
 end
 
 group :test do
+  gem 'shoulda-matchers'
+  gem 'simplecov', :require => false
   gem 'rails-controller-testing', '1.0.2'
   gem 'minitest-reporters', '1.1.14'
   gem 'guard', '2.13.0'
   gem 'guard-minitest', '2.4.4'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
 group :production do
-  gem 'pg', '0.20.0'
+#  gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
