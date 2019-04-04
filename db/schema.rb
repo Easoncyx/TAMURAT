@@ -53,10 +53,11 @@ ActiveRecord::Schema.define(version: 20190403170314) do
     t.string "password_digest"
     t.string "role"
     t.integer "login_id"
-    t.boolean "approved", default: false
+    t.boolean "approved"
     t.string "activation_digest"
     t.boolean "activated", default: false
     t.datetime "activated_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["login_id"], name: "index_users_on_login_id", unique: true
   end
 
