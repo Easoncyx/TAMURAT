@@ -4,7 +4,28 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <h2>Your login_id is <%= @user.login_id %></h2>
-    <%= render 'form' %>
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control', :disabled=>true %>
+
+      <%= f.label :role %>
+      <%= f.text_field :role, class: 'form-control', :disabled=>true %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    <% end %>
+
     <div class="gravatar_edit">
       <%= gravatar_for @user %>
       <a href="http://gravatar.com/emails" target="_blank">Change</a>
