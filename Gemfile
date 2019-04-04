@@ -40,6 +40,7 @@ gem 'jbuilder', '2.7.0'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'database_cleaner', '1.4.1'
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem 'sqlite3', '1.3.13'
@@ -58,7 +59,6 @@ group :development do
   gem 'spring', '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'simplecov' #oh god
-  gem 'database_cleaner', '1.4.1'
 end
 
 group :test do
@@ -68,15 +68,11 @@ group :test do
   gem 'minitest-reporters', '1.1.14'
   gem 'guard', '2.13.0'
   gem 'guard-minitest', '2.4.4'
-<<<<<<< HEAD
   gem 'capybara'
-  gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
-=======
   gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
->>>>>>> origin/master
 end
 
 group :production do
