@@ -113,7 +113,7 @@ class SubcategoriesController < ApplicationController
     end
     
     def correct_user
-      if !admin? or !decision_maker?
+      if !admin? and !decision_maker?
         flash[:danger] = "Please log in as correct user."
         redirect_to root_url and return
       end
