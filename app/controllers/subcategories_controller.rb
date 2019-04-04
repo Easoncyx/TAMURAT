@@ -1,21 +1,20 @@
+require 'sessions_helper.rb'
+
 class SubcategoriesController < ApplicationController
-  def subcategory_params
-    params.require(:subcategory).permit(:name, :weight, :category_id)
-  end
+  
+  before_action :logged_in_user
+  before_action :correct_user
+  
+  
+  
   def index
-    redirect_to questions_path
+    redirect_to questions_url
   end
   
   def show
-    redirect_to questions_path
+    redirect_to questions_url
   end
   
-  def warning(subcategory)
-    if !subcategory
-      flash[:warning] = "No record found of this subcategory."
-      redirect_to questions_path
-    end
-  end
   
   def update
     if(subcategory_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
@@ -38,10 +37,10 @@ class SubcategoriesController < ApplicationController
       @subcategory.update_attributes!(subcategory_params)
       flash[:success] = "#{@subcategory.name} was successfully updated."
       
-      redirect_to questions_path
+      redirect_to questions_url
     else
-      flash[:warning] = "Weight Invalid, you need to type a float."
-      redirect_to edit_subcategory_path(params[:id])
+      flash[:danger] = "Weight Invalid, you need to type a float."
+      redirect_to edit_subcategory_url(params[:id])
     end
   end
   
@@ -58,10 +57,10 @@ class SubcategoriesController < ApplicationController
       @subcategory = Subcategory.create!(result)
       
       flash[:success] = "#{@subcategory.name} was successfully created."
-      redirect_to questions_path
+      redirect_to questions_url
     else
       flash[:warning] = "Weight Invalid, you need to type a float."
-      redirect_to new_subcategory_path(params[:id])
+      redirect_to new_subcategory_url(params[:id])
     end
   end
   
@@ -94,17 +93,38 @@ class SubcategoriesController < ApplicationController
       
     @subcategory.destroy
     flash[:success] = "Subcategory '#{@subcategory.name}' deleted."
-    redirect_to questions_path
+    redirect_to questions_url
     
   end
   
+  private 
   
-  def all_categories
-    result = []
-    allcats = Category.all
-    allcats.each do |category|
-      result << [category.name, category.id]
+    def all_categories
+      result = []
+      allcats = Category.all
+      allcats.each do |category|
+        result << [category.name, category.id]
+      end
+      return result
     end
-    return result
-  end
+    
+    def subcategory_params
+      params.require(:subcategory).permit(:name, :weight, :category_id)
+    end
+    
+    def correct_user
+      if !admin? or !decision_maker?
+        flash[:danger] = "Please log in as correct user."
+        redirect_to root_url and return
+      end
+    end
+    
+    def warning(subcategory)
+      if !subcategory
+        flash[:danger] = "No record found of this subcategory."
+        redirect_to questions_url
+      end
+    end
+    
+    
 end
