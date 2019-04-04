@@ -5,11 +5,10 @@
   <%= f.text_field :name, class: 'form-control' %>
 
   <%= f.label :email %>
-  <%= f.email_field :email, class: 'form-control', :disabled=>true %>
+  <%= f.email_field :email, class: 'form-control' %>
 
   <%= f.label :role %>
-  <%= f.text_field :role, class: 'form-control', :disabled=>true %>
-  <%#= f.select :role, ['Decision Maker', 'Company Representative', 'Validator'], class: 'form-control'%>
+  <%= f.select :role, ['Decision Maker', 'Company Representative', 'Validator'], class: 'form-control'%>
 
   <%= f.label :password %>
   <%= f.password_field :password, class: 'form-control' %>
