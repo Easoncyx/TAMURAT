@@ -126,6 +126,27 @@ aside {
       margin-bottom: 3px;
       margin-top: 0px;
     }
+    h2 {
+      font-size: 1.0em;
+      text-align: left;
+      letter-spacing: 0px;
+      margin-bottom: 3px;
+      margin-top: 3px;
+    }
+  }
+  h1 {
+    font-size: 1.4em;
+    text-align: left;
+    letter-spacing: -1px;
+    margin-bottom: 3px;
+    margin-top: 0px;
+  }
+  h2 {
+    font-size: 1.0em;
+    text-align: left;
+    letter-spacing: 0px;
+    margin-bottom: 3px;
+    margin-top: 3px;
   }
 }
 
@@ -186,4 +207,136 @@ input {
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
   }
+}
+
+
+
+
+//questions test
+
+/* Menu Styles */
+
+.third-level-menu
+{
+    position: absolute;
+    top: 0;
+    right: -150px;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.third-level-menu > li
+{
+    height: 30px;
+    background: #999999;
+}
+.third-level-menu > li:hover { background: #CCCCCC; }
+
+.second-level-menu
+{
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.second-level-menu > li
+{
+    position: relative;
+    height: 30px;
+    background: #999999;
+}
+.second-level-menu > li:hover { background: #CCCCCC; }
+
+.top-level-menu
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.top-level-menu > li
+{
+    position: relative;
+    float: left;
+    height: 30px;
+    width: 150px;
+    background: #999999;
+}
+.top-level-menu > li:hover { background: #CCCCCC; }
+
+.top-level-menu li:hover > ul
+{
+    /* On hover, display the next level's menu */
+    display: inline;
+}
+
+
+/* Menu Link Styles */
+
+.top-level-menu a /* Apply to all links inside the multi-level menu */
+{
+    font: bold 14px Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0 0 0 10px;
+
+    /* Make the link cover the entire list item-container */
+    display: block;
+    line-height: 30px;
+}
+.top-level-menu a:hover { color: #000000; }
+/* scenarios */
+.scenarios {
+  list-style: none;
+    padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+}
+.user {
+    margin-top: 5em;
+    padding-top: 0;
+}
+.name {
+    display: block;
+    margin-left: 60px;
+}
+.description {
+    display: block;
+    margin-left: 60px;
+img {
+    display: block;
+    padding: 5px 0;
+}
+}
+.timestamp {
+    color: $gray-light;
+    display: block;
+    margin-left: 60px;
+}
+.gravatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+}
+aside {
+textarea {
+height: 100px;
+margin-bottom: 5px;
+}
+}
+span.picture {
+margin-top: 10px;
+input {
+border: 0;
+}
 }

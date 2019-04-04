@@ -1,0 +1,8 @@
+<%= form_for(@scenario) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_field :name, placeholder: "Compose new scenario name..."%>
+    <%= f.text_area :description, placeholder: "Compose new scenario description..." %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>

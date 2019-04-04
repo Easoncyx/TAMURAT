@@ -1,9 +1,17 @@
 {
+<<<<<<< HEAD
   "RSpec": {
     "coverage": {
       "/home/ec2-user/environment/TAMUART_new/app/models/user.rb": [
         1,
         1,
+=======
+  "Cucumber Features": {
+    "coverage": {
+      "/home/ec2-user/environment/TAMUART_new/app/models/user.rb": [
+        1,
+        101,
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -25,6 +33,7 @@
         1,
         null
       ],
+<<<<<<< HEAD
       "/home/ec2-user/environment/TAMUART_new/app/helpers/application_helper.rb": [
         1,
         null,
@@ -65,16 +74,52 @@
         null,
         null,
         1,
+=======
+      "/home/ec2-user/environment/TAMUART_new/app/helpers/sessions_helper.rb": [
+        0,
+        null,
+        null,
+        0,
         0,
         0,
         null,
         null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        0,
+>>>>>>> origin/master
+        0,
+        0,
+        null,
+        null,
+<<<<<<< HEAD
         null,
         1,
+=======
+        0,
+        0,
+>>>>>>> origin/master
         0,
         0,
         null,
         null,
+<<<<<<< HEAD
         null,
         1,
         1,
@@ -89,10 +134,37 @@
         1,
         null,
         1,
+=======
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/ec2-user/environment/TAMUART_new/app/helpers/users_helper.rb": [
+        0,
+        null,
         0,
         0,
         0,
         0,
+        0,
+        0,
+        null,
+        0
+      ],
+      "/home/ec2-user/environment/TAMUART_new/app/helpers/static_pages_helper.rb": [
+        0,
+        0
+      ],
+      "/home/ec2-user/environment/TAMUART_new/app/helpers/application_helper.rb": [
+        0,
+        null,
+>>>>>>> origin/master
+        0,
+        0,
+        0,
+        0,
+<<<<<<< HEAD
         null,
         null,
         null
@@ -121,10 +193,45 @@
         0,
         null,
         0,
+=======
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/ec2-user/environment/TAMUART_new/app/controllers/static_pages_controller.rb": [
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0
+      ],
+      "/home/ec2-user/environment/TAMUART_new/app/controllers/application_controller.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/ec2-user/environment/TAMUART_new/app/controllers/sessions_controller.rb": [
+        0,
+        null,
+        0,
+        0,
+>>>>>>> origin/master
         null,
         0,
         0,
         0,
+<<<<<<< HEAD
         null,
         null,
         0,
@@ -136,10 +243,15 @@
         null,
         null,
         1,
+=======
+        0,
+        0,
+>>>>>>> origin/master
         0,
         0,
         0,
         0,
+<<<<<<< HEAD
         null,
         0,
         null,
@@ -186,12 +298,45 @@
         null
       ],
       "/home/ec2-user/environment/TAMUART_new/app/controllers/static_pages_controller.rb": [
+=======
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0,
         null,
         0,
         0,
+        0,
+        0,
+        0
+      ],
+      "/home/ec2-user/environment/TAMUART_new/app/controllers/users_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+>>>>>>> origin/master
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+<<<<<<< HEAD
         null,
         0,
         0,
@@ -201,21 +346,7 @@
         0
       ],
       "/home/ec2-user/environment/TAMUART_new/app/controllers/sessions_controller.rb": [
-        0,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+=======
         0,
         0,
         0,
@@ -227,6 +358,72 @@
         null,
         0,
         0,
+        0,
+        0,
+        null,
+        0,
+        0,
+>>>>>>> origin/master
+        0,
+        null,
+        0,
+        0,
+<<<<<<< HEAD
+=======
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+>>>>>>> origin/master
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+<<<<<<< HEAD
+        0,
+        0,
+        0,
+        0,
+=======
+        null,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+>>>>>>> origin/master
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+<<<<<<< HEAD
+        0,
+        0,
+        null,
+        0,
+        0,
+=======
+        null,
+        0,
+        0,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        0,
+>>>>>>> origin/master
         0,
         0,
         0
@@ -254,6 +451,10 @@
         0
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1554352112
+=======
+    "timestamp": 1554082389
+>>>>>>> origin/master
   }
 }
