@@ -27,3 +27,11 @@ User.create!(name:  "Example User",
                login_id: login_id
              )
 end
+
+
+users = User.order(:created_at).take(6)
+10.times do
+  name = "12345"
+  description = Faker::Lorem.sentence(5)
+  users.each { |user| user.scenarios.create!(name: name, description: description) }
+end
