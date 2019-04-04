@@ -2,6 +2,9 @@ class User < ApplicationRecord
   attr_accessor :activation_token
   before_save   :downcase_email
   #before_create :create_activation_digest
+  has_many :scenarios, dependent: :destroy
+
+  
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -10,8 +13,9 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validates :login_id, presence: true, uniqueness: true
-  VALID_ROLE_REGEX = /Decision Maker|Company Representative|Validtor|Administrator/i
+  VALID_ROLE_REGEX = /Decision Maker|Company Representative|Validator|Administrator/i
   validates :role, presence: true, format: { with: VALID_ROLE_REGEX }
+  
 
   
   def authenticated?(attribute, token)

@@ -1,23 +1,36 @@
-<div class="center jumbotron">
-  <h1>Welcome to the TAMURAT</h1>
-  <h2> This is the home page for the
-    <a href="https://github.com/teamtreenewbee/TAMUART_new">Risk Assessment Tool</a>
-    application.
-  </h2>
-  <% if logged_in?%>
-    <h3>User Name: </h3>
-    <h2><%= @user.name %></h2>
-    <h3>User Login_id: </h3>
-    <h2><%= @user.login_id %></h2>
-    <h3>User Email: </h3>
-    <h2><%= @user.email %></h2>
-    <h3>User Role: </h3>
-    <h2><%= @user.role %></h2>
-  <% else %>
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
-  <% end %>
-</div>
+<% if logged_in? %>
+  <h3>User Name: </h3>
+  <h2><%= @user.name %></h2>
+  <h3>User Login_id: </h3>
+  <h2><%= @user.login_id %></h2>
+  <h3>User Email: </h3>
+  <h2><%= @user.email %></h2>
+  <h3>User Role: </h3>
+  <h2><%= @user.role %></h2>
+  
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      <% if decision_maker? %>
+        <section class="scenario_form">
+          <%= render 'shared/scenario_form' %>
+        </section>
+      <% end %>
+    </aside>
+  </div>
+<% else %>
+  <div class="center jumbotron">
+    <h1>Welcome to the TAMURAT</h1>
+    <h2> This is the home page for the
+      <a href="https://github.com/teamtreenewbee/TAMUART_new">Risk Assessment Tool</a>
+      application.
+    </h2>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  </div>
 
-<%= link_to image_tag("rails.png", alt: "Rails logo"), 'https://github.com/teamtreenewbee/TAMUART_new' %>
+  <%= link_to image_tag("rails.png", alt: "Rails logo"), 'https://github.com/teamtreenewbee/TAMUART_new' %>
 
-<%#= image_tag("kitten.jpg", alt: "Rails logo") %>
+  <%#= image_tag("kitten.jpg", alt: "Rails logo") %>
+<% end %>

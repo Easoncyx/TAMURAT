@@ -11,4 +11,13 @@
     <h1>User Role: </h1>
     <h2><%= @user.role %></h2>
   </aside>
+  <div class="col-md-8">
+    <% if @user.scenarios.any? and (@user.role == "Administrator" or @user.role == "Decision Maker")%>
+      <h3>Scenarios (<%= @user.scenarios.count %>)</h3>
+      <ol class="scenarios">
+        <%= render @scenarios %>
+      </ol>
+      <%= will_paginate @scenarios %>
+    <% end %>
+  </div>
 </div>

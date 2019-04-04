@@ -78,3 +78,11 @@ questions = [{:name => 'Business_1_q1', :weight => 1, subcategory_id:1},
 questions.each do |q|
   Question.create!(q)
 end
+
+
+users = User.order(:created_at).take(6)
+10.times do
+  name = "12345"
+  description = Faker::Lorem.sentence(5)
+  users.each { |user| user.scenarios.create!(name: name, description: description) }
+end
