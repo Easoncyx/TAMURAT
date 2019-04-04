@@ -1,16 +1,12 @@
+require 'sessions_helper.rb'
+
 class QuestionsController < ApplicationController
-  def question_params
-    params.require(:question).permit(:name, :weight, :subcategory_id)
-  end
   
-  def warning(question)
-    if not question
-      flash[:warning] = "No record found of this question."
-      redirect_to questions_path and return
-    end
-  end
+  before_action :logged_in_user
+  before_action :correct_user
   
   def index
+    
     @category = Category.all
     @result = {}
     @subcategory = Subcategory.all
@@ -24,48 +20,48 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    redirect_to questions_path
+    redirect_to questions_url
   end
   
   def update
 
-    if(params[:question][:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+    if(question_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
       @question = Question.find_by_id(params[:id])
       warning(@question)
   
-      new_subcat = Subcategory.find_by_id(params[:question][:subcategory_id])
+      new_subcat = Subcategory.find_by_id(question_params[:subcategory_id])
       warning(new_subcat)
-      weight_sum = new_subcat.weight_sum + Float(params[:question][:weight])
+      weight_sum = new_subcat.weight_sum + Float(question_params[:weight])
       new_subcat.update_attributes!(weight_sum: weight_sum)
-      if @question.subcategory_id != params[:subcategory_id]
-        old_subcat = Subcategory.find_by_id(@question.subcategory_id)
-        warning(old_subcat)
-        old_weight_sum = [old_subcat.weight_sum - @question.weight, 0].max
-        old_subcat.update_attributes!(weight_sum: old_weight_sum)
-      end
+      
+      old_subcat = Subcategory.find_by_id(@question.subcategory_id)
+      warning(old_subcat)
+      old_weight_sum = [old_subcat.weight_sum - @question.weight, 0].max
+      old_subcat.update_attributes!(weight_sum: old_weight_sum)
+      
       
       @question.update_attributes!(question_params)
       flash[:success] = "#{@question.name} was successfully updated."
-      redirect_to questions_path
+      redirect_to questions_url
     else
       flash[:warning] = "Weight Invalid, you need to type a float."
-      redirect_to edit_question_path(params[:id])
+      redirect_to edit_question_url(params[:id])
     end
   end
   
   def create
-    if(params[:question][:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
-      subcategory = Subcategory.find_by_id(params[:question][:subcategory_id])
+    if(question_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+      subcategory = Subcategory.find_by_id(question_params[:subcategory_id])
       warning(subcategory)
-      weight_sum = subcategory.weight_sum + Float(params[:question][:weight])
+      weight_sum = subcategory.weight_sum + Float(question_params[:weight])
       subcategory.update_attributes!(weight_sum: weight_sum)
       
       @question = Question.create!(question_params)
       flash[:success] = "#{@question.name} was successfully created."
-      redirect_to questions_path
+      redirect_to questions_url
     else
       flash[:warning] = "Weight Invalid, you need to type a float."
-      redirect_to new_question_path
+      redirect_to new_question_url
     end
   end
   
@@ -89,17 +85,38 @@ class QuestionsController < ApplicationController
     
     @question.destroy
     flash[:success] = "Question '#{@question.name}' deleted."
-    redirect_to questions_path
+    redirect_to questions_url
   end
   
   
-  def all_subcategories
-    result = []
-    allsubs = Subcategory.all
-    allsubs.each do |subcat|
-      result << [subcat.name, subcat.id]
+  
+  private
+    
+    def all_subcategories
+      result = []
+      allsubs = Subcategory.all
+      allsubs.each do |subcat|
+        result << [subcat.name, subcat.id]
+      end
+      return result
     end
-    return result
-  end
+    
+    def warning(question)
+      if not question
+        flash[:danger] = "No record found of this question."
+        redirect_to questions_url and return
+      end
+    end
   
+    
+    def question_params
+      params.require(:question).permit(:name, :weight, :subcategory_id)
+    end
+  
+    def correct_user
+      if !admin? && !decision_maker?
+        flash[:danger] = "Please log in as correct user."
+        redirect_to root_url and return
+      end
+    end
 end
