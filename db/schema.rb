@@ -10,13 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190404185025) do
+ActiveRecord::Schema.define(version: 20190404211625) do
+
+  create_table "answers", force: :cascade do |t|
+    t.integer "company_id"
+    t.integer "question_id"
+    t.integer "level"
+    t.boolean "validated"
+    t.integer "validator_id"
+    t.string "validator_comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.float "weight_sum", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.integer "user_id"
+    t.float "company_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_companies_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -68,6 +87,8 @@ ActiveRecord::Schema.define(version: 20190404185025) do
     t.string "activation_digest"
     t.boolean "activated", default: false
     t.datetime "activated_at"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["login_id"], name: "index_users_on_login_id", unique: true
   end
 

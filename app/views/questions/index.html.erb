@@ -17,7 +17,7 @@
             <%=link_to 'Edit', edit_category_path(category.id), :method => :get%>
           </button>
           <button type="button" class="btn btn-outline-dark">
-            <%=link_to 'Delete', category_path(category.id), :method => :delete%>
+            <%=link_to 'Delete', category_path(category.id), :method => :delete, data: { confirm: "You sure?" }%>
           </button>
           </div>
         </a>
@@ -42,7 +42,7 @@
                       <%=link_to 'Edit', edit_subcategory_path(subcat.id), :method => :get %>
                     </button>
                     <button type="button" class="btn btn-outline-dark">
-                      <%=link_to 'Delete', subcategory_path(subcat.id), :method => :delete %>
+                      <%=link_to 'Delete', subcategory_path(subcat.id), :method => :delete, data: { confirm: "You sure?" }%>
                     </button>
 
                     </div>
@@ -71,7 +71,7 @@
                       <%=link_to 'Edit Question', edit_question_path(question.id), :method => :get %>
                     </button>
                     <button type="button" class="btn btn-outline-dark">
-                      <%=link_to 'Delete Question', question_path(question.id), :method => :delete %>
+                      <%=link_to 'Delete Question', question_path(question.id), :method => :delete, data: { confirm: "You sure?" } %>
                     </button>
                     </td>
                   </tr>

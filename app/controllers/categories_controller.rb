@@ -56,7 +56,7 @@ class CategoriesController < ApplicationController
   
   private 
     def correct_user
-      if !admin? or !decision_maker?
+      if !admin? && !decision_maker?
         flash[:danger] = "Please log in as correct user."
         redirect_to root_url and return
       end
