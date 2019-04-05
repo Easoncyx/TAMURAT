@@ -382,6 +382,14 @@
         1,
         null
       ],
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/category_score.rb": [
+        1,
+        null
+      ],
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/subcategory_score.rb": [
+        1,
+        null
+      ],
       "/home/ec2-user/environment/TAMURAT_NEW/app/models/scenario.rb": [
         1,
         1,
@@ -1139,6 +1147,6 @@
         0
       ]
     },
-    "timestamp": 1554497814
+    "timestamp": 1554498135
   }
 }
