@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
 
   def create
+
     @user = User.new(user_params)
     if User.maximum(:id)
       @user.login_id = User.maximum(:id).next + 1000
@@ -36,9 +37,6 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    
-#    byebug
-    
     if @user.update_attributes(update_params)
       flash[:success] = "Profile updated"
       redirect_to @user
@@ -86,12 +84,10 @@ class UsersController < ApplicationController
 
     # 确保是管理员
     def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      redirect_to(root_url) unless admin?
     end
     
-    def admin?
-      has_role?(:admin)
-    end    
+ 
     
     
 end

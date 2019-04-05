@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20190404211625) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.float "weight_sum", default: 0.0
+    t.float "weight_sum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,10 +41,9 @@ ActiveRecord::Schema.define(version: 20190404211625) do
   create_table "questions", force: :cascade do |t|
     t.string "name"
     t.integer "subcategory_id"
-    t.float "weight", default: 0.0
+    t.float "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subcategory_id"], name: "index_questions_on_subcategory_id"
   end
 
   create_table "scenarios", force: :cascade do |t|
@@ -58,12 +57,11 @@ ActiveRecord::Schema.define(version: 20190404211625) do
 
   create_table "subcategories", force: :cascade do |t|
     t.string "name"
-    t.float "weight", default: 0.0
-    t.float "weight_sum", default: 0.0
+    t.float "weight"
+    t.float "weight_sum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category_id"
-    t.index ["category_id"], name: "index_subcategories_on_category_id"
   end
 
   create_table "subcompanies", force: :cascade do |t|

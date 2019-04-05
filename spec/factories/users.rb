@@ -19,7 +19,16 @@ FactoryBot.define do
     
     
     factory :login_user, :class => User do
-
+        
+        factory :representative, :class => User do 
+            email {Faker::Internet.email}
+            name {Faker::Internet.user_name}
+            password {"111111"}
+            password_confirmation {"111111"}
+#            sequence(:login_id) { |n| "user#{n}"}
+            login_id {"1000"}
+            role {"company representative"}    
+        end
     
         factory :admin, :class => User do 
             email {Faker::Internet.email}
@@ -27,18 +36,58 @@ FactoryBot.define do
             password {"111111"}
             password_confirmation {"111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
-            login_id {"3"}
+            login_id {"1000"}
             role {"Administrator"}    
         end
         
-        factory :failed_admin, :class => User do 
+        factory :admin_for_create, :class => User do 
+            email {Faker::Internet.email}
+            name {Faker::Internet.user_name}
+            password {"111111"}
+            password_confirmation {"111111"}
+#            sequence(:login_id) { |n| "user#{n}"}
+            login_id {nil}
+            role {"Administrator"}    
+        end        
+        
+        factory :failed1, :class => User do 
+            email {Faker::Internet.email}
+            name {nil}
+            password {"111111"}
+            password_confirmation {"111111"}
+#            sequence(:login_id) { |n| "user#{n}"}
+            login_id {nil}
+            role {"Administrator"}    
+        end         
+
+        factory :failed2, :class => User do 
             email {Faker::Internet.email}
             name {Faker::Internet.user_name}
             password {"111111"}
             password_confirmation {"1111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
-            login_id {"4"}
+            login_id {nil}
             role {"Administrator"}    
-        end        
+        end   
+ 
+        factory :failed3, :class => User do 
+            email {Faker::Internet.email}
+            name {nil}
+            password {"111111"}
+            password_confirmation {"111111"}
+#            sequence(:login_id) { |n| "user#{n}"}
+            login_id {nil}
+            role {"company representative"}    
+        end         
+
+        factory :failed4, :class => User do 
+            email {Faker::Internet.email}
+            name {Faker::Internet.user_name}
+            password {"111111"}
+            password_confirmation {"1111111"}
+#            sequence(:login_id) { |n| "user#{n}"}
+            login_id {nil}
+            role {"company representative"}    
+        end       
     end
 end

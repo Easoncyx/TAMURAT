@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+    describe "ActiveRecord test" do
+       it { should have_many(:scenarios) } 
+       it { should have_many(:parent_company_links) } 
+       it { should have_one(:child_company_links) } 
+       it { should have_one(:parent_companies) } 
+       it { should have_many(:child_companies) } 
+       it { should have_many(:answers) } 
+    end    
 
     describe "presence validation" do
         
@@ -35,11 +43,5 @@ RSpec.describe User, type: :model do
         it { is_expected.to validate_length_of(:password).is_at_least(6)}
     end
  
-    describe "method test" do
-        it "should work well on admin?" do
-            user = FactoryBot.build(:user)
-            expect(user.admin?).to eq true
-        end
-    end
     
 end
