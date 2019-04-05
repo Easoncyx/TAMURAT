@@ -6,13 +6,7 @@
   
   <%= render @scenarios %>
   <% if decision_maker?%>
-    <div class="row">
-      <aside class="col-md-4">
-        <section class="scenario_form">
-          <%= render 'shared/scenario_form' %>
-        </section>
-      </aside>
-    </div>
+    <div class="panel-footer"><%=link_to 'New Scenario',new_scenario_path %></div>
   <% end %>
 </ul>
 

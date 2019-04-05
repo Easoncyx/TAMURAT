@@ -1,2 +1,9 @@
-<h1>Scenarios#new</h1>
-<p>Find me in app/views/scenarios/new.html.erb</p>
+<% provide(:title, 'New Question') %>
+<% provide(:button_text, 'Create my question') %>
+<h1>New Question</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= render 'shared/scenario_form' %>
+  </div>
+</div>
