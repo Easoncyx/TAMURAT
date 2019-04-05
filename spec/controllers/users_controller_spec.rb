@@ -8,7 +8,6 @@ RSpec.describe UsersController, type: :controller do
         before :each do
             @admin = create(:admin)
             session[:user_id] = @admin.id
-
         end
         
         describe "UsersController#index" do
@@ -49,21 +48,24 @@ RSpec.describe UsersController, type: :controller do
         end    
         
         describe "UsersController#create" do
-        
-            it "redirects to contacts#show" do
-        
-                post :create, params: {:user => attributes_for(:admin) } 
-                expect(response).to redirect_to user_url(2)
+            
+            it "login_id show assigned correctly" do
                 
+                post :create, params: {:user => attributes_for(:admin) }
+                expect(@admin.login_id).to eq 1000
+            end           
+            
+            it "redirects to contacts#show" do
+                
+                post :create, params: {:user => attributes_for(:admin_for_create) }
+                expect(response).to redirect_to user_url(2)
             end
 
-            
-#           it 'should render the home in views/new if information saved unsuccessfully' do
-#                @failed_admin = create(:failed_admin)            
-#                session[:failed_admin] = @failed_admin.id
-#                post :create, params: {:user => attributes_for(:failed_admin) } 
-#                expect(response).to render_template('new')
-#           end      
+           it 'should render the home in views/new if information saved unsuccessfully' do
+                post :create, params: {:user => attributes_for(:failed) } 
+                expect(response).to render_template('new')
+           end      
+           
         end    
         
         describe "UsersController#edit" do
@@ -86,10 +88,11 @@ RSpec.describe UsersController, type: :controller do
                 expect(response).to redirect_to user_url(session[:user_id])
             end             
         
-#           it 'should render the home in views/new if information updated unsuccessfully' do
-#               patch :update
-#               expect(response).to render_template('edit')
-#           end                  
+           it 'should render the home in views/new if information updated unsuccessfully' do
+               patch :update,params: { :id => session[:user_id], :user => attributes_for(:failed)   }
+               expect(response).to redirect_to user_url(session[:user_id])
+               #expect(response).to render_template('edit')
+           end                  
         
         end        
         
@@ -99,7 +102,7 @@ RSpec.describe UsersController, type: :controller do
             it 'should render the home in views/users' do
                 
                 delete :destroy, params: { :id => session[:user_id] }
-                expect(response).to redirect_to user_url
+                expect(response).to redirect_to users_url
                 
         end               
         

@@ -27,18 +27,29 @@ FactoryBot.define do
             password {"111111"}
             password_confirmation {"111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
-            login_id {"3"}
+            login_id {"1000"}
             role {"Administrator"}    
         end
         
-        factory :failed_admin, :class => User do 
+        factory :admin_for_create, :class => User do 
             email {Faker::Internet.email}
             name {Faker::Internet.user_name}
             password {"111111"}
-            password_confirmation {"1111111"}
+            password_confirmation {"111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
-            login_id {"4"}
+            login_id {nil}
             role {"Administrator"}    
         end        
+        
+        factory :failed, :class => User do 
+            email {nil}
+            name {Faker::Internet.user_name}
+            password {"111111"}
+            password_confirmation {"111111"}
+#            sequence(:login_id) { |n| "user#{n}"}
+            login_id {nil}
+            role {"Administrator"}    
+        end         
+        
     end
 end

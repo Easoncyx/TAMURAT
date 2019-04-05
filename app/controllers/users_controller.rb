@@ -17,11 +17,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+#    byebug
     if User.maximum(:id)
       @user.login_id = User.maximum(:id).next + 1000
     else
       @user.login_id = 1000
     end
+    
     if @user.save
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
@@ -83,12 +85,10 @@ class UsersController < ApplicationController
 
     # 确保是管理员
     def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      redirect_to(root_url) unless admin?
     end
     
-    def admin?
-      has_role?(:admin)
-    end    
+ 
     
     
 end
