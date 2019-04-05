@@ -16,7 +16,7 @@ class AnswersController < ApplicationController
   end
   
   def index
-    
+
     @category = Category.all
     @result = {}
     @answers = Answer.find_by("company_id = ?", current_user.id)
@@ -28,6 +28,7 @@ class AnswersController < ApplicationController
         @result[ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id)
       end
     end
+    
   end
   
   private

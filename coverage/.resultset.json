@@ -1,13 +1,23 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/ec2-user/environment/TAMUART_new/app/models/user.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/user.rb": [
         1,
         1,
         1,
         null,
         1,
         null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
         null,
         1,
         1,
@@ -75,15 +85,6 @@
         null,
         null,
         null,
-        1,
-        null,
-        1,
-        null,
-        1,
-        null,
-        1,
-        null,
-        1,
         null,
         1,
         null,
@@ -93,20 +94,20 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/application_record.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/application_record.rb": [
         1,
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/account_activations_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/account_activations_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/answers_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/answers_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/application_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/application_helper.rb": [
         1,
         null,
         1,
@@ -119,31 +120,31 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/categories_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/categories_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/password_resets_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/password_resets_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/questions_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/questions_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/scale_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/scale_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/scales_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/scales_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/scenarios_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/scenarios_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/sessions_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/sessions_helper.rb": [
         1,
         null,
         null,
@@ -203,15 +204,15 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/static_pages_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/static_pages_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/subcategories_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/subcategories_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/helpers/users_helper.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/helpers/users_helper.rb": [
         1,
         null,
         1,
@@ -219,95 +220,11 @@
         0,
         0,
         0,
-        null,
-        null,
-        null
-      ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/static_pages_controller.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/application_controller.rb": [
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
         null,
         null,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/users_controller.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        2,
-        null,
-        null,
-        1,
-        2,
-        null,
-        null,
-        1,
-        2,
-        null,
-        null,
-        1,
-        null,
-        4,
-        4,
-        1,
-        null,
-        3,
-        null,
-        4,
-        2,
-        2,
-        null,
-        2,
-        null,
-        null,
-        null,
-        1,
-        2,
-        null,
-        null,
-        1,
-        6,
-        6,
-        2,
-        2,
-        null,
-        4,
-        null,
-        null,
-        null,
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/static_pages_controller.rb": [
         1,
         1,
         1,
@@ -316,18 +233,18 @@
         null,
         1,
         null,
-        1,
-        4,
-        null,
         null,
         1,
-        0,
         null,
         null,
         1,
-        6,
         null,
-        null,
+        null
+      ],
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/application_controller.rb": [
+        1,
+        1,
+        1,
         null,
         null,
         1,
@@ -338,11 +255,43 @@
         null,
         null,
         null,
+        null,
         1,
-        10,
+        2,
+        null,
+        null
+      ],
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/users_controller.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        2,
         null,
         null,
-        10,
+        1,
+        2,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        null,
+        4,
+        4,
+        1,
+        null,
+        3,
+        null,
+        4,
+        2,
+        2,
+        null,
+        2,
         null,
         null,
         null,
@@ -350,12 +299,57 @@
         2,
         null,
         null,
+        1,
+        6,
+        6,
+        2,
+        2,
+        null,
+        4,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        4,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        6,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        10,
+        null,
+        null,
+        10,
         null,
         null,
         null,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/mailers/user_mailer.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/mailers/user_mailer.rb": [
         1,
         null,
         null,
@@ -382,13 +376,13 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/mailers/application_mailer.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/mailers/application_mailer.rb": [
         1,
         1,
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/scenario.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/scenario.rb": [
         1,
         1,
         3,
@@ -397,21 +391,28 @@
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/subcompany.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/subcompany.rb": [
         1,
         1,
         1,
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/answer.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/company.rb": [
         1,
         1,
         1,
         1,
         null
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/subcategories_controller.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/answer.rb": [
+        1,
+        1,
+        1,
+        1,
+        null
+      ],
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/subcategories_controller.rb": [
         0,
         null,
         0,
@@ -544,7 +545,9 @@
         null,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/scales_controller.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/scales_controller.rb": [
+        0,
+        0,
         0,
         0,
         null,
@@ -608,7 +611,7 @@
         0,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/account_activations_controller.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/account_activations_controller.rb": [
         0,
         null,
         0,
@@ -626,7 +629,7 @@
         0,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/questions_controller.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/questions_controller.rb": [
         0,
         null,
         0,
@@ -751,7 +754,7 @@
         0,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/sessions_controller.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/sessions_controller.rb": [
         0,
         null,
         0,
@@ -781,33 +784,24 @@
         0,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/answers_controller.rb": [
-        0,
-        0
-      ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/password_resets_controller.rb": [
-        0,
-        0,
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/answers_controller.rb": [
         0,
         0,
         null,
         0,
+        null,
         0,
         null,
         0,
+        null,
         0,
         null,
         0,
+        null,
         0,
+        null,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        null,
         0,
         null,
         0,
@@ -821,68 +815,14 @@
         0,
         0,
         0,
-        0,
-        0,
         null,
         0,
-        0,
-        0,
-        0,
         null,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
         0,
         null,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/categories_controller.rb": [
-        0,
-        null,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/password_resets_controller.rb": [
         0,
         0,
         0,
@@ -892,21 +832,10 @@
         0,
         null,
         0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        0,
         null,
         0,
         0,
-        0,
-        0,
-        null,
         0,
         0,
         0,
@@ -924,9 +853,6 @@
         0,
         0,
         0,
-        0
-      ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/activate_controller.rb": [
         0,
         0,
         0,
@@ -934,18 +860,24 @@
         0,
         0,
         0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
         0,
         0,
         0,
         0,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        null,
         0,
         0,
         0,
@@ -955,7 +887,112 @@
         null,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/controllers/scenarios_controller.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/categories_controller.rb": [
+        0,
+        null,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/activate_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0
+      ],
+      "/home/ec2-user/environment/TAMURAT_NEW/app/controllers/scenarios_controller.rb": [
         0,
         null,
         null,
@@ -1050,7 +1087,7 @@
         null,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/subcategory.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/subcategory.rb": [
         0,
         0,
         0,
@@ -1060,13 +1097,13 @@
         0,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/scale.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/scale.rb": [
         0,
         0,
         null,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/question.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/question.rb": [
         0,
         0,
         0,
@@ -1074,7 +1111,7 @@
         0,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/category.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/models/category.rb": [
         0,
         null,
         0,
@@ -1085,31 +1122,23 @@
         null,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/models/company.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/jobs/application_job.rb": [
         0,
-        0,
+        0
+      ],
+      "/home/ec2-user/environment/TAMURAT_NEW/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/ec2-user/environment/TAMUART_new/app/jobs/application_job.rb": [
-        0,
-        0
-      ],
-      "/home/ec2-user/environment/TAMUART_new/app/channels/application_cable/connection.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/home/ec2-user/environment/TAMUART_new/app/channels/application_cable/channel.rb": [
+      "/home/ec2-user/environment/TAMURAT_NEW/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ]
     },
-    "timestamp": 1554482636
+    "timestamp": 1554497814
   }
 }
