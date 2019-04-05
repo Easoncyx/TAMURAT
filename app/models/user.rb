@@ -71,11 +71,15 @@ class User < ApplicationRecord
 
 
   #subcompany relationship
-  has_many :parent_company_links, :foreign_key => :parent_company_user_id, :dependent => :destroy, :class_name => "Subcompany"
-  has_one :child_company_links, :foreign_key => :child_company_user_id, :dependent => :destroy, :class_name => "Subcompany"
-  has_many :parent_companies, :through => :parent_company_links
-  has_one :child_companies, :through => :child_company_links
-
+  has_many :parent_company_links, :foreign_key => :parent_company_user_id, 
+    :dependent => :destroy, :class_name => "Subcompany"
+  has_one :child_company_links, :foreign_key => :child_company_user_id, 
+    :dependent => :destroy, :class_name => "Subcompany"
+  has_one :parent_companies, :through => :parent_company_links, 
+    :class_name => "User"
+  has_many :child_companies, :through => :child_company_links, 
+    :dependent => :destroy, :class_name => "User"
+  has_many :answers, :foreign_key => :validator_id, :class_name => "Answer"
 
   private
     # 把电子邮件地址转换成小写
