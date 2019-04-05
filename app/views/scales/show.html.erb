@@ -1,4 +1,18 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @scale.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <h1>Scale Name: </h1>
+    <h2><%= @scale.name %></h2>
+    <h1>Scale Category: </h1>
+    <h2><%= Category.find(@scale.category_id).name %></h2>
+    <h1>Scale level: </h1>
+    <h2><%= @scale.level %></h2>
+    <h1>User score: </h1>
+    <h2><%= @scale.score %></h2>
+  </aside>
+
+</div>
+
 
 <%= link_to 'Edit', edit_scale_path(@scale) %> |
 <%= link_to 'Back', scales_path %>

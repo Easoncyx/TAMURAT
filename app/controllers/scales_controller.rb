@@ -1,5 +1,7 @@
 class ScalesController < ApplicationController
   before_action :set_scale, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user
+  before_action :admin_user
 
   # GET /scales
   # GET /scales.json
@@ -25,40 +27,28 @@ class ScalesController < ApplicationController
   # POST /scales.json
   def create
     @scale = Scale.new(scale_params)
-
-    respond_to do |format|
-      if @scale.save
-        format.html { redirect_to @scale, notice: 'Scale was successfully created.' }
-        format.json { render :show, status: :created, location: @scale }
-      else
-        format.html { render :new }
-        format.json { render json: @scale.errors, status: :unprocessable_entity }
-      end
+    if @scale.save
+      flash[:info] = "Scale was successfully created."
+      redirect_to scales_path
+    else
+      render 'new'
     end
   end
 
-  # PATCH/PUT /scales/1
-  # PATCH/PUT /scales/1.json
   def update
-    respond_to do |format|
-      if @scale.update(scale_params)
-        format.html { redirect_to @scale, notice: 'Scale was successfully updated.' }
-        format.json { render :show, status: :ok, location: @scale }
-      else
-        format.html { render :edit }
-        format.json { render json: @scale.errors, status: :unprocessable_entity }
-      end
+    if @scale.update(scale_params)
+      flash[:success] = "Scale was successfully updated."
+      redirect_to scales_url
+    else
+      render 'edit'
     end
   end
 
-  # DELETE /scales/1
-  # DELETE /scales/1.json
+
   def destroy
-    @scale.destroy
-    respond_to do |format|
-      format.html { redirect_to scales_url, notice: 'Scale was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+     @scale.destroy
+     flash[:success] = "Scale deleted"
+     redirect_to scales_url
   end
 
   private

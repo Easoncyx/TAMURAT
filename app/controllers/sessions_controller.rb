@@ -8,15 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       if user.activated?
         log_in user
-        if user.role == "Administrator"
-          redirect_back_or(user)
-        elsif user.role == "Decision Maker"
-          redirect_back_or(user)
-        elsif user.role == "Validator"
-          redirect_back_or(user)
-        elsif user.role == "Company Representative"
-          redirect_back_or(user)
-        end
+        redirect_back_or(root_url)
       else
         message  = "Account not activated. "
         message += "Check your email for the activation link."

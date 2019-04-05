@@ -2,24 +2,38 @@
 
 <h1>Scales</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th scope="col">Index</th>
+    <th scope="col">Name</th>
+    <th scope="col">Category</th>
+    <th scope="col">Level</th>
+    <th scope="col">Score</th>
+    <th scope="col">Handler</th>
+  </tr>
+</thead>
   <tbody>
     <% @scales.each do |scale| %>
-      <tr>
-        <td><%= link_to 'Show', scale %></td>
-        <td><%= link_to 'Edit', edit_scale_path(scale) %></td>
-        <td><%= link_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <th scope="row"><%=scale.id%></th>
+      <td><%=scale.name%></td>
+      <td><%= Category.find(scale.category_id).name %></td>
+      <td><%=scale.level%></td>
+      <td><%=scale.score%></td>
+      <td>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to 'Edit', edit_scale_path(scale) %>
+      </button>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </button>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Scale', new_scale_path %>
+<button type="button" class="btn btn-outline-dark">
+  <%= link_to 'New Scale', new_scale_path %>
+</button>
