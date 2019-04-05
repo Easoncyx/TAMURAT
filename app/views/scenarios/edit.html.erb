@@ -1,0 +1,20 @@
+<% provide(:title, 'Edit Scenario') %>
+<% provide(:button_text, 'Save changes') %>
+<h1>Update this scenario</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+     <%= form_for(@scenario) do |f| %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_field :description, class: 'form-control' %>
+
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  
+    <% end %> 
+  </div>
+</div>
+
+

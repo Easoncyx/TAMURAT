@@ -5,5 +5,8 @@
 <ul class="scenarios">
   
   <%= render @scenarios %>
+  <% if decision_maker?%>
+    <div class="panel-footer"><%=link_to 'New Scenario',new_scenario_path %></div>
+  <% end %>
 </ul>
 

@@ -23,9 +23,8 @@ class UsersController < ApplicationController
       @user.login_id = 1000
     end
     if @user.save
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
-      # redirect_to user_url(@user)
+      flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
+      redirect_to root_url
     else
       render 'new'
     end
@@ -57,6 +56,10 @@ class UsersController < ApplicationController
   private
   
     def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
+    end
+
+    def company_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end
 

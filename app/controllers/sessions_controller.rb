@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
           redirect_back_or(user)
         elsif user.role == "Decision Maker"
           redirect_back_or(user)
-        elsif user.role == "Validtor"
+        elsif user.role == "Validator"
           redirect_back_or(user)
         elsif user.role == "Company Representative"
           redirect_back_or(user)
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
         redirect_to root_url
       end
     else
-      flash[:danger] = 'Invalid email/password combination' # 不完全正确
+      flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
     end
   end

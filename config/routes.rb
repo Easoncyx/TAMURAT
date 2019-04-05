@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'
@@ -22,7 +24,11 @@ Rails.application.routes.draw do
   #get '/categories/edit/:id', to: 'categories#edit', as: 'category_edit'
 
   resources :account_activations, only: [:edit]
-  
+
   resources :scenarios
 
+  #resources for password reset
+  resources :password_resets,  only: [:new, :create, :edit, :update]
+  #resources for answers
+  resources :answers
 end
