@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company_id: 1
+  question_id: 1
+  level: 1
+  validated: false
+  validator_id: 1
+  validator_comment: MyString
+
+two:
+  company_id: 1
+  question_id: 1
+  level: 1
+  validated: false
+  validator_id: 1
+  validator_comment: MyString

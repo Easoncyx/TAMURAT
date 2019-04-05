@@ -5,8 +5,8 @@
   <%= f.text_field :name, class: 'form-control' %>
 
   <%= f.label :category_id %>
-  <%= f.select :category_id, ['Decision Maker', 'Company Representative', 'Validator'], class: 'form-control' %>
-
+  <%= f.select :category_id, options_for_select(Category.all.map{|s|[s.name, s.id]}) %>
+  
   <%= f.label :level %>
   <%= f.text_field :level, class: 'form-control'%>
 
