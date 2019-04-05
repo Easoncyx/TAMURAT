@@ -3,7 +3,18 @@ class User < ApplicationRecord
   before_save   :downcase_email
   #before_create :create_activation_digest
   has_many :scenarios, dependent: :destroy
+  #subcompany relationship
+  has_many :parent_company_links, :foreign_key => :parent_company_user_id,
+    :dependent => :destroy, :class_name => "Subcompany"
+  has_one :child_company_links, :foreign_key => :child_company_user_id,
+    :dependent => :destroy, :class_name => "Subcompany"
+  has_one :parent_companies, :through => :parent_company_links,
+    :class_name => "User"
+  has_many :child_companies, :through => :child_company_links,
+    :dependent => :destroy, :class_name => "User"
+  has_many :answers, :foreign_key => :validator_id, :class_name => "Answer"
 
+  has_one :companies, dependent: :destory
 
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -70,16 +81,6 @@ class User < ApplicationRecord
   end
 
 
-  #subcompany relationship
-  has_many :parent_company_links, :foreign_key => :parent_company_user_id, 
-    :dependent => :destroy, :class_name => "Subcompany"
-  has_one :child_company_links, :foreign_key => :child_company_user_id, 
-    :dependent => :destroy, :class_name => "Subcompany"
-  has_one :parent_companies, :through => :parent_company_links, 
-    :class_name => "User"
-  has_many :child_companies, :through => :child_company_links, 
-    :dependent => :destroy, :class_name => "User"
-  has_many :answers, :foreign_key => :validator_id, :class_name => "Answer"
 
   private
     # 把电子邮件地址转换成小写
