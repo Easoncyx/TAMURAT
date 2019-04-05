@@ -5,9 +5,16 @@ FactoryBot.define do
         email {"szy@tamu.edu"}
         name {"szy"}
         password {"111111"}
+        password_confirmation {"111111"}
         login_id {"1"}
         role {"Administrator"}
+        
+        factory :user_pw, :class => User do
+            password {"1111111"}
+            password_confirmation {"1111111"}
+        end
     end
+
     
     factory :pw_changer,:class => User  do
         email {"szy1@tamu.edu"}
