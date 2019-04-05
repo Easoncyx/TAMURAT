@@ -76,11 +76,12 @@ Rails.application.configure do
     port: 587,
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: 'wangxiao080001@gmail.com',
-    password: 'dbycwsb19930117'
+
+    user_name: '/the email addr/',
+    password: '/your email password/'
   }
 
-  host = 'aee7ba55952c4f12bac4da742212e7ec.vfs.cloud9.us-east-2.amazonaws.com'
+  host = '/addr of server/'
   config.action_mailer.default_url_options = { host: host, protocol: 'https' }
 
 end
