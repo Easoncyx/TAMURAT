@@ -7,7 +7,7 @@ class ScenariosController < ApplicationController
   before_action :correct_user
   
   def new
-    if decision_maker?
+    if decision_maker? or admin?
       @scenario = Scenario.new
     else
       redirect_to scenarios_url
@@ -34,7 +34,7 @@ class ScenariosController < ApplicationController
   end
   def create
     @scenarios = current_user.scenarios.build(scenario_params)
-    if current_user.role=="Decision Maker" and @scenarios.save
+    if @scenarios.save
       flash[:success] = "Scenario created!"
       redirect_to scenarios_url
       
@@ -57,7 +57,7 @@ class ScenariosController < ApplicationController
   end
   
   def update
-    if current_user.role=="Decision Maker"
+    if decision_maker? or admin? and scenario_params
       @scenario = Scenario.find_by_id(params[:id])
       @scenario.update_attributes!(scenario_params)
       flash[:success] = "#{@scenario.name} was successfully updated."
