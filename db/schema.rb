@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190404185025) do
+ActiveRecord::Schema.define(version: 20190404220908) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.float "weight_sum", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.integer "user_id"
+    t.float "company_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_companies_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -26,6 +34,16 @@ ActiveRecord::Schema.define(version: 20190404185025) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subcategory_id"], name: "index_questions_on_subcategory_id", unique: true
+  end
+
+  create_table "scales", force: :cascade do |t|
+    t.string "name"
+    t.integer "category_id"
+    t.string "level"
+    t.float "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_scales_on_category_id"
   end
 
   create_table "scenarios", force: :cascade do |t|
@@ -68,6 +86,8 @@ ActiveRecord::Schema.define(version: 20190404185025) do
     t.string "activation_digest"
     t.boolean "activated", default: false
     t.datetime "activated_at"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["login_id"], name: "index_users_on_login_id", unique: true
   end
 

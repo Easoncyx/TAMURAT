@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'
@@ -10,12 +9,13 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get    '/activate',to: 'activate#activate'
+
   resources :users
-  
+
   #questions
   resources :questions
   #get '/questions/edit/:id', to: 'questions#edit', as: 'question_edit'
-  
+
   #subcategory
   resources :subcategories
   #get '/subcategories/edit/:id', to: 'subcategories#edit', as: 'subcategory_edit'
@@ -29,4 +29,6 @@ Rails.application.routes.draw do
 
   #resources for password reset
   resources :password_resets,  only: [:new, :create, :edit, :update]
+
+  resources :scales
 end

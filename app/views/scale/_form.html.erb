@@ -1,0 +1,17 @@
+<%= form_for(@scale) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.label :category_id %>
+  <%= f.select :category_id, ['Decision Maker', 'Company Representative', 'Validator'], class: 'form-control' %>
+
+  <%= f.label :level %>
+  <%= f.text_field :level, class: 'form-control'%>
+
+  <%= f.label :score %>
+  <%= f.text_field :score, class: 'form-control' %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>
