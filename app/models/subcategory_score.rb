@@ -1,0 +1,2 @@
+class SubcategoryScore < ApplicationRecord
+end
