@@ -115,6 +115,7 @@ class QuestionsController < ApplicationController
   
     def correct_user
       if !admin? && !decision_maker?
+        
         flash[:danger] = "Please log in as correct user."
         redirect_to root_url and return
       end

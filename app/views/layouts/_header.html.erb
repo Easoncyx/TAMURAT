@@ -1,16 +1,18 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar navbar-fixed-top navbar-inverse" style="background-color:  #500000;">
   <div class="container">
     <%= link_to "RISK ASSESSMENT TOOL", root_path, id: "logo" %>
     <nav>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" >
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Help", help_path %></li>
         <% if logged_in? %>
           <% if admin?%>
             <li><%= link_to "Users", users_path %></li>
             <li><%= link_to "Question", questions_path %></li>
+            <li><%= link_to "Scenarios", scenarios_path %></li>
           <% elsif decision_maker? %>
             <li><%= link_to "Question", questions_path %></li>
+            <li><%= link_to "Scenarios", scenarios_path %></li>
           <% end %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

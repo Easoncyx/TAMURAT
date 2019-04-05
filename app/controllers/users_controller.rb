@@ -16,18 +16,16 @@ class UsersController < ApplicationController
   end
 
   def create
+
     @user = User.new(user_params)
-#    byebug
     if User.maximum(:id)
       @user.login_id = User.maximum(:id).next + 1000
     else
       @user.login_id = 1000
     end
-    
     if @user.save
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
-      # redirect_to user_url(@user)
+      flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
+      redirect_to root_url
     else
       render 'new'
     end
@@ -39,9 +37,6 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    
-#    byebug
-    
     if @user.update_attributes(update_params)
       flash[:success] = "Profile updated"
       redirect_to @user
@@ -59,6 +54,10 @@ class UsersController < ApplicationController
   private
   
     def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
+    end
+
+    def company_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end
 
