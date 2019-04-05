@@ -7,11 +7,15 @@ class ScenariosController < ApplicationController
   before_action :correct_user
   
   def new
-    @scenario = Scenario.new
+    if decision_maker?
+      @scenario = Scenario.new
+    else
+      redirect_to scenarios_url
+    end
   end
   
   def show
-    
+    @scenario = Scenario.find_by_id(params[:id])
   end
   
   def index
@@ -49,15 +53,24 @@ class ScenariosController < ApplicationController
     end
     @scenario.destroy
     flash[:success] = "Scenario deleted"
-    redirect_to request.referrer || root_url
+    redirect_to scenarios_url
   end
   
   def update
+    if current_user.role=="Decision Maker"
+      @scenario = Scenario.find_by_id(params[:id])
+      @scenario.update_attributes!(scenario_params)
+      flash[:success] = "#{@scenario.name} was successfully updated."
+      redirect_to scenario_url
+    else
+      flash[:warning] = "Content Invalid."
+      redirect_to edit_scenario_url(params[:id])
+    end
   
   end
 
   def edit
-    
+    @scenario = Scenario.find_by_id(params[:id])
   end
   
   private
@@ -72,7 +85,7 @@ class ScenariosController < ApplicationController
         flash[:danger] = "Please log in as correct user."
         redirect_to root_url and return
       end
-  
+      
       
     end
   
