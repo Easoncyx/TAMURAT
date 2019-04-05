@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   end
 
   private
-  
+
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end
@@ -65,15 +65,15 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :password, :password_confirmation)
       #params.permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end
-    
+
     # make sure the user is logged in before action like edit
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
+    # def logged_in_user
+    #   unless logged_in?
+    #     store_location
+    #     flash[:danger] = "Please log in."
+    #     redirect_to login_url
+    #   end
+    # end
 
     def correct_user
       @user = User.find(params[:id])
@@ -82,12 +82,5 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user?(@user)
     end
 
-    # 确保是管理员
-    def admin_user
-      redirect_to(root_url) unless admin?
-    end
-    
- 
-    
-    
+
 end
