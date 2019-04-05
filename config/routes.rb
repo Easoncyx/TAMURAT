@@ -29,4 +29,6 @@ Rails.application.routes.draw do
 
   #resources for password reset
   resources :password_resets,  only: [:new, :create, :edit, :update]
+  #resources for answers
+  resources :answers
 end
