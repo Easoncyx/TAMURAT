@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'pg'
+# gem 'sqlite3', '1.3.13'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.1.6'
@@ -43,7 +45,7 @@ group :development, :test do
   gem 'database_cleaner', '1.4.1'
   gem "rspec-rails"
   gem "factory_bot_rails"
-  gem 'sqlite3', '1.3.13'
+  # gem 'sqlite3', '1.3.13'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '9.0.6', platforms: :mri
   # Adds support for Capybara system testing and selenium driver
@@ -76,9 +78,8 @@ group :test do
 end
 
 group :production do
-#  gem 'pg'
+  # gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
