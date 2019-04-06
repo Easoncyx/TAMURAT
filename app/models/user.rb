@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_one :parent_company_link, :foreign_key => :child_company_user_id,
     :dependent => :destroy, :class_name => "Subcompany"
 
-  has_many :child_companies, :through => :parent_company_links,
+  has_many :child_companies, :through => :parent_company_link,
     :dependent => :destroy, :class_name => "User"
   has_many :answers, :foreign_key => :validator_id, :class_name => "Answer"
   # company
