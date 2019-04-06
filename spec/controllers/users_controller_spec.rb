@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
 #########################################################not login##############################################       
-        describe "UsersController#index" do
-            it 'should render the home in views/users' do
-                get :index
-                expect(response).to redirect_to login_url
-            end             
-        end
+    describe "UsersController#index" do
+        it 'should render the home in views/users' do
+            get :index
+            expect(response).to redirect_to login_url
+        end             
+    end
     
     describe "UsersController#create" do
         it "login_id show assigned correctly" do
