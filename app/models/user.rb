@@ -4,9 +4,9 @@ class User < ApplicationRecord
   #before_create :create_activation_digest
   has_many :scenarios, dependent: :destroy
   #subcompany relationship
-  has_many :parent_company_links, :foreign_key => :parent_company_user_id,
+  has_many :child_company_links, :foreign_key => :parent_company_user_id,
     :dependent => :destroy, :class_name => "Subcompany"
-  has_one :child_company_link, :foreign_key => :child_company_user_id,
+  has_one :parent_company_link, :foreign_key => :child_company_user_id,
     :dependent => :destroy, :class_name => "Subcompany"
 
   has_many :child_companies, :through => :parent_company_links,
