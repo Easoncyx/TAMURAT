@@ -1,0 +1,22 @@
+<%= form_for @answer do |f| %>
+
+  <%= f.label :level %>
+  <%= f.select :level, @levels, class: 'form-control'%>
+  
+
+  
+  
+  <div class="md-form">
+    <%= f.label :comment %>
+    <%= f.text_area :validator_comment, class: "md-textarea form-control", rows: "6" %>
+  </div>
+  
+  
+  <%= f.hidden_field :question_id, :value => @answer.question_id %>
+  <%= f.hidden_field :company_id, :value => @answer.company_id %>
+  <%= f.hidden_field :validator_id, :value => current_user.id %>
+  <%= f.hidden_field :validated, :value => true %>
+  
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  
+<% end %>
