@@ -1,0 +1,22 @@
+<% provide(:title, 'Answer') %>
+<% if validator? %>
+  <% provide(:button_text, 'Validate') %>
+<% else %>
+  <% provide(:button_text, 'Edit my answer') %>
+<% end %>
+<h1>Answer</h1>
+
+<div class="center jumbotron">
+  <p>Question: <%= @question.name%></p>
+  <p>Scales: <%= link_to "scale", "#" %></p> 
+   
+</div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <% if company_representative?%>
+    <%= render 'form_company' %>
+    <% else %>
+    <%= render 'form_validator' %>
+    <% end %>
+  </div>
+</div>

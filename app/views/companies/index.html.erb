@@ -1,0 +1,29 @@
+<% provide(:title, 'Company overview') %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Index</th>
+      <th scope="col">Name</th>
+      <th scope="col">Validated</th>
+      <th scope="col">Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @companies.each do |company| %>
+    <tr>
+      <th scope="row"><%= company.id%></th>
+      <td><%= get_company_name company%></td>
+      <td>
+        <% if company.validated %>
+          Validated
+        <% else %>
+          Not Validated
+        <% end %>
+        </td>
+      <td>
+        <%= link_to "Validate", answers_path(:company_id => company.id)%>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
