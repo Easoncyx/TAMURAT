@@ -9,7 +9,7 @@
         <a data-toggle="collapse" href=#<%="collapse_category#{category.id}"%>>
           <%= category.name %>
           </br>
-          <% if false%>
+          <% if true%>
           <small>Weight_sum = <%= category.weight_sum %></small>
           <% end %>
           <div>
@@ -34,7 +34,7 @@
                   <a data-toggle="collapse" href=<%="#collapse_subcategory#{subcat.id}"%>>
                     <%=subcat.name %>
                     </br>
-                    <% if false %>
+                    <% if true %>
                     <small>Weight_sum = <%= subcat.weight_sum %></small>
                     <% end %>
                     <div>

@@ -4,6 +4,12 @@ RSpec.describe QuestionsController, type: :controller do
     
     describe "not login in " do   
         
+        before :each do
+            session[:user_id] = nil
+            #@question = create(:question)
+            #question_id = @question.id
+        end        
+        
         describe "QuestionsController#index" do
             it 'should return to login page' do
                 get :index
@@ -11,12 +17,6 @@ RSpec.describe QuestionsController, type: :controller do
             end             
         end    
 
-        describe "QuestionsController#show" do
-            it 'should return to login page' do
-                get :show
-                expect(response).to redirect_to login_url
-            end             
-        end    
         describe "QuestionsController#create" do
             it 'should return to login page' do
                 post :create
@@ -29,6 +29,15 @@ RSpec.describe QuestionsController, type: :controller do
                 expect(response).to redirect_to login_url
             end             
         end    
+=begin
+        
+        describe "QuestionsController#show" do
+            it 'should return to login page' do
+                get :show, params: {:id => question_id}
+                expect(response).to redirect_to login_url
+            end             
+        end 
+        
         describe "QuestionsController#edit" do
             it 'should return to login page' do
                 get :edit
@@ -46,17 +55,20 @@ RSpec.describe QuestionsController, type: :controller do
                 delete :destroy
                 expect(response).to redirect_to login_url
             end             
-        end         
+        end  
+        
+=end
     end
         
-    
+  
+        
     
     before :each do
         @admin = create(:admin)
         session[:user_id] = @admin.id
     end
     
-    
+  
     
     
     

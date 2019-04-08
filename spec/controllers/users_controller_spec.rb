@@ -107,7 +107,7 @@ RSpec.describe UsersController, type: :controller do
         describe "UsersController#index" do
             it 'should render the home in views/users' do
                 get :index
-                expect(response).to render_template :index
+                expect(response).to redirect_to root_url
             end             
         end
 
