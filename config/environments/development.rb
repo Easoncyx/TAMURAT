@@ -77,11 +77,11 @@ Rails.application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
 
-    user_name: '/the email addr/',
-    password: '/your email password/'
+    user_name: 'chenyixu0@gmail.com',
+    password: 'cYx709671676'
   }
 
-  host = '/addr of server/'
-  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  host = 'http://localhost:3000'
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
 
 end
