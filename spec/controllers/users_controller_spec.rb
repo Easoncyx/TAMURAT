@@ -21,11 +21,6 @@ RSpec.describe UsersController, type: :controller do
             post :create, params: {:user => attributes_for(:admin_for_create) }
             expect(response).to redirect_to root_url
         end
-
-        it 'should render new if information saved unsuccessfully with name' do
-            post :create, params: {:user => attributes_for(:failed1) } 
-            expect(response).to render_template('new')
-        end      
            
         it 'should render new if information saved unsuccessfully with password' do
             post :create, params: {:user => attributes_for(:failed2) } 
@@ -74,11 +69,6 @@ RSpec.describe UsersController, type: :controller do
                 patch :update, params: { :id => session[:user_id], :user => attributes_for(:admin)   }
                 expect(response).to redirect_to user_url(session[:user_id])
             end             
-        
-           it 'should render edit if information updated unsuccessfully with name' do
-               patch :update,params: { :id => session[:user_id], :user => attributes_for(:failed1)   }
-               expect(response).to render_template('edit')
-           end                  
 
            it 'should render edit if information updated unsuccessfully with password' do
                patch :update,params: { :id => session[:user_id], :user => attributes_for(:failed2)   }

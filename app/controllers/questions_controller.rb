@@ -6,15 +6,18 @@ class QuestionsController < ApplicationController
   def index
 
     @category = Category.all
+    #byebug
     @result = {}
     @subcategory = Subcategory.all
     @category.each do |ctgr|
       subcategory = Subcategory.where("category_id = ?", ctgr.id)
       @result[ctgr] = {}
+      #byebug
       subcategory.each do |subcate|
         @result[ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id)
       end
     end
+    #byebug
   end
 
   def show
