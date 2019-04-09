@@ -62,6 +62,7 @@ group :development do
   gem 'spring', '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'simplecov' #oh god
+  gem 'awesome_print' # for display format in rails console
 end
 
 group :test do
