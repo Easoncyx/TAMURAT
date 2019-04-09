@@ -2,6 +2,14 @@
 
 <h1>Scales</h1>
 
+<%= form_tag scales_path, :method => :get, id:"categories_form" do %>
+  <% @all_categories_name.each do |category| %>
+    <%= category %>
+    <%= check_box_tag "categories[#{category}]", 1, @selected_categories_name.include?(category), id: "categories_#{category}" %>
+  <% end %>
+  <%= submit_tag 'Refresh', id:"categories_submit"%>
+<% end %>
+
 <table class="table table-hover">
 <thead>
   <tr>

@@ -7,6 +7,8 @@ class ScalesController < ApplicationController
   # GET /scales.json
   def index
     @scales = Scale.all
+    @all_categories_name = Category.distinct.pluck(:name)
+    @selected_categories_name = []
   end
 
   # GET /scales/1

@@ -3,7 +3,7 @@ class User < ApplicationRecord
   before_save   :downcase_email
   #before_create :create_activation_digest
   has_many :scenarios, dependent: :destroy
-  
+
   #subcompany relationship
 
   has_many :answers, :foreign_key => :validator_id, :class_name => "Answer"
@@ -64,7 +64,7 @@ class User < ApplicationRecord
   # 用户得到批准后添加到company数据库
   def create_company
     if self.role == "Company Representative"
-      @company = Company.new(user_id:self.id, company_score:0)
+      @company = Company.new(user_id: self.id, company_score: 0)
       if @company.save
         # flash[:info] = "Company saved!"
       else

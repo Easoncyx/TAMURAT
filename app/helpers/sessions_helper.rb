@@ -5,7 +5,7 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
-  # 返回当前登录的用户（如果有的话）
+  # 返回当前登录的用户（如果有的话） or nil
   def current_user
     if session[:user_id]
       @current_user ||= User.find_by(id: session[:user_id])
@@ -21,20 +21,20 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
-  
+
   #if the current user is admin, return true
   def admin?
     current_user.role == "Administrator"
   end
-  
+
   def decision_maker?
     current_user.role == "Decision Maker"
   end
-  
+
   def validator?
     current_user.role == "Validator"
   end
-  
+
   def company_representative?
     current_user.role == "Company Representative"
   end
