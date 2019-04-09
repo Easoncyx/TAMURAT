@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :scenarios, dependent: :destroy
   
   #subcompany relationship
+
   has_many :answers, :foreign_key => :validator_id, :class_name => "Answer"
   # company
   has_one :company, :foreign_key => :user_id, :class_name => "Company", :dependent => :destroy
