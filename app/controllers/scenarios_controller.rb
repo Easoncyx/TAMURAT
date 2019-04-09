@@ -37,10 +37,9 @@ class ScenariosController < ApplicationController
     if @scenarios.save
       flash[:success] = "Scenario created!"
       redirect_to scenarios_url
-      
     else
-      redirect_to scenarios_url
       flash[:success] = "Scenario create failed!"
+      redirect_to scenarios_url
     end
   end
   
