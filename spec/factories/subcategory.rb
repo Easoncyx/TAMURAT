@@ -5,8 +5,6 @@ FactoryBot.define do
         weight_sum {3}
 #        category_id {nil}
         weight {1}
-        
-
     end
 end
 

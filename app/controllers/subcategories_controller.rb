@@ -125,7 +125,7 @@ class SubcategoriesController < ApplicationController
       if !subcategory
         flash[:danger] = "No record found of this subcategory."
         redirect_to questions_url
-        byebug
+#        byebug
       end
     end
     

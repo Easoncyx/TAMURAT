@@ -8,15 +8,18 @@ class QuestionsController < ApplicationController
   def index
     
     @category = Category.all
+    #byebug
     @result = {}
     @subcategory = Subcategory.all
     @category.each do |ctgr|
       subcategory = Subcategory.where("category_id = ?", ctgr.id)
       @result[ctgr] = {}
+      #byebug
       subcategory.each do |subcate|
         @result[ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id)
       end
     end
+    #byebug
   end
 
   def show
@@ -31,6 +34,7 @@ class QuestionsController < ApplicationController
   
       new_subcat = Subcategory.find_by_id(question_params[:subcategory_id])
       warning(new_subcat)
+      #byebug
       weight_sum = new_subcat.weight_sum + Float(question_params[:weight])
       new_subcat.update_attributes!(weight_sum: weight_sum)
       
