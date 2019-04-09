@@ -55,7 +55,7 @@ RSpec.describe CategoriesController, type: :controller do
     describe "CategoriesController#update" do
         it 'should redirect to index page of question' do
             put :update, params: { :id => session[:category_id], :category => attributes_for(:category)   }
-            
+            ## 
             expect(flash[:success]).to match("#{@category.name} was successfully updated.")
             expect(response).to redirect_to questions_url
         end             
@@ -67,7 +67,18 @@ RSpec.describe CategoriesController, type: :controller do
             
             expect(flash[:success]).to match("Category '#{@category.name}' deleted.")
             expect(response).to redirect_to questions_url
-        end             
-    end      
+        end  
+        
+        it 'should redirect to index page of question' do
+                #subid = @subcategory.category_id + 1
+            delete :destroy,params: { id: 'a'}
+                
+            expect(flash[:danger]).to match("No record found of this category.")
+                
+                #expect(response).to redirect_to questions_url
+        end                 
+    end    
+    
+   
 
 end

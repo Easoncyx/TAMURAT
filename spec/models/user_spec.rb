@@ -3,14 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
     describe "ActiveRecord test" do
        it { should have_many(:scenarios) } 
-       it { should have_many(:child_companies) } 
+       it { should have_one(:company) } 
        it { should have_many(:answers) }     
-       
-       
-       it { should have_one(:parent_company_link) } 
-       it { should have_many(:child_company_links) } 
-       
-
     end    
 
     describe "presence validation" do
