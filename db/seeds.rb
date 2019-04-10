@@ -11,7 +11,6 @@ User.create!(name:  "Example Admin",
              password_confirmation: "123456",
              role: "Administrator",
              login_id: 1000,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -21,28 +20,25 @@ User.create!(name:  "Example DM1",
             password_confirmation: "123456",
             role: "Decision Maker",
             login_id: 1001,
-            approved: true,
             activated: true,
             activated_at: Time.zone.now
           )
-          
+
 User.create!(name:  "Example DM2",
             email: "example@railstutorial.org",
             password:              "123456",
             password_confirmation: "123456",
             role: "Decision Maker",
             login_id: 1002,
-            approved: true,
             activated: true,
             activated_at: Time.zone.now
-          )       
+          )
 User.create!(name:  "Example VA1",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
              role: "Validator",
              login_id: 1003,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -52,7 +48,6 @@ User.create!(name:  "Example VA2",
              password_confirmation: "123456",
              role: "Validator",
              login_id: 1004,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -61,8 +56,7 @@ User.create!(name:  "pickle-rick",
              password:              "123456",
              password_confirmation: "123456",
              role: "Validator",
-             login_id: 1003,
-             approved: false,
+             login_id: 1005,
              activated: false,
              # activated_at: Time.zone.now
            )
@@ -71,30 +65,28 @@ User.create!(name:  "pickle-morty",
              password:              "123456",
              password_confirmation: "123456",
              role: "Validator",
-             login_id: 1004,
-             approved: true,
+             login_id: 1006,
              activated: true,
              activated_at: Time.zone.now
            )
-           
+
 10.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@treenewbee.com"
   password = "123456"
   role = "Company Representative"
-  login_id = n+1005
-  
+  login_id = n+1007
+
   user = User.create!(name:  name,
                email: email,
                password:              password,
                password_confirmation: password,
                role: role,
                login_id: login_id,
-               approved: true,
                activated: true,
                activated_at: Time.zone.now
              )
-  
+
   Company.create!({user_id: user.id})
 end
 
@@ -147,43 +139,43 @@ users = User.order(:created_at).take(3)
   name = "12345"
   description = Faker::Lorem.sentence(5)
   users.each do |user|
-    user.scenarios.create!(name: name, description: description) 
-  end  
-  
+    user.scenarios.create!(name: name, description: description)
+  end
+
   Privilege.create!(scenario_id: n*3+2, user_id: 2)
   Privilege.create!(scenario_id: n*3+2, user_id: 3)
   Privilege.create!(scenario_id: n*3+3, user_id: 2)
   Privilege.create!(scenario_id: n*3+3, user_id: 3)
-  
+
 end
-  
 
 
 
 
 
 
-scales = [{:name => 'B trust level 0', :category_id => 1, :level => 'N/A', :score => 0},
-          {:name => 'B trust level 1', :category_id => 1, :level => '1', :score => 0.1},
-          {:name => 'B trust level 2', :category_id => 1, :level => '2', :score => 0.2},
-          {:name => 'B trust level 3', :category_id => 1, :level => '3', :score => 0.3},
-          {:name => 'B trust level 4', :category_id => 1, :level => '4', :score => 0.4},
-          {:name => 'B trust level 5', :category_id => 1, :level => '5', :score => 0.5},
-          {:name => 'B Insufficient',  :category_id => 1, :level => 'Insufficient evidence', :score => 0},
-          {:name => 'S trust level 0', :category_id => 2, :level => 'N/A', :score => 0},
-          {:name => 'S trust level 1', :category_id => 2, :level => '1', :score => 0.1},
-          {:name => 'S trust level 2', :category_id => 2, :level => '2', :score => 0.2},
-          {:name => 'S trust level 3', :category_id => 2, :level => '3', :score => 0.3},
-          {:name => 'S trust level 4', :category_id => 2, :level => '4', :score => 0.4},
-          {:name => 'S trust level 5', :category_id => 2, :level => '5', :score => 0.5},
-          {:name => 'S Insufficient',  :category_id => 2, :level => 'Insufficient evidence', :score => 0},
-          {:name => 'F trust level 0', :category_id => 3, :level => 'N/A', :score => 0},
-          {:name => 'F trust level 1', :category_id => 3, :level => '1', :score => 0.1},
-          {:name => 'F trust level 2', :category_id => 3, :level => '2', :score => 0.2},
-          {:name => 'F trust level 3', :category_id => 3, :level => '3', :score => 0.3},
-          {:name => 'F trust level 4', :category_id => 3, :level => '4', :score => 0.4},
-          {:name => 'F trust level 5', :category_id => 3, :level => '5', :score => 0.5},
-          {:name => 'F Insufficient',  :category_id => 3, :level => 'Insufficient evidence', :score => 0},
+
+scales = [{:name => 'B trust level 0', :description => 'Something about this level', :category_id => 1, :level => 'N/A', :score => 0},
+          {:name => 'B trust level 1', :description => 'Something about this level', :category_id => 1, :level => '1', :score => 0.1},
+          {:name => 'B trust level 2', :description => 'Something about this level', :category_id => 1, :level => '2', :score => 0.2},
+          {:name => 'B trust level 3', :description => 'Something about this level', :category_id => 1, :level => '3', :score => 0.3},
+          {:name => 'B trust level 4', :description => 'Something about this level', :category_id => 1, :level => '4', :score => 0.4},
+          {:name => 'B trust level 5', :description => 'Something about this level', :category_id => 1, :level => '5', :score => 0.5},
+          {:name => 'B Insufficient',  :description => 'Something about this level', :category_id => 1, :level => 'Insufficient evidence', :score => 0},
+          {:name => 'S trust level 0', :description => 'Something about this level', :category_id => 2, :level => 'N/A', :score => 0},
+          {:name => 'S trust level 1', :description => 'Something about this level', :category_id => 2, :level => '1', :score => 0.1},
+          {:name => 'S trust level 2', :description => 'Something about this level', :category_id => 2, :level => '2', :score => 0.2},
+          {:name => 'S trust level 3', :description => 'Something about this level', :category_id => 2, :level => '3', :score => 0.3},
+          {:name => 'S trust level 4', :description => 'Something about this level', :category_id => 2, :level => '4', :score => 0.4},
+          {:name => 'S trust level 5', :description => 'Something about this level', :category_id => 2, :level => '5', :score => 0.5},
+          {:name => 'S Insufficient',  :description => 'Something about this level', :category_id => 2, :level => 'Insufficient evidence', :score => 0},
+          {:name => 'F trust level 0', :description => 'Something about this level', :category_id => 3, :level => 'N/A', :score => 0},
+          {:name => 'F trust level 1', :description => 'Something about this level', :category_id => 3, :level => '1', :score => 0.1},
+          {:name => 'F trust level 2', :description => 'Something about this level', :category_id => 3, :level => '2', :score => 0.2},
+          {:name => 'F trust level 3', :description => 'Something about this level', :category_id => 3, :level => '3', :score => 0.3},
+          {:name => 'F trust level 4', :description => 'Something about this level', :category_id => 3, :level => '4', :score => 0.4},
+          {:name => 'F trust level 5', :description => 'Something about this level', :category_id => 3, :level => '5', :score => 0.5},
+          {:name => 'F Insufficient',  :description => 'Something about this level', :category_id => 3, :level => 'Insufficient evidence', :score => 0},
           ]
 scales.each do |s|
   Scale.create!(s)
