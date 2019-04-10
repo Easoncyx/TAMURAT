@@ -3,6 +3,8 @@
   <aside class="col-md-4">
     <h1>Scale Name: </h1>
     <h2><%= @scale.name %></h2>
+    <h1>Scale Description: </h1>
+    <h2><%= @scale.description %></h2>
     <h1>Scale Category: </h1>
     <h2><%= Category.find(@scale.category_id).name %></h2>
     <h1>Scale level: </h1>

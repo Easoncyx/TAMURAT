@@ -42,6 +42,7 @@ module SessionsHelper
   # 退出当前用户
  def log_out
    session.delete(:user_id)
+   session.delete(:categories)
    @current_user = nil
  end
 
