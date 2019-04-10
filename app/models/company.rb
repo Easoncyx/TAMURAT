@@ -30,15 +30,20 @@ class Company < ApplicationRecord
         questions.each do |q|
           answer = Answer.find_by({question_id: q.id, company_id: company_id})
           if answer
-            score = Scale.find_by({category_id: cat.id, level: answer.level})
-            if score
+            scale = Scale.find_by({category_id: cat.id, level: answer.level})
+            if scale
+              score = scale.score
               answer.update_attributes!({score: score})
               subcat_score += score * q.weight
             end
           end
           
         end
-        subcat_score /= subcat.weight_sum
+        if subcat.weight_sum != 0
+          subcat_score /= subcat.weight_sum
+        else 
+          subcat_score = 0
+        end
         old_subcat_score = SubcategoryScore.find_by({subcategory_id: subcat.id, company_id: company_id})
         if old_subcat_score
           old_subcat_score.update_attributes!({score: subcat_score})
@@ -48,8 +53,11 @@ class Company < ApplicationRecord
         end
         cat_score += subcat_score * subcat.weight
       end
-      cat_score /= cat.weight_sum
-      
+      if cat.weight_sum != 0
+        cat_score /= cat.weight_sum
+      else
+        cat_score = 0
+      end
       old_cat_score = CategoryScore.find_by({category_id: cat.id, company_id: company_id})
         if old_cat_score
           old_cat_score.update_attributes!({score: cat_score})
@@ -60,7 +68,11 @@ class Company < ApplicationRecord
         company_score += cat_score * cat.weight;
         company_weight_sum += cat.weight
     end
-    company_score /= company_weight_sum
+    if company_weight_sum != 0
+      company_score /= company_weight_sum
+    else
+      company_score = 0
+    end
     self.update_attributes!({score: company_score})
   end
   
