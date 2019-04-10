@@ -71,17 +71,30 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { host: host, protocol: 'https' }
 
   # 本地环境
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    authentication: "plain",
-    enable_starttls_auto: true,
+  # config.action_mailer.smtp_settings = {
+  #   address: 'smtp.gmail.com',
+  #   port: 587,
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
 
-    user_name: 'sidhughes2@gmail.com',
-    password: '04041616Aa~'
+  #   user_name: 'sidhughes2@gmail.com',
+  #   password: '04041616Aa~'
+  # }
+
+  # host = '27bda18780774c12b6ea0e1d77cf6d59.vfs.cloud9.us-east-2.amazonaws.com'
+  # config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+
+  config.action_mailer.delivery_method = :smtp
+  host = 'rocky-sea-36177.herokuapp.com'
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
   }
-
-  host = '27bda18780774c12b6ea0e1d77cf6d59.vfs.cloud9.us-east-2.amazonaws.com'
-  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
 
 end
