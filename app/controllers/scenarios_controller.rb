@@ -7,11 +7,7 @@ class ScenariosController < ApplicationController
   before_action :correct_user
   
   def new
-    if decision_maker? or admin?
-      @scenario = Scenario.new
-    else
-      redirect_to scenarios_url
-    end
+    @scenario = Scenario.new
   end
   
   def show
@@ -19,28 +15,22 @@ class ScenariosController < ApplicationController
   end
   
   def index
-    if current_user.role=="Decision Maker"
+    if decision_maker?
       @scenarios = Scenario.where(user_id: @current_user)
-      
-    elsif current_user.role=="Administrator" 
+    else 
       @scenarios = Scenario.all
-    else
-      flash[:success] = "You don't have permission"
-      redirect_to root_url
     end
-    
     @scenario = current_user.scenarios.build if logged_in?
-  
   end
+  
   def create
     @scenarios = current_user.scenarios.build(scenario_params)
     if @scenarios.save
       flash[:success] = "Scenario created!"
-      redirect_to scenarios_url
     else
       flash[:success] = "Scenario create failed!"
-      redirect_to scenarios_url
     end
+    redirect_to scenarios_url
   end
   
   def destroy

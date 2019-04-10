@@ -11,7 +11,6 @@ User.create!(name:  "Example Admin",
              password_confirmation: "123456",
              role: "Administrator",
              login_id: 1000,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -21,7 +20,6 @@ User.create!(name:  "Example DM",
             password_confirmation: "123456",
             role: "Decision Maker",
             login_id: 1001,
-            approved: true,
             activated: true,
             activated_at: Time.zone.now
           )
@@ -31,7 +29,6 @@ User.create!(name:  "Example VA",
              password_confirmation: "123456",
              role: "Validator",
              login_id: 1002,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -41,7 +38,6 @@ User.create!(name:  "pickle-rick",
              password_confirmation: "123456",
              role: "Validator",
              login_id: 1003,
-             approved: false,
              activated: false,
              # activated_at: Time.zone.now
            )
@@ -51,7 +47,6 @@ User.create!(name:  "pickle-morty",
              password_confirmation: "123456",
              role: "Validator",
              login_id: 1004,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -69,7 +64,6 @@ User.create!(name:  "pickle-morty",
                password_confirmation: password,
                role: role,
                login_id: login_id,
-               approved: true,
                activated: true,
                activated_at: Time.zone.now
              )

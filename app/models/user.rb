@@ -44,7 +44,6 @@ class User < ApplicationRecord
     #   self.activation_token  = User.new_token
     #   self.activation_digest = User.digest(activation_token)
     self.activation_token = User.new_token
-    update_attribute(:approved,    true)
     update_attribute(:activation_digest, User.digest(self.activation_token))
     update_attribute(:activated_at, Time.zone.now)
   end
