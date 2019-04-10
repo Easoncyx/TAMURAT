@@ -3,7 +3,8 @@
   <%= link_to user.name, user %>
   EMAIL: <%= user.email %> | LOGIN_ID: <%= user.login_id %> | ROLE: <%= user.role %> | APPROVED: <%= user.approved %>
   <% if admin? && !current_user?(user) %>
-  | <%= link_to "delete", user, method: :delete,
+  | <%= link_to "delete", user, method: :delete %>
+  | <%#= link_to "delete", user, method: :delete,
                                 data: { confirm: "You sure?" } %>
   <% end %>
   | <%= link_to "activate", activate_url(login_id: user.login_id) %>

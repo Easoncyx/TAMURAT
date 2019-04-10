@@ -15,13 +15,10 @@ module NavigationHelpers
     
     # ITERATION 2 -- NAVBAR
     when /^Home page$/
-      '/home'
-
-    when /^the upload page$/
       '/'
       
-    when /^Users management page$/
-      '/usermanager'
+    when /^All user page$/
+      '/users'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

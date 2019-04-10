@@ -35,12 +35,33 @@ User.create!(name:  "Example VA",
              activated: true,
              activated_at: Time.zone.now
            )
+User.create!(name:  "pickle-rick",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
+             login_id: 1003,
+             approved: false,
+             activated: false,
+             # activated_at: Time.zone.now
+           )
+User.create!(name:  "pickle-morty",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
+             login_id: 1004,
+             approved: true,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+           
 10.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@treenewbee.com"
   password = "123456"
   role = "Company Representative"
-  login_id = n+1003
+  login_id = n+1005
   
   user = User.create!(name:  name,
                email: email,
