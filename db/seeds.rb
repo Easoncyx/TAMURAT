@@ -11,7 +11,6 @@ User.create!(name:  "Example Admin",
              password_confirmation: "123456",
              role: "Administrator",
              login_id: 1000,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -21,7 +20,6 @@ User.create!(name:  "Example DM1",
             password_confirmation: "123456",
             role: "Decision Maker",
             login_id: 1001,
-            approved: true,
             activated: true,
             activated_at: Time.zone.now
           )
@@ -32,7 +30,6 @@ User.create!(name:  "Example DM2",
             password_confirmation: "123456",
             role: "Decision Maker",
             login_id: 1002,
-            approved: true,
             activated: true,
             activated_at: Time.zone.now
           )
@@ -42,7 +39,6 @@ User.create!(name:  "Example VA1",
              password_confirmation: "123456",
              role: "Validator",
              login_id: 1003,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -52,7 +48,24 @@ User.create!(name:  "Example VA2",
              password_confirmation: "123456",
              role: "Validator",
              login_id: 1004,
-             approved: true,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+User.create!(name:  "pickle-rick",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
+             login_id: 1005,
+             activated: false,
+             # activated_at: Time.zone.now
+           )
+User.create!(name:  "pickle-morty",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
+             login_id: 1006,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -62,7 +75,7 @@ User.create!(name:  "Example VA2",
   email = "example-#{n+1}@treenewbee.com"
   password = "123456"
   role = "Company Representative"
-  login_id = n+1005
+  login_id = n+1007
 
   user = User.create!(name:  name,
                email: email,
@@ -70,7 +83,6 @@ User.create!(name:  "Example VA2",
                password_confirmation: password,
                role: role,
                login_id: login_id,
-               approved: true,
                activated: true,
                activated_at: Time.zone.now
              )
