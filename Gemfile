@@ -15,7 +15,6 @@ gem 'bcrypt', '3.1.12'
 gem 'faker', '1.7.3'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem 'bootstrap-sass',          '3.3.7'
-
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use Puma as the app server
@@ -41,6 +40,9 @@ gem 'jbuilder', '2.7.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# ransack for search and filter
+# gem 'ransack'
 
 group :development, :test do
   gem 'database_cleaner', '1.4.1'

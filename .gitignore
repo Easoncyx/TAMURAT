@@ -25,5 +25,5 @@
 # Ignore Spring files
 /spring/*.pid
 
-# Ignore schema.rb
-/db/schema.rb
+
+/coverage

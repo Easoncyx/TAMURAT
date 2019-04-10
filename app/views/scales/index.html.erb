@@ -2,23 +2,29 @@
 
 <h1>Scales</h1>
 
-<%= form_tag scales_path, :method => :get, id:"categories_form" do %>
+<%= form_tag scales_path, :method => :get, id:"cagetories_form", :class => "form-inline" do %>
   <% @all_categories_name.each do |category| %>
-    <%= category %>
-    <%= check_box_tag "categories[#{category}]", 1, @selected_categories_name.include?(category), id: "categories_#{category}" %>
+    <div class="form-group">
+      <%= check_box_tag "categories[#{category}]", 1, @selected_categories_name.include?(category), id: "categories_#{category}", class: "form-check-input" %>
+      <%= label_tag "categories_#{category}", category, class: "form-check-label" %>
+    </div>
   <% end %>
   <%= submit_tag 'Refresh', id:"categories_submit"%>
 <% end %>
+
 
 <table class="table table-hover">
 <thead>
   <tr>
     <th scope="col">Index</th>
     <th scope="col">Name</th>
+    <th scope="col">Description</th>
     <th scope="col">Category</th>
     <th scope="col">Level</th>
     <th scope="col">Score</th>
-    <th scope="col">Handler</th>
+    <% if admin? %>
+      <th scope="col">Handler</th>
+    <% end %>
   </tr>
 </thead>
   <tbody>
@@ -26,22 +32,26 @@
     <tr>
       <th scope="row"><%=scale.id%></th>
       <td><%=scale.name%></td>
+      <td><%=scale.description%></td>
       <td><%= Category.find(scale.category_id).name %></td>
       <td><%=scale.level%></td>
       <td><%=scale.score%></td>
-      <td>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to 'Edit', edit_scale_path(scale) %>
-      </button>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </button>
-      </td>
+      <% if admin? %>
+        <td>
+        <button type="button" class="btn btn-outline-dark">
+          <%= link_to 'Edit', edit_scale_path(scale) %>
+        </button>
+        <button type="button" class="btn btn-outline-dark">
+          <%= link_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </button>
+        </td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
 </table>
-
-<button type="button" class="btn btn-outline-dark">
-  <%= link_to 'New Scale', new_scale_path %>
-</button>
+<% if admin? %>
+  <button type="button" class="btn btn-outline-dark">
+    <%= link_to 'New Scale', new_scale_path %>
+  </button>
+<% end %>

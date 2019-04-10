@@ -5,9 +5,9 @@
       <ul class="nav navbar-nav navbar-right" >
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Help", help_path %></li>
-        
+
         <% if logged_in? %>
-          <% if admin?%>
+          <% if admin? %>
             <li><%= link_to "Users", users_path %></li>
             <li><%= link_to "Question", questions_path %></li>
             <li><%= link_to "Scale", scales_path %></li>
@@ -17,8 +17,9 @@
             <li><%= link_to "Scenarios", scenarios_path %></li>
           <% elsif validator? %>
             <li><%= link_to "Companies", companies_path %></li>
-          <% else%>
-            <li><%= link_to "Answers", answers_path %></li>
+          <% else %>
+            <li><%= link_to "Scale", scales_path %></li>
+            <li><%= link_to "Questionnaires", answers_path %></li>
           <% end %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
