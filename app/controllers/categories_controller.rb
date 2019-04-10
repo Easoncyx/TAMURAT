@@ -1,5 +1,3 @@
-require 'sessions_helper.rb'
-
 class CategoriesController < ApplicationController
   
   def index

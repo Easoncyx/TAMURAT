@@ -1,5 +1,3 @@
-require 'sessions_helper.rb'
-
 class SubcategoriesController < ApplicationController
   
   before_action :logged_in_user
