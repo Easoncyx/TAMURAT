@@ -27,7 +27,7 @@ class SubcategoriesController < ApplicationController
       
       old_category = Category.find_by_id(@subcategory.category_id)
       warning(old_category)
-      
+      #byebug
       weight_sum = new_category.weight_sum + Float(subcategory_params[:weight])
       old_weight_sum = [old_category.weight_sum - @subcategory.weight, 0].max
       
@@ -60,7 +60,8 @@ class SubcategoriesController < ApplicationController
       redirect_to questions_url
     else
       flash[:warning] = "Weight Invalid, you need to type a float."
-      redirect_to new_subcategory_url(params[:id])
+      #redirect_to new_subcategory_url(params[:id])
+      redirect_to new_subcategory_url
     end
   end
   
@@ -124,6 +125,7 @@ class SubcategoriesController < ApplicationController
       if !subcategory
         flash[:danger] = "No record found of this subcategory."
         redirect_to questions_url
+#        byebug
       end
     end
     

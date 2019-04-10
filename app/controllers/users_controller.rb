@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     # end
 
     def correct_user
-      @user = User.find(params[:id])
+      @user = User.find_by_id(params[:id])
       # may conflict with the previous flash
       # flash[:danger] = "Please log in as correct user."
       redirect_to(root_url) unless current_user?(@user)

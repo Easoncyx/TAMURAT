@@ -45,8 +45,8 @@ gem 'jbuilder', '2.7.0'
 group :development, :test do
   gem 'database_cleaner', '1.4.1'
   gem "rspec-rails"
-  gem "factory_bot_rails"
   # gem 'sqlite3', '1.3.13'
+  gem "factory_bot_rails"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '9.0.6', platforms: :mri
   # Adds support for Capybara system testing and selenium driver
@@ -62,6 +62,7 @@ group :development do
   gem 'spring', '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'simplecov' #oh god
+  gem 'awesome_print' # for display format in rails console
 end
 
 group :test do
