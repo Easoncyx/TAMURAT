@@ -2,6 +2,8 @@ class Category < ApplicationRecord
 
   has_many :subcategories, class_name: "Subcategory", foreign_key: "category_id", dependent: :destroy
   has_many :scales, dependent: :destroy
+  has_many :category_scores, class_name: "CategoryScore", foreign_key: "category_id", dependent: :destroy
+  
   VALID_WEIGHT_REGEX = /\A[0-9]+(.[0-9]*)?\z/
   validates :name,  presence: true, length: { maximum: 256 }
   
