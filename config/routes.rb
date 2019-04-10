@@ -37,8 +37,7 @@ Rails.application.routes.draw do
   #get '/answers/validator_index', to: 'answers#validator', as: "validator_index"
   #get '/answers/validator_index/:id', to: 'answers#show', as: "validator_show"
   #resources for companies
-  resources :companies,  only: [:index]
-  
   resources :privileges
   
+  resources :companies,  only: [:index, :update]
 end

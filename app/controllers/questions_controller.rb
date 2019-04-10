@@ -5,16 +5,16 @@ class QuestionsController < ApplicationController
 
   def index
 
-    @category = Category.all
+    @category = Category.order(:id)
     #byebug
     @result = {}
-    @subcategory = Subcategory.all
+    @subcategory = Subcategory.order(:id)
     @category.each do |ctgr|
       subcategory = Subcategory.where("category_id = ?", ctgr.id)
       @result[ctgr] = {}
       #byebug
       subcategory.each do |subcate|
-        @result[ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id)
+        @result[ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id).order(:id)
       end
     end
     #byebug

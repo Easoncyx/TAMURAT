@@ -12,14 +12,13 @@
     <% @companies.each do |company| %>
     <tr>
       <th scope="row"><%= company.id%></th>
-      <td><%= get_company_name company%></td>
+      <td><%= get_company_name(company)%></td>
       <td>
-        <% if company.validated %>
-          Validated
-        <% else %>
-          Not Validated
+        <%=form_tag company_path(company.id), :method => :put do %>
+        <%=select_tag :validated, options_for_select([true, false], company.validated == true), class: "short-input"%>
+        <%=submit_tag 'Validated', class: "short-input"%>
         <% end %>
-        </td>
+      </td>
       <td>
         <%= link_to "Validate", answers_path(:company_id => company.id)%>
       </td>
