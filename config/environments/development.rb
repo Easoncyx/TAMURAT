@@ -56,32 +56,29 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   # 云端环境
-  # config.action_mailer.smtp_settings = {
-  #   address: 'smtp.gmail.com',
-  #   port: 587,
-  #   authentication: "plain",
-  #   enable_starttls_auto: true,
-  #   user_name: 'chenyixu0@gmail.com',
-  #   password: 'cYx709671676'
-  # }
-  # 不要原封不动使用这个域名，
-  # 应该使用你本地的开发主机地址
-  # 在云端 IDE 中使用这一行
-  # host = '27bda18780774c12b6ea0e1d77cf6d59.vfs.cloud9.us-east-2.amazonaws.com'
-  # config.action_mailer.default_url_options = { host: host, protocol: 'https' }
-
-  # 本地环境
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
     authentication: "plain",
     enable_starttls_auto: true,
-
-    user_name: 'sidhughes2@gmail.com',
-    password: '04041616Aa~'
+    user_name: 'chenyixu0@gmail.com',
+    password: 'cYx709671676'
   }
+  host = 'http://localhost:3000/'
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
 
-  host = '27bda18780774c12b6ea0e1d77cf6d59.vfs.cloud9.us-east-2.amazonaws.com'
-  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  # 本地环境
+  # config.action_mailer.smtp_settings = {
+  #   address: 'smtp.gmail.com',
+  #   port: 587,
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
+  #
+  #   user_name: 'sidhughes2@gmail.com',
+  #   password: '04041616Aa~'
+  # }
+  #
+  # host = '27bda18780774c12b6ea0e1d77cf6d59.vfs.cloud9.us-east-2.amazonaws.com'
+  # config.action_mailer.default_url_options = { host: host, protocol: 'https' }
 
 end
