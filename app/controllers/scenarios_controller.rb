@@ -19,11 +19,17 @@ class ScenariosController < ApplicationController
   end
   
   def index
-    if current_user.role=="Decision Maker"
-      @scenarios = Scenario.where(user_id: @current_user)
+    if current_user.role == "Decision Maker"
+      scenario_dm = []
+      @privileges = Privilege.where(user_id: @current_user)
+      @privileges.each do |privilege|
+        scenario_dm[scenario_dm.length] = privilege.scenario_id
+      end
+      @scenarios = Scenario.where(id: scenario_dm)
       
     elsif current_user.role=="Administrator" 
       @scenarios = Scenario.all
+      
     else
       flash[:success] = "You don't have permission"
       redirect_to root_url
@@ -36,13 +42,30 @@ class ScenariosController < ApplicationController
     @scenarios = current_user.scenarios.build(scenario_params)
     if @scenarios.save
       flash[:success] = "Scenario created!"
+      @scenarios.create_previlege(current_user.id)
       redirect_to scenarios_url
-      
     else
-      redirect_to scenarios_url
       flash[:success] = "Scenario create failed!"
+      redirect_to scenarios_url
     end
   end
+  
+  
+  def assign
+    if decision_maker?
+      redirect_to scenarios_url
+      
+      
+    elsif admin?
+    
+      
+  
+  
+    end
+  
+  end
+  
+  
   
   def destroy
     if decision_maker?
