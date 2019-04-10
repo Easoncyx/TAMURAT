@@ -10,9 +10,18 @@
       data: { confirm: "You sure?" } %>
     <% end %>
     
-    <% if current_user?(scenario.user) or admin? %>
-      <%= link_to "edit", edit_scenario_url(scenario.id)%>
+    
+    <%= link_to "edit", edit_scenario_url(scenario.id)%>
+    
+    
+    <% if admin? %>
+      <%= link_to "assign", new_privilege_url(scenario.id)%>
+      
     <% end %>
+    
+    
+    
+    
   </span>
 </li>
 
