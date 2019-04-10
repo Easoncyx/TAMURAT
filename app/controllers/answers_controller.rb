@@ -1,5 +1,3 @@
-require 'sessions_helper.rb'
-
 class AnswersController < ApplicationController
 
   before_action :logged_in_user
@@ -9,9 +7,14 @@ class AnswersController < ApplicationController
   def new
     question_id = params[:question_id]
     company_id = params[:company_id]
+    company = Company.find_by_id(company_id)
+    if company.validated
+      flash[:warning] = "Your answer has validated."
+      redirect_to root_path and return
+    end
     answer = Answer.find_by({company_id: company_id, question_id: question_id})
     if answer
-      redirect_to edit_answer_path(answer.id)
+      redirect_to edit_answer_path(answer.id) and return
     end
     @answer = Answer.new({company_id: company_id, question_id: question_id})
     @question = Question.find_by_id(question_id)
@@ -21,7 +24,16 @@ class AnswersController < ApplicationController
   def edit
     id = params[:id]
     question_id = params[:question_id]
+    
     @answer = Answer.find_by_id(id)
+    
+    company = Company.find_by_id(@answer.company_id)
+    if company.validated
+      flash[:warning] = "Your answer has validated."
+      redirect_to root_path and return
+    end
+    
+    
     if !@answer
       flash[:danger] = "Answer_invalid"
       redirect_to answers_path

@@ -8,16 +8,16 @@ class SubcategoriesController < ApplicationController
   
   
   def index
-    redirect_to questions_url
+    redirect_to questions_path
   end
   
   def show
-    redirect_to questions_url
+    redirect_to questions_path
   end
   
   
   def update
-    if(subcategory_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+    if(subcategory_params[:weight] =~ Subcategory.valid_weight_regex)
       @subcategory = Subcategory.find_by_id(params[:id])
       warning(@subcategory)
       
@@ -37,18 +37,17 @@ class SubcategoriesController < ApplicationController
       @subcategory.update_attributes!(subcategory_params)
       flash[:success] = "#{@subcategory.name} was successfully updated."
       
-      redirect_to questions_url
+      redirect_to questions_path
     else
       flash[:danger] = "Weight Invalid, you need to type a float."
-      redirect_to edit_subcategory_url(params[:id])
+      redirect_to edit_subcategory_path(params[:id])
     end
   end
   
   def create
     #update weight_sum
     result = subcategory_params
-    result[:weight_sum] = 0
-    if(subcategory_params[:weight] =~ /\A[0-9]*(.[0-9]+)?\z/)
+    if(subcategory_params[:weight] =~ Subcategory.valid_weight_regex)
       category = Category.find_by_id(subcategory_params[:category_id])
       warning(category)
       weight_sum = category.weight_sum + Float(subcategory_params[:weight])
@@ -57,11 +56,11 @@ class SubcategoriesController < ApplicationController
       @subcategory = Subcategory.create!(result)
       
       flash[:success] = "#{@subcategory.name} was successfully created."
-      redirect_to questions_url
+      redirect_to questions_path
     else
       flash[:warning] = "Weight Invalid, you need to type a float."
-      #redirect_to new_subcategory_url(params[:id])
-      redirect_to new_subcategory_url
+      #redirect_to new_subcategory_path(params[:id])
+      redirect_to new_subcategory_path
     end
   end
   
@@ -94,7 +93,7 @@ class SubcategoriesController < ApplicationController
       
     @subcategory.destroy
     flash[:success] = "Subcategory '#{@subcategory.name}' deleted."
-    redirect_to questions_url
+    redirect_to questions_path
     
   end
   
@@ -117,14 +116,14 @@ class SubcategoriesController < ApplicationController
       if !admin? && !decision_maker?
         
         flash[:danger] = "Please log in as correct user."
-        redirect_to root_url and return
+        redirect_to root_path and return
       end
     end
     
     def warning(subcategory)
       if !subcategory
         flash[:danger] = "No record found of this subcategory."
-        redirect_to questions_url
+        redirect_to questions_path
 #        byebug
       end
     end
