@@ -1,5 +1,5 @@
 # TAMURAT Iteration 2 Report
-
+&nbsp;
 #### Scrum Master: Yixu Chen
 
 #### Product Owner: Feiyan Yu
@@ -8,7 +8,7 @@
 
 [Pivotal Tracker: https://www.pivotaltracker.com/n/projects/2318271](https://www.pivotaltracker.com/n/projects/2319401)
 
-[Heroku: https://vast-retreat-51895.herokuapp.com/](https://vast-retreat-51895.herokuapp.com/)
+[Heroku: https://serene-lowlands-61019.herokuapp.com/](https://serene-lowlands-61019.herokuapp.com/)
 &nbsp;
 
 #### Team member(alphabetical order):
@@ -24,55 +24,75 @@
 
 10:30 am - 12:00 am, Apr 5 2019, HRBB 515
 
-Next meeting： 10：30 am, Apr 12 2019, HRBB 515
+Next meeting：10：30 am, Apr 12 2019, HRBB 515
 &nbsp;
 # Our Progress
 
+We reconstruct the whole app. Now the features of old version are implemented, as well as some new feature.
+&nbsp;
 We expand the scheme of database to support new features. 
+![UML.png](images/UML.png)
+&nbsp;
+The home page before log in
+![index.png](images/index.png)
+&nbsp;
+The home page after log in
+![home.png](images/home.png)
+&nbsp;
+User can see their account information in Account-profile
+![admin_profile.png](images/admin_profile.png)
+&nbsp;
+User can manage their account information in Account-setting
+![admin_setting.png](images/admin_setting.png)
+&nbsp;
+Admin can see the list of all users, delete/activite users
+![admin_user.png](images/admin_user.png)
+&nbsp;
+Admin caa see all questions and edit them
+![admin_question.png](images/admin_question.png)
+&nbsp;
+Admin can see the list of scales and edit them
+![admin_scale.png](images/admin_scale.png)
+&nbsp;
+Admin can see all the scenarios and edit/delete them
+![admin_scenarios.png](images/admin_scenarios.png)
+&nbsp;
+Decision makers can only see tscenarios related to themselves. But they can only edit them
+![dm_scenarios.png](images/dm_scenarios.png)
+&nbsp;
+Validators can see the list of companies which are in need of validation
+![va_companies.png](images/va_companies.png)
+&nbsp;
+Cucumber and rspec test has 61.31% codes covered.
 
-- From the legacy code, they write their database directly in schema.rb instead of the migrations feature of Active Record to incrementally modify the database. Therefore we need to refactor the whole database structure
-- We add an new admin role who can see the list of all user and delete any one.
 
-To delete a user
-![image-201903293](images/image-201903293.png)
-
-Successful deletion
-![image-201903294](images/image-201903294.png)
-
-
-- We write some cucumber test to increase of test coverage from 2% to 30%
-- The rspec coverage from 0% to 6%
-
-Cucumber and rspec test
-![image-201903291](images/image-201903291.png)
-
-We draw a clear picture to help understand the structure of database. There are still more to add, such as database for problems.
-![image-201903295](images/image-201903295.png)
 &nbsp;
 &nbsp;
 ## Latest User Stories
+&nbsp;
 ### Admin Feature
 &nbsp;
 #### Feature 14: Admin edit questions(decision maker cannot)
--As an admin
--So that I can provide my desired questions
--I want to edit questions.
+- As an admin
+- So that I can provide my desired questions
+- I want to edit questions.
 ---
 #### Feature 15: Admin sets certain scenarios for decision maker
--As an admin
--So that I want different decision makers to evaluate differently
--I wan to restrict the scenarios decision makers can see
+- As an admin
+- So that I want different decision makers to evaluate differently
+- I wan to restrict the scenarios decision makers can see
 ---
 ### Validator Feature
 &nbsp;
 #### Feature 16: Re-validates a company when it changes the answers
--As a validator
--So that I can validates a company more accurately
--I want to re-validate a company
+- As a validator
+- So that I can validates a company more accurately
+- I want to re-validate a company
 ---
 &nbsp;
 &nbsp;
 ## Existing User Stories
+&nbsp;
 ### Contractor & Subcontractor Feature
 &nbsp;
 #### Feature 1: Company user could upload pdf
