@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find_by_id(params[:id])
     if(category_params[:weight] !~ Category.valid_weight_regex) 
-      flash[:warning] = "Weight Invalid, you need to type a float."
+      flash[:danger] = "Weight Invalid, you need to type a float."
       #redirect_to new_subcategory_path(params[:id])
       redirect_to edit_category_path and return
     end
@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
   def create
     result = category_params
     if(category_params[:weight] !~ Category.valid_weight_regex) 
-      flash[:warning] = "Weight Invalid, you need to type a float."
+      flash[:danger] = "Weight Invalid, you need to type a float."
       #redirect_to new_subcategory_path(params[:id])
       redirect_to new_category_path and return
     end
@@ -38,13 +38,12 @@ class CategoriesController < ApplicationController
 
   def edit
     @category = Category.find_by_id(params[:id])
-    warning(@category)
+
   end
 
   def destroy
     @category = Category.find_by_id(params[:id])
-    
-    warning(@category)
+
     
     #subcategories = Subcategory.where("category_id = ?", params[:id])
     #subcategories.each do |subcat|
@@ -71,10 +70,5 @@ class CategoriesController < ApplicationController
       params.require(:category).permit(:name, :weight)
     end
     
-    def warning(category)
-      if not category
-        flash[:danger] = "No record found of this category."
-        redirect_to questions_path
-      end
-    end
+
 end
