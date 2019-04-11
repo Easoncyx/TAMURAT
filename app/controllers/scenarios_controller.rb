@@ -17,7 +17,7 @@ class ScenariosController < ApplicationController
     @usersprivs.each do |userspriv|
       user_dm[user_dm.length] = userspriv.user_id
     end
-    @allusers = User.where(id: user_dm)
+    @allDMs = User.where(id: user_dm)
   end
   
   def index
