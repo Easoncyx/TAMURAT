@@ -66,14 +66,7 @@ class UsersController < ApplicationController
       #params.permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end
 
-    # make sure the user is logged in before action like edit
-    # def logged_in_user
-    #   unless logged_in?
-    #     store_location
-    #     flash[:danger] = "Please log in."
-    #     redirect_to login_url
-    #   end
-    # end
+ 
 
     def correct_user
       @user = User.find_by_id(params[:id])
