@@ -6,14 +6,14 @@
     <li class="list-group-item">Category: <%= @question.name%></li>
     <li class="list-group-item">Subcategory: <%= @subcategory.name%></li>
     <li class="list-group-item">Question: <%= @question.name%></li>
-    <li class="list-group-item">Scales: <%= link_to "scale", "#" %></li>
+    <li class="list-group-item">Scales: <%= link_to "scale", scales_path %></li>
     <li class="list-group-item">level: <%= @answer.level %></li>
     <li class="list-group-item">validated: <%= @answer.validated %></li>
     <% if @answer.validated %>
       <li class="list-group-item">validator: <%= @validator.name %></li>
       <li class="list-group-item">Validate Time: <%= @answer.updated_at %></li>
-      <li class="list-group-item">Comment: <%= @answer.validator_comment %></li> 
+      <li class="list-group-item">Comment: <%= @answer.validator_comment %></li>
     <% end %>
-    
+
   </ul>
 </div>

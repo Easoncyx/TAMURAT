@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
 
   # 确保是管理员
   def admin_user
-    redirect_to(root_url) unless admin?
+    unless admin?
+      store_location
+      flash[:danger] = 'You do not have permission.'
+      redirect_to(root_url)
+    end
   end
 end

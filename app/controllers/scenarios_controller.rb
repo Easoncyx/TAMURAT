@@ -15,9 +15,19 @@ class ScenariosController < ApplicationController
     user_dm = []
     @usersprivs = Privilege.where(scenario_id: @scenario)
     @usersprivs.each do |userspriv|
-      user_dm[user_dm.length] = userspriv.user_id
+      user_dm[user_dm.length] = User.where("id = ?", userspriv.user_id)
     end
-    @allDMs = User.where(id: user_dm)
+    @allDMs = User.where("role = ?", "Decision Maker")
+    @xiba = user_dm
+    result = {}
+    @allDMs.each do |dm|
+      result[dm] = 0
+    end
+    user_dm.each do |thisuser|
+      result[thisuser] = 1
+    end
+    
+    
   end
   
   def index
@@ -51,6 +61,7 @@ class ScenariosController < ApplicationController
       redirect_to scenarios_url
     else
 
+
     end
   
   end
@@ -60,30 +71,28 @@ class ScenariosController < ApplicationController
   def destroy
     if decision_maker?
       @scenario=current_user.scenarios.find_by(id: params[:id])
-    else
-      @scenarios = Scenario.all
-      @scenario = @scenarios.find_by(id: params[:id])
+      if !@scenario
+        flash[:warning] = "You do not have permission to delete others scenarios."
+        redirect_to scenarios_url and return
+      end
     end
-    @scenario.destroy
+    Scenario.find(params[:id]).destroy
     flash[:success] = "Scenario deleted"
     redirect_to scenarios_url
   end
   
   def update
-    if decision_maker? or admin? and scenario_params
-      @scenario = Scenario.find_by_id(params[:id])
-      @scenario.update_attributes!(scenario_params)
+    @scenario = Scenario.find(params[:id])
+    if @scenario.update_attributes(scenario_params)
       flash[:success] = "#{@scenario.name} was successfully updated."
-      redirect_to scenario_url
+      redirect_to @scenario
     else
-      flash[:warning] = "Content Invalid."
-      redirect_to edit_scenario_url(params[:id])
+      render 'edit'
     end
-  
   end
 
   def edit
-    @scenario = Scenario.find_by_id(params[:id])
+    @scenario = Scenario.find(params[:id])
   end
   
   private

@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
 #########################################################not login##############################################       
-        describe "UsersController#index" do
-            it 'should render the home in views/users' do
-                get :index
-                expect(response).to redirect_to login_url
-            end             
-        end
+    describe "UsersController#index" do
+        it 'should render the home in views/users' do
+            get :index
+            expect(response).to redirect_to login_url
+        end             
+    end
     
     describe "UsersController#create" do
         it "login_id show assigned correctly" do
@@ -21,11 +21,6 @@ RSpec.describe UsersController, type: :controller do
             post :create, params: {:user => attributes_for(:admin_for_create) }
             expect(response).to redirect_to root_url
         end
-
-        it 'should render new if information saved unsuccessfully with name' do
-            post :create, params: {:user => attributes_for(:failed1) } 
-            expect(response).to render_template('new')
-        end      
            
         it 'should render new if information saved unsuccessfully with password' do
             post :create, params: {:user => attributes_for(:failed2) } 
@@ -74,11 +69,6 @@ RSpec.describe UsersController, type: :controller do
                 patch :update, params: { :id => session[:user_id], :user => attributes_for(:admin)   }
                 expect(response).to redirect_to user_url(session[:user_id])
             end             
-        
-           it 'should render edit if information updated unsuccessfully with name' do
-               patch :update,params: { :id => session[:user_id], :user => attributes_for(:failed1)   }
-               expect(response).to render_template('edit')
-           end                  
 
            it 'should render edit if information updated unsuccessfully with password' do
                patch :update,params: { :id => session[:user_id], :user => attributes_for(:failed2)   }
@@ -107,7 +97,7 @@ RSpec.describe UsersController, type: :controller do
         describe "UsersController#index" do
             it 'should render the home in views/users' do
                 get :index
-                expect(response).to render_template :index
+                expect(response).to redirect_to root_url
             end             
         end
 

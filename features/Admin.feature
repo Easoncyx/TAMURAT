@@ -1,38 +1,31 @@
 Feature: Admin Powers
   
   As an admin
-  I want to see all three kinds of users
+  I want to see a list of users
   So that I can manage them
   
-# Background: Admin is logged in
-#   Given I am on the signin page
-#   And I follow "Sign in with Google"
-#   Then I am on the home page
-Background:  Sign up as an Admin
-  Given I am signing up as an Admin
+Background:  Log in as an Admin
+  Given I log in as an Admin
+  Then I should see "Welcome to the TAMURAT"
   
+  Scenario: See all users list
+    Given I am on All user page
+    Then I should see "All users"
+    Then I should see "pickle-rick"
+    Then I should see "pickle-morty"
+
+  Scenario: Delete the first user
+    Given I am on All user page
+    When I delete the first user
+    Then I should see "User deleted"
+    Then I should not see "Example DM"
   
-  
-  
-  Scenario: Home page shown
-    Given I am on Home page
-    When I follow "Home"
-    Then I should see "Home tab"
-  
-  Scenario: Manage all users
-    Given I am on Users management page
-    Then I should see "All Users" 
-   
-  
-  Scenario: Create a new Scenario
-    Given I am on Home page
-    When I follow "Scenario"
-    And I follow "Add new Course of Action"
-    And I fill in "name" with "123"
-    And I fill in "description" with "321"
-    And I press "Save Changes"
-    Then I should see "123"
-    And I should see "321"
+  # Scenario: Activate a user
+  #   Given I am on All user page
+  #   When I activate user "pickle-rick"
+  #   Then I should see "Account activated!"
+  #   Given I log in as "pickle-rick"
+  #   Then I should see "Welcome to the TAMURAT"
   
   
   
