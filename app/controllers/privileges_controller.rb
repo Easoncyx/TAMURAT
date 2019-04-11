@@ -9,7 +9,7 @@ class PrivilegesController < ApplicationController
   
   def new
     @privilege = Privilege.new
-    @admins = User.where("role = ?", "Decision Maker")
+    @dms = User.where("role = ?", "Decision Maker")
   end
   
   

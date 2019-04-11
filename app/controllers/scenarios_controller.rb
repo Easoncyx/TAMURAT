@@ -7,60 +7,50 @@ class ScenariosController < ApplicationController
   before_action :correct_user
   
   def new
-    if decision_maker? or admin?
-      @scenario = Scenario.new
-    else
-      redirect_to scenarios_url
-    end
+    @scenario = Scenario.new
   end
   
   def show
     @scenario = Scenario.find_by_id(params[:id])
+    user_dm = []
+    @usersprivs = Privilege.where(scenario_id: @scenario)
+    @usersprivs.each do |userspriv|
+      user_dm[user_dm.length] = userspriv.user_id
+    end
+    @allusers = User.where(id: user_dm)
   end
   
   def index
-    if current_user.role == "Decision Maker"
+    if decision_maker?
       scenario_dm = []
       @privileges = Privilege.where(user_id: @current_user)
       @privileges.each do |privilege|
         scenario_dm[scenario_dm.length] = privilege.scenario_id
       end
       @scenarios = Scenario.where(id: scenario_dm)
-      
-    elsif current_user.role=="Administrator" 
+    else 
       @scenarios = Scenario.all
-      
-    else
-      flash[:success] = "You don't have permission"
-      redirect_to root_url
     end
-    
-    @scenario = current_user.scenarios.build if logged_in?
-  
+    @scenario = current_user.scenarios.build
   end
+  
   def create
     @scenarios = current_user.scenarios.build(scenario_params)
     if @scenarios.save
       flash[:success] = "Scenario created!"
-      @scenarios.create_previlege(current_user.id)
-      redirect_to scenarios_url
     else
       flash[:success] = "Scenario create failed!"
-      redirect_to scenarios_url
+      @scenarios.create_previlege(current_user.id)
     end
+    redirect_to scenarios_url
   end
   
   
   def assign
     if decision_maker?
       redirect_to scenarios_url
-      
-      
-    elsif admin?
-    
-      
-  
-  
+    else
+
     end
   
   end
