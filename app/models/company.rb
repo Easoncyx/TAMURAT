@@ -4,11 +4,9 @@ class Company < ApplicationRecord
   
   #connect itself
   has_many :children, class_name: "Company", foreign_key: "parent_id", :dependent => :destroy
-                            
- 
   belongs_to :parent, class_name: "Company", optional: true
-  
-  
-  
+
+
+
   validates :user_id, presence: true, uniqueness: true
 end
