@@ -32,6 +32,7 @@ class QuestionsController < ApplicationController
         flash[:danger] = "No record found of this question."
         redirect_to questions_url and return
       end
+      
       new_subcat = Subcategory.find_by_id(question_params[:subcategory_id])
       unless new_subcat
         flash[:danger] = "No record found of this new_subcat."
@@ -47,19 +48,20 @@ class QuestionsController < ApplicationController
       end
       old_weight_sum = [old_subcat.weight_sum - @question.weight, 0].max
       old_subcat.update_attributes!(weight_sum: old_weight_sum)
-
-
+        
+  
       @question.update_attributes!(question_params)
       flash[:success] = "#{@question.name} was successfully updated."
       redirect_to questions_url
     else
-      flash[:warning] = "Weight Invalid, you need to type a float."
+      flash[:danger] = "Weight Invalid, you need to type a float."
       redirect_to edit_question_url(params[:id])
     end
   end
 
   def create
     if(question_params[:weight] =~ Question.valid_weight_regex)
+      
       subcategory = Subcategory.find_by_id(question_params[:subcategory_id])
       unless subcategory
         flash[:danger] = "No record found of this question."
@@ -73,7 +75,7 @@ class QuestionsController < ApplicationController
       flash[:success] = "#{@question.name} was successfully created."
       redirect_to questions_url
     else
-      flash[:warning] = "Weight Invalid, you need to type a float."
+      flash[:danger] = "Weight Invalid, you need to type a float."
       redirect_to new_question_url
     end
   end

@@ -15,9 +15,10 @@ class ScenariosController < ApplicationController
     user_dm = []
     @usersprivs = Privilege.where(scenario_id: @scenario)
     @usersprivs.each do |userspriv|
-      user_dm[user_dm.length] = userspriv.user_id
+      user_dm[user_dm.length] = User.where("id = ?", userspriv.user_id)
     end
     @allDMs = User.where("role = ?", "Decision Maker")
+
     
     @result = {}
     @allDMs.each do |dm|
@@ -28,9 +29,7 @@ class ScenariosController < ApplicationController
       end
       
     end
-    
-    
-    
+
     
   end
   
@@ -64,7 +63,6 @@ class ScenariosController < ApplicationController
     if decision_maker?
       redirect_to scenarios_url
     else
-      
 
 
     end
