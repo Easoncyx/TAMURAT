@@ -19,6 +19,12 @@ module NavigationHelpers
       
     when /^All user page$/
       '/users'
+    when /^All question page$/
+      '/questions'
+    when /^Scales page$/
+      '/scales'
+    when /^All Scenarios page$/
+      '/scenarios'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

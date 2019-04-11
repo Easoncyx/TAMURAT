@@ -9,7 +9,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "sel
 
 
 
-#====LOG-IN AS ADMIN
+#====LOG-IN/ LOG-OUT
 Given("I log in as an Admin") do
   visit '/login'
   fill_in 'Login', :with => '1000'
@@ -24,12 +24,22 @@ Given('I log in as "pickle-rick"') do
   click_button 'Log in'
 end
 
+Given("I log out") do
+  #select "Log out", :from => "Account"
+  click_link 'Account'
+  click_link 'Log out'
+end
+
 
 
 #====BASIC OPERATIONS
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
+end
+
+When /^(?:|I )click link "([^"]*)"$/ do |link|
+  click_link(link)
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
@@ -56,7 +66,13 @@ end
 
 When("I delete the first user") do
 #"
-   first(:link, "delete").click
+   first(:link, "Delete").click
+
+end
+
+When /^I delete the user "([^"]*)"$/ do |name|
+  user = User.find_by(:name => name)
+  user.id
 
 end
 
@@ -70,9 +86,73 @@ Given /^I expect to click "([^"]*)" on a confirmation box saying "([^"]*)"$/ do 
 
 end
 
-When("I activate user {string}") do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+When /^I confirm popup$/ do
+  page.driver.browser.switch_to.alert.accept    
 end
+
+When("I activate a user") do
+  first(:link, "Activate").click
+end
+#" ===== Question
+
+Given('I edit the first category into "pickle-rick"') do
+  visit '/categories/1/edit'
+  fill_in "Name", :with => "pickle-rick"
+  click_button 'Save changes'
+end
+
+Given('I create a new category "pickle-morty"') do
+  visit '/categories/new'
+  fill_in "Name", :with => "pickle-morty"
+  click_button 'Create my subcategory'
+end
+
+Given('I edit subcategory "Business_1" into "pickle-rick_1"') do
+  visit '/subcategories/1/edit'
+  fill_in "Name", :with => "pickle-rick_1"
+  fill_in "Weight", :with => "7.7"
+  #select "pickle_morty", :from => "Subcategory"
+  #find_field('subcategory_category_id option[pickle_morty]').text
+  #find_field('subcategory_category_id').find('option[Security]').text
+  click_button 'Save changes'
+end
+
+Given('I create a new subcategory "pickle-rick_4"') do
+  visit '/subcategories/new'
+  fill_in "Name", :with => "pickle-rick_4"
+  find('#subcategory_category_id').find(:xpath, 'option[4]').select_option
+  click_button 'Create my subcategory'
+end
+
+Given('I edit question "Business_1_q1" into "pickle-rick_1_q1"') do
+  visit '/questions/1/edit'
+  fill_in "Name", :with => "pickle-rick_1_q1"
+  click_button 'Save changes'
+end
+
+Given('I create a new question "pickle-rick_1_q4"') do
+  visit '/questions/new'
+  fill_in "Name", :with => "pickle-rick_1_q4"
+  fill_in "Weight", :with => "11.1"
+  #select('pickle-rick_1', from: 'select_box')
+  find('#question_subcategory_id').find(:xpath, 'option[10]').select_option
+  click_button 'Create my question'
+end
+
+Given('I input invalid in "Weight"') do
+  visit '/categories/new'
+  fill_in "Name", :with => "invalid"
+  fill_in "Weight", :with => "invalid"
+  click_button 'Create my subcategory'
+end
+
+Given('I delete the question "pickle-rick"') do
+end
+
+
+
+
+
 
 
 
