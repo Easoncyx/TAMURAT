@@ -9,12 +9,26 @@ class PrivilegesController < ApplicationController
   
   def new
     @privilege = Privilege.new
-    @admins = User.where("role = ?", "Decision Maker")
+    
   end
   
   
+  def index
+    #@dms = User.where("role = ?", "Decision Maker")
+  
+  end
+  
+  def show
+    #@allDMs = User.where("role = ?", "Decision Maker")
+    #@privi = Privilege.where("scenario_id = ?", xibaid)
+  
+  end
   
   
+  def create
+  
+  
+  end
   
   
   

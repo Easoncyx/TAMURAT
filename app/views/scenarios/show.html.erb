@@ -5,5 +5,7 @@
 <ul class="scenarios">
  
   <%= render @scenario %>
-  
+  <% if admin? %>
+    <%= render 'privilege' %>
+  <% end %>
 </ul>
