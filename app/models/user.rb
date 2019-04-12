@@ -2,7 +2,8 @@ class User < ApplicationRecord
   attr_accessor :activation_token, :reset_token
   before_save   :downcase_email
   #before_create :create_activation_digest
-  has_many :scenarios, dependent: :destroy
+  has_many :active_privileges, class_name: "Privilege", foreign_key: "user_id", dependent: :destroy
+  has_many :scenarios, through: :active_privileges
 
   #subcompany relationship
 
@@ -72,8 +73,19 @@ class User < ApplicationRecord
       end
     end
   end
-
-
+  
+  def create_scenario(sn)
+    scenarios << sn
+  end
+    
+  def delete_scenario(sn)
+    scenarios.delete(sn)
+  end
+  
+  def has_scenario?(sn)
+    scenarios.include?(sn)
+  end
+  
   private
     # 把电子邮件地址转换成小写
     def downcase_email

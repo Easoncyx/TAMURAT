@@ -3,8 +3,9 @@
 
 
 <ul class="scenarios">
-  
-  <%= render @scenarios %>
+  <% if @scenarios.any? %>
+    <%= render @scenarios %>
+  <% end %>
   <% if decision_maker? or admin? %>
     <div class="panel-footer"><%=link_to 'New Scenario',new_scenario_path %></div>
   <% end %>

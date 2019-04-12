@@ -1,6 +1,4 @@
 <li id="scenario-<%= scenario.id %>">
-  <%= link_to gravatar_for(scenario.user, size: 50), scenario.user %>
-  <span class="user"><%= scenario.user.name %></span>
   <span class="name"><%= link_to scenario.name, scenario_url(scenario.id) %></span>
   <span class="description"><%= scenario.description %></span>
   <span class="timestamp">
@@ -15,13 +13,11 @@
     
     
     <% if admin? %>
-      <%= link_to "assign", new_privilege_url(scenario.id)%>
+      <%= link_to "assign", privileges_url(scenario_id: scenario.id)%>
       
     <% end %>
     
-    
-    
-    
   </span>
+  
 </li>
 

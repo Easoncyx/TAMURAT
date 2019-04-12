@@ -134,19 +134,14 @@ questions.each do |q|
 end
 
 
-users = User.order(:created_at).take(3)
 10.times do |n|
   name = "12345"
   description = Faker::Lorem.sentence(5)
-  users.each do |user|
-    user.scenarios.create!(name: name, description: description) 
-  end  
-  
-  Privilege.create!(scenario_id: n*3+2, user_id: 2)
-  Privilege.create!(scenario_id: n*3+2, user_id: 3)
-  Privilege.create!(scenario_id: n*3+3, user_id: 2)
-  Privilege.create!(scenario_id: n*3+3, user_id: 3)
-  
+  Scenario.create!(name: name, description: description)
+
+# user = User.first
+# scenarios = Scenario.all
+# scenarios.each { |scenario| user.create_scenario(scenario) }
 end
   
 
