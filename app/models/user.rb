@@ -73,6 +73,13 @@ class User < ApplicationRecord
     end
   end
 
+  def self.search(search)
+    if search
+      User.where("name ILIKE ? OR email ILIKE ?", "%#{search}%" , "%#{search}%")
+    else
+      User.all
+    end
+  end
 
   private
     # 把电子邮件地址转换成小写

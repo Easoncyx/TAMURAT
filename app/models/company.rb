@@ -5,12 +5,10 @@ class Company < ApplicationRecord
   has_many :category_scores, :foreign_key => :company_id, :class_name => "CategoryScore", dependent: :destroy
   #connect itself
   has_many :children, class_name: "Company", foreign_key: "parent_id", :dependent => :destroy
-                            
- 
   belongs_to :parent, class_name: "Company", optional: true
-  
-  
-  
+
+
+
   validates :user_id, presence: true, uniqueness: true
   
   
