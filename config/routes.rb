@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   #get '/categories/edit/:id', to: 'categories#edit', as: 'category_edit'
 
   resources :account_activations, only: [:edit]
+  
+  resources :privileges, only: [:index, :edit, :destroy]
 
   resources :scenarios
 
@@ -37,7 +39,6 @@ Rails.application.routes.draw do
   #get '/answers/validator_index', to: 'answers#validator', as: "validator_index"
   #get '/answers/validator_index/:id', to: 'answers#show', as: "validator_show"
   #resources for companies
-  resources :privileges
   
   resources :companies,  only: [:index, :update]
 end
