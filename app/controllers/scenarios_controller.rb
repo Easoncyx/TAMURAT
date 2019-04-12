@@ -12,44 +12,30 @@ class ScenariosController < ApplicationController
   
   def show
     @scenario = Scenario.find_by_id(params[:id])
+    @dms = @scenario.users
   end
   
   def index
     if decision_maker?
-      scenario_dm = []
-      @privileges = Privilege.where(user_id: @current_user)
-      @privileges.each do |privilege|
-        scenario_dm[scenario_dm.length] = privilege.scenario_id
-      end
-      @scenarios = Scenario.where(id: scenario_dm)
+      @scenarios = current_user.scenarios
     else 
       @scenarios = Scenario.all
     end
-    @scenario = current_user.scenarios.build
+    @scenario = current_user.active_privileges.build
   end
   
   def create
-    @scenarios = current_user.scenarios.build(scenario_params)
-    if @scenarios.save
+    @scenario = Scenario.new(scenario_params)
+    if @scenario.save
       flash[:success] = "Scenario created!"
+      if decision_maker?
+        current_user.create_scenario(@scenario)
+      end
     else
       flash[:success] = "Scenario create failed!"
-      @scenarios.create_previlege(current_user.id)
     end
     redirect_to scenarios_url
   end
-  
-  
-  def assign
-    if decision_maker?
-      redirect_to scenarios_url
-    else
-      
-
-    end
-  
-  end
-  
   
   
   def destroy

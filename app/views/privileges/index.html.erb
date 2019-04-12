@@ -1,0 +1,41 @@
+<% provide(:title, 'All dms') %>
+<h1>All Decision Makers</h1>
+
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th scope="col">Gravatar</th>
+    <th scope="col">Name</th>
+    <th scope="col">Login_id</th>
+    <th scope="col">Email</th>
+    <th scope="col">Assignment</th>
+  </tr>
+</thead>
+  <tbody>
+    <ul class="privileges">
+      <% @privileges.each do |privilege| %>
+        <tr>
+          <td><%= gravatar_for privilege, size: 50 %></td>
+          <td><%= link_to privilege.name, privilege %></td>
+          <td><%= privilege.login_id %></td>
+          <td><%= privilege.email %></td>
+          <% if admin? && !current_user?(privilege) %>
+            <% if !privilege.has_scenario?(@scenario) %>
+              <td>
+                <button type="button" class="btn btn-outline-dark">
+                  <%= link_to "Assign", edit_privilege_url(privilege.id, scenario_id: params[:scenario_id])%>
+                </button>
+             </td>
+            <% else %>
+              <td>
+                <button type="button" class="btn btn-outline-dark">
+                  <%= link_to "Delete", privilege_url(privilege.id, scenario_id: params[:scenario_id]), method: :delete%>
+                </button>
+              </td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </ul>
+  </tbody>
+</table>

@@ -1,9 +1,30 @@
 <% provide(:title, 'All Scenarios') %>
-
-
-
+<h1>Related decision makers</h1>
 <ul class="scenarios">
- 
-  <%= render @scenario %>
+  
+  <% if @dms.any? %>
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Gravatar</th>
+        <th scope="col">Name</th>
+        <th scope="col">Login_id</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+      <tbody>
+        <ul class="dms">
+          <% @dms.each do |dm| %>
+            <tr>
+              <td><%= gravatar_for dm, size: 50 %></td>
+              <td><%= dm.name %></td>
+              <td><%= dm.login_id %></td>
+              <td><%= dm.email %></td>
+            </tr>
+          <% end %>
+        </ul>
+      </tbody>
+    </table>
+  <% end %>
   
 </ul>
