@@ -59,7 +59,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if update_params[:password] 
+    password = update_params[:password]
+    flag = @user.authenticate(password)
+    if !flag && password != ""
       if @user.update_attributes(update_params)
         flash[:primary] = "Password has been changed, you need to login again."
         log_out
