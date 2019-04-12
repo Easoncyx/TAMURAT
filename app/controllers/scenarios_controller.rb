@@ -12,23 +12,8 @@ class ScenariosController < ApplicationController
   
   def show
     @scenario = Scenario.find_by_id(params[:id])
-    user_dm = []
-    @usersprivs = Privilege.where(scenario_id: @scenario)
-    @usersprivs.each do |userspriv|
-      user_dm[user_dm.length] = User.where("id = ?", userspriv.user_id)
-    end
-    @allDMs = User.where("role = ?", "Decision Maker")
-
-    
-    @result = {}
-    @allDMs.each do |dm|
-      @result[dm] = 0
-      user_dm.each do |thisuserid|
-        thisuser = User.where("id = ?", thisuserid)
-        @result[thisuser]=1
-      end
-      
-    end
+    @allcompanies = Company.where("validated = ?", true)
+     
 
     
   end
