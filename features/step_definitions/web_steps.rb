@@ -10,19 +10,14 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "sel
 
 
 #====LOG-IN/ LOG-OUT
-Given("I log in as an Admin") do
+
+Given /^(?:|I )log in as (.+)$/ do |user|
   visit '/login'
-  fill_in 'Login', :with => '1000'
+  fill_in 'Login', :with => user_id(user)
   fill_in 'Password', :with => '123456'
   click_button 'Log in'
 end
 
-Given('I log in as "pickle-rick"') do
-  visit '/login'
-  fill_in 'Login', :with => '1003'
-  fill_in 'Password', :with => '123456'
-  click_button 'Log in'
-end
 
 Given("I log out") do
   #select "Log out", :from => "Account"
@@ -93,7 +88,8 @@ end
 When("I activate a user") do
   first(:link, "Activate").click
 end
-#" ===== Question
+
+#" #===== QUESTIONS
 
 Given('I edit the first category into "pickle-rick"') do
   visit '/categories/1/edit'
@@ -149,9 +145,69 @@ end
 Given('I delete the question "pickle-rick"') do
 end
 
+# ===== SCALES
+When /I (un)?check the following category: (.*)/ do |uncheck, category_list|
+  category_list.split(', ').each do |category|
+    step %{I #{uncheck.nil? ? '' : 'un'}check "categories[#{category}]"}
+  end
+end
 
+When /^(?:|I )check "([^"]*)"$/ do |field|
+  check(field)
+end
 
+When /^(?:|I )uncheck "([^"]*)"$/ do |field|
+  uncheck(field)
+end
 
+Given('I edit the first scale into "pickle-rick_scale"') do
+  visit '/scales/1/edit'
+  fill_in "Name", :with => "pickle-rick_scale"
+  fill_in "Description", :with => "This is a description for scale"
+  click_button 'Save changes'
+end
+
+Given('I create a new scale "pickle-morty_scale"') do
+  click_link 'New Scale'
+  fill_in "Name", :with => "pickle-morty_scale"
+  fill_in "Description", :with => "This is another description for scale"
+  find('#scale_category_id').find(:xpath, 'option[3]').select_option
+  fill_in "Level", :with => "1"
+  fill_in "Score", :with => "1.0"
+  click_button 'Create new scale'
+end
+
+# ===== SCENARIOS
+
+Given('I create a new scenario "pickle-rick"') do
+  click_link 'New Scenario'
+  fill_in "Name", :with => "pickle-rick"
+  fill_in "Description", :with => "This is a description for scenario"
+  click_button 'Create my scenario'
+end
+
+Given('I edit scenario 1 into "pickle-morty"') do
+  visit '/scenarios/1/edit'
+  fill_in "Name", :with => "pickle-morty"
+  fill_in "Description", :with => "This is another description for scenario"
+  click_button 'Save changes'
+end
+
+# ====== PROFILE
+Given('I edit user name into "Sekiro"') do
+  fill_in "Name", :with => "Sekiro"
+  click_button 'Save changes'
+end
+
+Given  /^I change password into "([^"]*)"$/ do |pw|
+  fill_in "Password", :with => pw
+  
+end
+#"
+Given /^I confirm password with "([^"]*)" and submit$/ do |pw|
+  fill_in "Confirmation", :with => pw
+  click_button 'Save changes'
+end
 
 
 
@@ -333,13 +389,6 @@ When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
-When /^(?:|I )check "([^"]*)"$/ do |field|
-  check(field)
-end
-
-When /^(?:|I )uncheck "([^"]*)"$/ do |field|
-  uncheck(field)
-end
 
 When /^(?:|I )choose "([^"]*)"$/ do |field|
   choose(field)

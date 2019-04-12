@@ -43,6 +43,20 @@ module NavigationHelpers
       end
     end
   end
+  
+  def user_id(user)
+    case user
+    when /^an Admin$/
+      '1000'
+    when /^a Decision maker$/
+      '1001'
+    when /^a Validator$/
+      '1003'
+    when /^pickle-morty$/
+      '1006'
+    end
+  end
+  
 end
 
 World(NavigationHelpers)
