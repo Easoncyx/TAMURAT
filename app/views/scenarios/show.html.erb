@@ -1,17 +1,7 @@
 <% provide(:title, 'All Scenarios') %>
-
-
-
+<h1>Related decision makers</h1>
 <ul class="scenarios">
- 
-  <li id="scenario-<%= @scenario.id %>">
-      <span class="name"><%= @scenario.name %></span>
-      <span class="description"><%= @scenario.description %></span>
-      <span class="timestamp">
-        Posted <%= time_ago_in_words(@scenario.created_at) %> ago.
-      </span>
   
-  </li>
   <% if @dms.any? %>
     <table class="table table-hover">
     <thead>
