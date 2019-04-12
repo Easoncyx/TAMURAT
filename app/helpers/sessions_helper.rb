@@ -40,10 +40,11 @@ module SessionsHelper
   end
 
   # 退出当前用户
- def log_out
-   session.delete(:user_id)
-   @current_user = nil
- end
+  def log_out
+    session.delete(:user_id)
+    session.delete(:categories)
+    @current_user = nil
+  end
 
  # 重定向到存储的地址或者默认地址
  def redirect_back_or(default)

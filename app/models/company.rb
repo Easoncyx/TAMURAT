@@ -21,6 +21,10 @@ class Company < ApplicationRecord
     company_weight_sum = 0
     
     category.each do |cat|
+      company_weight_sum += cat.weight
+    end
+    
+    category.each do |cat|
       subcategories = Subcategory.where(category_id: cat.id)
       cat_score = 0
       
@@ -39,11 +43,14 @@ class Company < ApplicationRecord
           end
           
         end
-        if subcat.weight_sum != 0
+        if subcat.weight_sum != 0 && cat.weight_sum != 0 && company_weight_sum != 0
           subcat_score /= subcat.weight_sum
+          subcat_score /= cat.weight_sum
+          subcat_score /= company_weight_sum
         else 
           subcat_score = 0
         end
+        
         old_subcat_score = SubcategoryScore.find_by({subcategory_id: subcat.id, company_id: company_id})
         if old_subcat_score
           old_subcat_score.update_attributes!({score: subcat_score})
@@ -53,11 +60,16 @@ class Company < ApplicationRecord
         end
         cat_score += subcat_score * subcat.weight
       end
-      if cat.weight_sum != 0
+      
+      
+      if cat.weight_sum != 0 && company_weight_sum != 0
+        cat_score /= subcat.weight_sum
         cat_score /= cat.weight_sum
-      else
+        cat_score /= company_weight_sum
+      else 
         cat_score = 0
       end
+      
       old_cat_score = CategoryScore.find_by({category_id: cat.id, company_id: company_id})
         if old_cat_score
           old_cat_score.update_attributes!({score: cat_score})
@@ -66,8 +78,8 @@ class Company < ApplicationRecord
           CategoryScore.create!(parameters)
         end
         company_score += cat_score * cat.weight;
-        company_weight_sum += cat.weight
     end
+    
     if company_weight_sum != 0
       company_score /= company_weight_sum
     else
@@ -75,6 +87,4 @@ class Company < ApplicationRecord
     end
     self.update_attributes!({score: company_score})
   end
-  
-  
 end

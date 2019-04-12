@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <%# javascript_include_tag "collapse.js" %>
-  <head>
-    <title><%= full_title(yield(:title)) %></title>
-    <%= render 'layouts/rails_default' %>
-    <%= render 'layouts/shim' %>
-  </head>
-
-  <body>
-    
-    <%= render 'layouts/header' %>
-    <div class="container">
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
-        <%#= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-      <% end %>
-      <%= yield %>
-      <%= render 'layouts/footer' %>
-      <%= debug(params) if Rails.env.development? %>
-    </div>
-  </body>
-   
-<script type="text/javascript">
+// Open/close the collapse panels based on history
 
 $(".panel .panel-collapse").on('shown.bs.collapse', function (e)
 {
   if($(this).is(e.target)) {
     var active = $(this).attr('id');
+    console.log(active)
     var panels= localStorage.panels === undefined ? new Array() : JSON.parse(localStorage.panels);
     if ($.inArray(active,panels)==-1) //check that the element is not in the array
         panels.push(active);
@@ -38,6 +16,7 @@ $(".panel .panel-collapse").on('hidden.bs.collapse', function (e)
 {
   if($(this).is(e.target)) {
     var active = $(this).attr('id');
+    console.log(active)
     var panels= localStorage.panels === undefined ? new Array() : JSON.parse(localStorage.panels);
     var elementIndex=$.inArray(active, panels);
     
@@ -56,7 +35,3 @@ var panels=localStorage.panels === undefined ? new Array() : JSON.parse(localSto
       $("#"+panels[i]).collapse("show");
     }
   }
-</script>
-  
- 
-</html>

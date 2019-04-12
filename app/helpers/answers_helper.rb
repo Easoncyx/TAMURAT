@@ -28,4 +28,14 @@ module AnswersHelper
       return nil
     end
   end
+  
+  def toggle_style is_toggle
+    if !is_toggle
+      return "panel-collapse collapse"
+    else
+      return "collapse in"
+    end
+  end
+  
+  
 end

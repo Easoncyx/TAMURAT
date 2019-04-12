@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    id = params[:id]
+    @user = User.find(id)
   end
 
   def new
@@ -37,12 +38,23 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(update_params)
-      flash[:success] = "Profile updated"
-      redirect_to @user
+    if update_params[:password] 
+      if @user.update_attributes(update_params)
+        flash[:primary] = "Password has been changed, you need to login again."
+        log_out
+        redirect_to root_path
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      if @user.update_attributes(update_params)
+        flash[:success] = "Profile updated"
+        redirect_to @user
+      else
+        render 'edit'
+      end
     end
+    
   end
 
   def destroy

@@ -11,5 +11,7 @@
     <h1>User Role: </h1>
     <h2><%= @user.role %></h2>
   </aside>
-  
+  <%if company_representative?%>
+    <%= render 'subcompany' %>
+  <%end%>
 </div>
