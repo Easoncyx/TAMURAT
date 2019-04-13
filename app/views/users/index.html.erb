@@ -1,10 +1,44 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
 
-<%= will_paginate %>
+<%= form_tag users_path, :method => :get, :class => "form-inline" do %>
+  <% @all_roles_name.each do |role| %>
+    <div class="form-group">
+      <%= check_box_tag "roles[#{role}]", 1, @selected_roles_name.include?(role), id: "roles_#{role}", class: "form-check-input" %>
+      <%= label_tag "roles_#{role}", role, class: "short-input" %>
+    </div>
+  <% end %>
+  <%= submit_tag 'Refresh', class: "short-input" %>
+<% end %>
 
-<ul class="users">
-  <%= render @users %>
-</ul>
-<%= will_paginate %>
+<%= form_tag users_path, :method => 'get', :class => "form-inline" do %>
+  <p>
+    <%= text_field_tag 'search', nil, placeholder: 'Choose role first then search by name or email', class: "form-check-input", id: "user_search" %>
+    <%= submit_tag "Search", :name => nil , class: "short-input"%>
+  </p>
+<% end %>
 
+<%= will_paginate %>
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th scope="col">Gravatar</th>
+    <th scope="col">Name</th>
+    <th scope="col">Login_id</th>
+    <th scope="col">Email</th>
+    <th scope="col">Role</th>
+    <% if admin? %>
+      <th scope="col">Delete</th>
+      <th scope="col">Activate</th>
+    <% end %>
+  </tr>
+</thead>
+  <tbody>
+    <ul class="users">
+      <%= render @users %>
+    </ul>
+  </tbody>
+</table>
+
+
+<%= will_paginate %>

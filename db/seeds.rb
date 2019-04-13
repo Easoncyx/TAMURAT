@@ -11,36 +11,71 @@ User.create!(name:  "Example Admin",
              password_confirmation: "123456",
              role: "Administrator",
              login_id: 1000,
-             approved: true,
              activated: true,
              activated_at: Time.zone.now
            )
-User.create!(name:  "Example DM",
+User.create!(name:  "Example DM1",
             email: "example@railstutorial.org",
             password:              "123456",
             password_confirmation: "123456",
             role: "Decision Maker",
             login_id: 1001,
-            approved: true,
             activated: true,
             activated_at: Time.zone.now
           )
-User.create!(name:  "Example VA",
+
+User.create!(name:  "Example DM2",
+            email: "example@railstutorial.org",
+            password:              "123456",
+            password_confirmation: "123456",
+            role: "Decision Maker",
+            login_id: 1002,
+            activated: true,
+            activated_at: Time.zone.now
+          )
+User.create!(name:  "Example VA1",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
              role: "Validator",
-             login_id: 1002,
-             approved: true,
+             login_id: 1003,
              activated: true,
              activated_at: Time.zone.now
            )
-10.times do |n|
+User.create!(name:  "Example VA2",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
+             login_id: 1004,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+User.create!(name:  "pickle-rick",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
+             login_id: 1005,
+             activated: false,
+             # activated_at: Time.zone.now
+           )
+User.create!(name:  "pickle-morty",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
+             login_id: 1006,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+
+50.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@treenewbee.com"
   password = "123456"
   role = "Company Representative"
-  login_id = n+1003
+  login_id = n+1007
   
   user = User.create!(name:  name,
                email: email,
@@ -48,11 +83,10 @@ User.create!(name:  "Example VA",
                password_confirmation: password,
                role: role,
                login_id: login_id,
-               approved: true,
                activated: true,
                activated_at: Time.zone.now
              )
-  
+
   Company.create!({user_id: user.id})
 end
 
@@ -100,12 +134,21 @@ questions.each do |q|
 end
 
 
-users = User.order(:created_at).take(6)
-10.times do
+10.times do |n|
   name = "12345"
   description = Faker::Lorem.sentence(5)
-  users.each { |user| user.scenarios.create!(name: name, description: description) }
+  Scenario.create!(name: name, description: description)
+
+# user = User.first
+# scenarios = Scenario.all
+# scenarios.each { |scenario| user.create_scenario(scenario) }
 end
+
+
+
+
+
+
 
 scales = [{:name => 'B trust level 0', :category_id => 1, :level => 'N/A', :score => 0},
           {:name => 'B trust level 1', :category_id => 1, :level => '1', :score => 0.1},

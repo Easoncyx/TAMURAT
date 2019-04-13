@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.4.0'
+#ruby '2.4.0'
 gem 'pg'
 # gem 'sqlite3', '1.3.13'
 
@@ -15,7 +15,6 @@ gem 'bcrypt', '3.1.12'
 gem 'faker', '1.7.3'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem 'bootstrap-sass',          '3.3.7'
-
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use Puma as the app server
@@ -42,6 +41,9 @@ gem 'jbuilder', '2.7.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# ransack for search and filter
+# gem 'ransack'
+
 group :development, :test do
   gem 'database_cleaner', '1.4.1'
   gem "rspec-rails"
@@ -50,8 +52,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '9.0.6', platforms: :mri
   # Adds support for Capybara system testing and selenium driver
-  # gem 'capybara', '~> 2.13'
-  # gem 'selenium-webdriver'
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 group :development do

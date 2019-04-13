@@ -7,7 +7,7 @@ class CreateAnswers < ActiveRecord::Migration[5.1]
       t.boolean :validated, default: false
       t.integer :validator_id
       t.string :validator_comment
-
+      t.float :score
       t.timestamps
     end
   end

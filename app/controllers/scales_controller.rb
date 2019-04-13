@@ -1,12 +1,34 @@
 class ScalesController < ApplicationController
+  before_action :admin_user, only: [:destroy, :new, :create, :edit, :update]
   before_action :set_scale, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
-  before_action :admin_user
+
 
   # GET /scales
   # GET /scales.json
   def index
     @scales = Scale.all
+    @all_categories_name = Category.distinct.pluck(:name)
+    @selected_categories_name = []
+    redirect_flag = false
+
+    if params[:categories]
+      @selected_categories_name = params[:categories].keys
+      session[:categories] = params[:categories]
+    elsif session[:categories]
+      @selected_categories_name = session[:categories].keys
+      redirect_flag = true
+    else
+      @selected_categories_name = Category.distinct.pluck(:name)
+    end
+
+    if redirect_flag
+      # flash.keep
+      redirect_to scales_path(categories: session[:categories])
+    else
+      @selected_categories_id = Category.where(name: @selected_categories_name).map{|t| t.id}
+      @scales = Scale.where(category_id: @selected_categories_id)
+    end
   end
 
   # GET /scales/1
@@ -62,6 +84,6 @@ class ScalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def scale_params
-      params.fetch(:scale, {}).permit(:name, :category_id, :level, :score)
+      params.fetch(:scale, {}).permit(:name, :category_id, :level, :score, :description)
     end
 end

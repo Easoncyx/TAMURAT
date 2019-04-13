@@ -2,8 +2,9 @@ class User < ApplicationRecord
   attr_accessor :activation_token, :reset_token
   before_save   :downcase_email
   #before_create :create_activation_digest
-  has_many :scenarios, dependent: :destroy
-  
+  has_many :active_privileges, class_name: "Privilege", foreign_key: "user_id", dependent: :destroy
+  has_many :scenarios, through: :active_privileges
+
   #subcompany relationship
 
   has_many :answers, :foreign_key => :validator_id, :class_name => "Answer"
@@ -44,7 +45,6 @@ class User < ApplicationRecord
     #   self.activation_token  = User.new_token
     #   self.activation_digest = User.digest(activation_token)
     self.activation_token = User.new_token
-    update_attribute(:approved,    true)
     update_attribute(:activation_digest, User.digest(self.activation_token))
     update_attribute(:activated_at, Time.zone.now)
   end
@@ -64,7 +64,7 @@ class User < ApplicationRecord
   # 用户得到批准后添加到company数据库
   def create_company
     if self.role == "Company Representative"
-      @company = Company.new(user_id:self.id, company_score:0)
+      @company = Company.new(user_id: self.id, company_score: 0)
       if @company.save
         # flash[:info] = "Company saved!"
       else
@@ -74,7 +74,27 @@ class User < ApplicationRecord
     end
   end
 
+  def self.search(search)
+    if search
+      User.where("name ILIKE ? OR email ILIKE ?", "%#{search}%" , "%#{search}%")
+    else
+      User.all
+    end
+  end
 
+
+  def create_scenario(sn)
+    scenarios << sn
+  end
+    
+  def delete_scenario(sn)
+    scenarios.delete(sn)
+  end
+  
+  def has_scenario?(sn)
+    scenarios.include?(sn)
+  end
+  
   private
     # 把电子邮件地址转换成小写
     def downcase_email

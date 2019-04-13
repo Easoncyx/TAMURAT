@@ -7,69 +7,62 @@ class ScenariosController < ApplicationController
   before_action :correct_user
   
   def new
-    if decision_maker? or admin?
-      @scenario = Scenario.new
-    else
-      redirect_to scenarios_url
-    end
+    @scenario = Scenario.new
   end
   
   def show
     @scenario = Scenario.find_by_id(params[:id])
+    @dms = @scenario.users
   end
   
   def index
-    if current_user.role=="Decision Maker"
-      @scenarios = Scenario.where(user_id: @current_user)
-      
-    elsif current_user.role=="Administrator" 
+    if decision_maker?
+      @scenarios = current_user.scenarios
+    else 
       @scenarios = Scenario.all
-    else
-      flash[:success] = "You don't have permission"
-      redirect_to root_url
     end
-    
-    @scenario = current_user.scenarios.build if logged_in?
-  
+    @scenario = current_user.active_privileges.build
   end
+  
   def create
-    @scenarios = current_user.scenarios.build(scenario_params)
-    if @scenarios.save
+    @scenario = Scenario.new(scenario_params)
+    if @scenario.save
       flash[:success] = "Scenario created!"
-      redirect_to scenarios_url
+      if decision_maker?
+        current_user.create_scenario(@scenario)
+      end
     else
       flash[:success] = "Scenario create failed!"
-      redirect_to scenarios_url
     end
+    redirect_to scenarios_url
   end
+  
   
   def destroy
     if decision_maker?
       @scenario=current_user.scenarios.find_by(id: params[:id])
-    else
-      @scenarios = Scenario.all
-      @scenario = @scenarios.find_by(id: params[:id])
+      if !@scenario
+        flash[:warning] = "You do not have permission to delete others scenarios."
+        redirect_to scenarios_url and return
+      end
     end
-    @scenario.destroy
+    Scenario.find(params[:id]).destroy
     flash[:success] = "Scenario deleted"
     redirect_to scenarios_url
   end
   
   def update
-    if decision_maker? or admin? and scenario_params
-      @scenario = Scenario.find_by_id(params[:id])
-      @scenario.update_attributes!(scenario_params)
+    @scenario = Scenario.find(params[:id])
+    if @scenario.update_attributes(scenario_params)
       flash[:success] = "#{@scenario.name} was successfully updated."
-      redirect_to scenario_url
+      redirect_to @scenario
     else
-      flash[:warning] = "Content Invalid."
-      redirect_to edit_scenario_url(params[:id])
+      render 'edit'
     end
-  
   end
 
   def edit
-    @scenario = Scenario.find_by_id(params[:id])
+    @scenario = Scenario.find(params[:id])
   end
   
   private
