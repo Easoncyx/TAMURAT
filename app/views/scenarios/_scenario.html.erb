@@ -1,31 +1,24 @@
-<li id="scenario-<%= scenario.id %>">
-  <%= link_to gravatar_for(scenario.user, size: 50), scenario.user %>
-  
-  <span class="name"><%= link_to scenario.name, scenario_url(scenario.id) %></span>
-  <span class="description"><%= scenario.description %></span>
- 
-  
-  
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(scenario.created_at) %> ago.
-    <% if admin? %>
-      <%= link_to "delete", scenario, method: :delete,
-      data: { confirm: "You sure?" } %>
-    <% end %>
-    
-    
-    <%= link_to "edit", edit_scenario_path(scenario.id)%>
-    
-    
-    <% if admin? %>
-      
-      <%= link_to "assign", scenario_path(scenario.id)%>
-      
-    <% end %>
-    
-    
-    
-    
-  </span>
-</li>
 
+<tr>
+  <td><%= link_to scenario.name, scenario_url(scenario.id) %></td>
+  <td><%= scenario.description %></td>
+  <td>Posted <%= time_ago_in_words(scenario.created_at) %> ago</td>
+  <% if admin? %>
+    <td>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to "delete", scenario, method: :delete,
+        data: { confirm: "You sure?" } %>
+      </button>
+    </td>
+    <td>
+      <button type="button" class="btn btn-outline-dark">
+        <%= link_to "assign", privileges_url(scenario_id: scenario.id) %>
+      </button>
+    </td>
+  <% end %>
+  <td>
+    <button type="button" class="btn btn-outline-dark">
+      <%= link_to "edit", edit_scenario_url(scenario.id) %>
+    </button>
+  </td>
+</tr>

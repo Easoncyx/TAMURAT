@@ -4,11 +4,33 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: [:destroy, :index]
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.search(params[:search]).paginate(page: params[:page])
+    @all_roles_name = User.distinct.pluck(:role)
+    @selected_roles_name = []
+    redirect_flag = false
+
+    if params[:roles]
+      @selected_roles_name = params[:roles].keys
+      session[:roles] = params[:roles]
+    elsif session[:roles]
+      @selected_roles_name = session[:roles].keys
+      redirect_flag = true
+    else
+      @selected_roles_name = User.distinct.pluck(:role)
+    end
+    # @users = User.where(role: @selected_roles_name).paginate(page: params[:page])
+
+    if redirect_flag
+      # flash.keep
+      redirect_to users_path(roles: session[:roles], search:params[:search])
+    else
+      @users = User.where(role: @selected_roles_name).search(params[:search]).paginate(page: params[:page])
+    end
   end
 
   def show
-    @user = User.find(params[:id])
+    id = params[:id]
+    @user = User.find(id)
   end
 
   def new
@@ -37,12 +59,23 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(update_params)
-      flash[:success] = "Profile updated"
-      redirect_to @user
+    if update_params[:password] 
+      if @user.update_attributes(update_params)
+        flash[:primary] = "Password has been changed, you need to login again."
+        log_out
+        redirect_to root_path
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      if @user.update_attributes(update_params)
+        flash[:success] = "Profile updated"
+        redirect_to @user
+      else
+        render 'edit'
+      end
     end
+    
   end
 
   def destroy

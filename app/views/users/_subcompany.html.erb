@@ -1,0 +1,10 @@
+<div class="col-md-8">
+  <h3>Subcompanies (<%= @user.company.children.count %>)</h3>
+ 
+  <% @user.company.children.each do |company| %>
+    <ol class="subcompany">
+      <p><%= get_company_name company%></p>
+      <%= render company %>
+    </ol>
+  <% end %>
+</div>

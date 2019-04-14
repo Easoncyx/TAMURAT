@@ -12,50 +12,68 @@ class ScenariosController < ApplicationController
   
   def show
     @scenario = Scenario.find_by_id(params[:id])
-    @allcompanies = Company.where("validated = ?", true)
-     
-
+    @dms = @scenario.users
     
+    @allcompanies = Company.where("validated = ?", true)
+    @result = {}
+    
+    
+    
+    @allcompanies.each do |this_company|
+      @category = Category.order(:id)
+      @subcategory = Subcategory.order(:id)
+      @result[this_company]={}
+      @category.each do |ctgr|
+        subcategory = Subcategory.where("category_id = ?", ctgr.id)
+      
+        @result[this_company][ctgr] = {}
+        subcategory.each do |subcate|
+          @result[this_company][ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id).order(:id)
+        end
+      end
+      
+      
+      
+    end
+    
+
   end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   def index
     if decision_maker?
-      scenario_dm = []
-      @privileges = Privilege.where(user_id: @current_user)
-      @privileges.each do |privilege|
-        scenario_dm[scenario_dm.length] = privilege.scenario_id
-      end
-      @scenarios = Scenario.where(id: scenario_dm)
+      @scenarios = current_user.scenarios
     else 
       @scenarios = Scenario.all
     end
-    @scenario = current_user.scenarios.build
+    @scenario = current_user.active_privileges.build
   end
   
   def create
-    @scenarios = current_user.scenarios.build(scenario_params)
-    if @scenarios.save
+    @scenario = Scenario.new(scenario_params)
+    if @scenario.save
       flash[:success] = "Scenario created!"
+      if decision_maker?
+        current_user.create_scenario(@scenario)
+      end
     else
       flash[:success] = "Scenario create failed!"
-      @scenarios.create_previlege(current_user.id)
     end
     redirect_to scenarios_url
   end
   
   
-  def assign
-    if decision_maker?
-      redirect_to scenarios_url
-    else
 
 
-    end
-  
-  end
-  
-  
-  
   def destroy
     if decision_maker?
       @scenario=current_user.scenarios.find_by(id: params[:id])

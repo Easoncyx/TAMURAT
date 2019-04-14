@@ -1,56 +1,33 @@
-require 'sessions_helper.rb'
-
-
 class PrivilegesController < ApplicationController
-  
-  before_action :logged_in_user
-  before_action :correct_user
-  
-  
-  def new
-    @privilege = Privilege.new
+    before_action :logged_in_user
+    before_action :admin_user
     
-  end
-  
-  
-  def index
-    #@dms = User.where("role = ?", "Decision Maker")
-  
-  end
-  
-  def show
-    #@allDMs = User.where("role = ?", "Decision Maker")
-    #@privi = Privilege.where("scenario_id = ?", xibaid)
-  
-  end
-  
-  
-  def create
-  
-  
-  end
-  
-  
-  
-  private
-
-    def scenario_params
-      params.require(:privilege).permit(:scenario_id, :user_id)
+    def index
+        @privileges = User.where("role = ?", "Decision Maker")
+        @scenario = Scenario.find(params[:scenario_id])
     end
-  
-    def correct_user
-      
-      if !admin?
-        flash[:danger] = "Please log in as correct user."
-        redirect_to scenarios_url and return
-      end
-      
-      
+    
+    def edit
+        user = User.find_by(id: params[:id])
+        scenario = Scenario.find(params[:scenario_id])
+        if user.has_scenario?(scenario)
+            flash[:success] = "Already assigned."
+            redirect_to  privileges_url(scenario_id: params[:scenario_id]) and return
+        end
+        user.create_scenario(scenario)
+        flash[:success] = "Successfully Assigned!"
+        redirect_to privileges_url(scenario_id: params[:scenario_id])
     end
-  
-  
-  
-  
-  
-  
+    
+    def destroy
+        user = User.find_by(id: params[:id])
+        scenario = Scenario.find(params[:scenario_id])
+        if !user.has_scenario?(scenario)
+            flash[:danger] = "DM does not have this scenario!"
+            redirect_to privileges_url(scenario_id: params[:scenario_id]) and return
+        end
+        user.delete_scenario(scenario)
+        flash[:success] = "Successfully Deleted!"
+        redirect_to privileges_url(scenario_id: params[:scenario_id])
+    end
 end
