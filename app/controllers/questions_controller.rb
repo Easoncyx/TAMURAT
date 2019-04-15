@@ -12,12 +12,10 @@ class QuestionsController < ApplicationController
     @category.each do |ctgr|
       subcategory = Subcategory.where("category_id = ?", ctgr.id)
       @result[ctgr] = {}
-      #byebug
       subcategory.each do |subcate|
         @result[ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id).order(:id)
       end
     end
-    #byebug
   end
 
   def show

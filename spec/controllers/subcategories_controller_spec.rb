@@ -139,14 +139,14 @@ RSpec.describe SubcategoriesController, type: :controller do
         end      
        
         describe "SubcategoriesController#destroy" do
-=begin            
+            
             it 'should redirect to index page of question' do
                 delete :destroy,params: { id: @subcategory.id }
                 
                 expect(flash[:success]).to match("Subcategory '#{@subcategory.name}' deleted.")
                 expect(response).to redirect_to questions_url
             end          
-=end            
+            
             it 'should redirect to index page of question' do
                 #subid = @subcategory.category_id + 1
                 delete :destroy,params: { id: 'a'}

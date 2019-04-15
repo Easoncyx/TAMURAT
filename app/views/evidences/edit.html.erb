@@ -1,0 +1,7 @@
+<h1>Editing Evidence</h1>
+<% provide(:button_text, 'Edit my evidence') %>
+
+<%= render 'form', evidence: @evidence %>
+
+<%= link_to 'Show', @evidence %> |
+<%= link_to 'Back', evidences_path(answer_id: params[:answer_id]) %>

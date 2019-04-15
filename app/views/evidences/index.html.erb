@@ -1,0 +1,40 @@
+<% provide(:title, 'All evidences') %>
+<h1>All Evidences</h1>
+
+<ul class="evidences">
+  
+  <% if @evidences.any? %>
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Show</th>
+        <% if company_representative? %>
+          <th scope="col">Edit</th>
+          <th scope="col">Destroy</th>
+        <% end %>
+      </tr>
+    </thead>
+      <tbody>
+        <% @evidences.each do |evidence| %>
+          <tr>
+            <td><%= evidence.name %></td>
+            <td><%= link_to "view file", evidence.file %></td>
+            <% if company_representative? %>
+              <td>
+                <%= link_to "edit", edit_evidence_url(evidence.id, answer_id: params[:answer_id]) %>
+              </td>
+              <td>
+                  <%= link_to "destroy", evidence_url(evidence.id, answer_id: params[:answer_id]), method: :delete, data: { confirm: "You sure?" } %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  <% if company_representative? %>
+    <div class="panel-footer"><%=link_to 'New evidence',new_evidence_path(answer_id: params[:answer_id]) %></div>
+  <% end %>
+  
+</ul>

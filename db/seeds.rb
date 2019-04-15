@@ -91,9 +91,9 @@ User.create!(name:  "pickle-morty",
 end
 
 
-categories =[{:name => 'Business', :weight_sum => 3},
-             {:name => 'Security', :weight_sum => 0},
-             {:name => 'Finance', :weight_sum => 0},]
+categories =[{:name => 'Business', :weight_sum => 3, :weight => 2},
+             {:name => 'Security', :weight_sum => 3, :weight => 2},
+             {:name => 'Finance', :weight_sum => 3, :weight => 2},]
 
 categories.each do |category|
   Category.create!(category)
@@ -103,12 +103,12 @@ end
 subcategories =[{:name => 'Business_1', :weight_sum => 3, category_id:1, :weight => 1},
              {:name => 'Business_2', :weight_sum => 3, category_id:1, :weight => 1},
              {:name => 'Business_3', :weight_sum => 3, category_id:1, :weight => 1},
-             {:name => 'Security_1', :weight_sum => 0, category_id:2, :weight => 0},
-             {:name => 'Security_2', :weight_sum => 0, category_id:2, :weight => 0},
-             {:name => 'Security_3', :weight_sum => 0, category_id:2, :weight => 0},
-             {:name => 'Finance_1', :weight_sum => 0, category_id:3, :weight => 0},
-             {:name => 'Finance_2', :weight_sum => 0, category_id:3, :weight => 0},
-             {:name => 'Finance_3', :weight_sum => 0, category_id:3, :weight => 0},
+             {:name => 'Security_1', :weight_sum => 0, category_id:2, :weight => 1},
+             {:name => 'Security_2', :weight_sum => 0, category_id:2, :weight => 1},
+             {:name => 'Security_3', :weight_sum => 0, category_id:2, :weight => 1},
+             {:name => 'Finance_1', :weight_sum => 0, category_id:3, :weight => 1},
+             {:name => 'Finance_2', :weight_sum => 0, category_id:3, :weight => 1},
+             {:name => 'Finance_3', :weight_sum => 0, category_id:3, :weight => 1},
              ]
 
 subcategories.each do |subcategory|

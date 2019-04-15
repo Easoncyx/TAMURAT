@@ -31,6 +31,7 @@
                   <th scope="col">Status</th>
                   <th scope="col">Detail</th>
                   <th scope="col">Operation</th>
+                  <th scope="col">Evidence</th>
                 </tr>
               </thead>
                 <tbody>
@@ -74,6 +75,14 @@
                           <%= link_to "Validate this answer", edit_answer_url(id: id, question_id: question.id) %>
                           
                         <% end %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if !answered?(question.id, @company_id) %>
+                        Not provided.
+                      <% else %>
+                        <% answer_id = get_answer_id(question.id, @company_id) %>
+                        <%= link_to "Manage evidences", evidences_url(answer_id: answer_id) %>
                       <% end %>
                     </td>
                   </tr>

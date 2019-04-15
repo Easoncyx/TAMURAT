@@ -61,7 +61,6 @@ class Company < ApplicationRecord
       
       
       if cat.weight_sum != 0 && company_weight_sum != 0
-        cat_score /= subcat.weight_sum
         cat_score /= cat.weight_sum
         cat_score /= company_weight_sum
       else 
@@ -85,4 +84,10 @@ class Company < ApplicationRecord
     end
     self.update_attributes!({score: company_score})
   end
+  
+  
+  def has_answer?(as)
+    answers.include?(as)
+  end
+  
 end
