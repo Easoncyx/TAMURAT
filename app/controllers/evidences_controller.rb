@@ -19,10 +19,12 @@ class EvidencesController < ApplicationController
   
   def new
     @evidence = Evidence.new
+    @relationship = @evidence.relationships.build
   end
   
   def edit
     @evidence = Evidence.find(params[:id])
+    @relationship = @evidence.relationships.build
   end
   
   
@@ -31,19 +33,26 @@ class EvidencesController < ApplicationController
     object = ActiveStorage::Blob.find_by(filename: params[:evidence][:name])
     if object
       attach = ActiveStorage::Attachment.find_by(blob_id: object.id)
-      ed = Evidence.find(attach.record_id)
-      @answer.create_evidence(ed)
+      @evidence = Evidence.find(attach.record_id)
     else
       @evidence = Evidence.new(evidence_params)
       @evidence.save
-      @answer.create_evidence(@evidence)
     end
-    flash[:success] = 'Successfully upload evidence.'
+    @answer.create_evidence(@evidence)
+    relationship = @answer.relationships.where('evidence_id = ?',@evidence.id) 
+    relationship.update(comment: params[:relationship][:comment])
+    flash[:success] = "Successfully upload evidence"
     redirect_to evidences_url(answer_id: params[:evidence][:answer_id])
   end
   
   def update
     @evidence = Evidence.find(params[:id])
+    if params[:relationship][:comment]
+      @answer = Answer.find(params[:evidence][:answer_id])
+      relationship = @answer.relationships.where('evidence_id = ?',@evidence.id)  
+      relationship.update(comment: params[:relationship][:comment])
+    end
+    
     if @evidence.update_attributes(evidence_params)
       flash[:success] = "Successfully updated."
       redirect_to evidences_path(answer_id: params[:evidence][:answer_id])

@@ -18,9 +18,6 @@ class ScenariosController < ApplicationController
     
     @allcompanies = Company.where("validated = ?", true)
     @result = {}
-    
-    
-    
     @allcompanies.each do |this_company|
       @category = Category.order(:id)
       @subcategory = Subcategory.order(:id)
@@ -33,24 +30,9 @@ class ScenariosController < ApplicationController
           @result[this_company][ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id).order(:id)
         end
       end
-      
-      
-      
     end
-    
-
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   def index
     if decision_maker?
       @scenarios = current_user.scenarios
