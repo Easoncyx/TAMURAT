@@ -5,6 +5,8 @@ class ScenariosController < ApplicationController
   
   before_action :logged_in_user
   before_action :correct_user
+  before_action :right_user,         only: [:show, :destroy, :edit]
+  
   
   def new
     @scenario = Scenario.new
@@ -32,7 +34,7 @@ class ScenariosController < ApplicationController
         current_user.create_scenario(@scenario)
       end
     else
-      flash[:success] = "Scenario create failed!"
+      flash[:warning] = "Scenario create failed!"
     end
     redirect_to scenarios_url
   end
@@ -41,10 +43,6 @@ class ScenariosController < ApplicationController
   def destroy
     if decision_maker?
       @scenario=current_user.scenarios.find_by(id: params[:id])
-      if !@scenario
-        flash[:warning] = "You do not have permission to delete others scenarios."
-        redirect_to scenarios_url and return
-      end
     end
     Scenario.find(params[:id]).destroy
     flash[:success] = "Scenario deleted"
@@ -72,13 +70,20 @@ class ScenariosController < ApplicationController
     end
   
     def correct_user
-      
       if !admin? && !decision_maker?
         flash[:danger] = "Please log in as correct user."
         redirect_to root_url and return
       end
-      
-      
+    end
+    
+    def right_user
+      if !admin?
+        scenario = Scenario.find(params[:id])
+        if !current_user.has_scenario?(scenario)
+          flash[:danger] = "Do not meddle with other's scenarios!"
+          redirect_to scenarios_url and return
+        end
+      end
     end
   
   
