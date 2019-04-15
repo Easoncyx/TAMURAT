@@ -84,4 +84,10 @@ class Company < ApplicationRecord
     end
     self.update_attributes!({score: company_score})
   end
+  
+  
+  def has_answer?(as)
+    answers.include?(as)
+  end
+  
 end

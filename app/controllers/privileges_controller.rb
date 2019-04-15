@@ -4,6 +4,10 @@ class PrivilegesController < ApplicationController
     
     def index
         @privileges = User.where("role = ?", "Decision Maker")
+        if !params[:scenario_id]
+            flash[:danger] = "Please choose a scenario!"
+            redirect_to scenarios_url and return
+        end
         @scenario = Scenario.find(params[:scenario_id])
     end
     
