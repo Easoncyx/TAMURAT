@@ -70,7 +70,7 @@ User.create!(name:  "pickle-morty",
              activated_at: Time.zone.now
            )
 
-50.times do |n|
+20.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@treenewbee.com"
   password = "123456"
@@ -88,6 +88,13 @@ User.create!(name:  "pickle-morty",
              )
 
   Company.create!({user_id: user.id})
+  if n > 0
+    if n > 10
+      user.company.update_attributes!(parent_id: n / 2)
+    else
+      user.company.update_attributes!(parent_id: 1)
+    end
+  end
 end
 
 

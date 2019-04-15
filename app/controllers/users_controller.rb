@@ -1,8 +1,11 @@
-class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:destory, :index, :show, :edit, :update]
-  before_action :correct_user,   only: [:show, :edit, :update]
-  before_action :admin_user,     only: [:destroy, :index]
 
+class UsersController < ApplicationController
+  include CompaniesHelper
+  before_action :logged_in_user, only: [:destory, :index, :show, :edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
+  before_action :company_user,   only: [:show]
+  before_action :admin_user,     only: [:destroy, :index]
+  
   def index
     @users = User.search(params[:search]).paginate(page: params[:page])
     @all_roles_name = User.distinct.pluck(:role)
@@ -63,7 +66,7 @@ class UsersController < ApplicationController
     flag = @user.authenticate(password)
     if !flag && password != ""
       if @user.update_attributes(update_params)
-        flash[:primary] = "Password has been changed, you need to login again."
+        flash[:warning] = "Password has been changed, you need to login again."
         log_out
         redirect_to root_path
       else
@@ -101,14 +104,22 @@ class UsersController < ApplicationController
       #params.permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end
 
- 
-
     def correct_user
       @user = User.find_by_id(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
       # may conflict with the previous flash
       # flash[:danger] = "Please log in as correct user."
-      redirect_to(root_url) unless current_user?(@user)
     end
-
+    
+    def company_user
+      @user = User.find_by_id(params[:id])
+      if company_representative? && @user.role == "Company Representative" && ancestor?(current_user.company, @user.company)
+        return
+      else 
+        redirect_to(root_url) unless current_user?(@user)
+      end
+      # may conflict with the previous flash
+      # flash[:danger] = "Please log in as correct user."
+    end
 
 end
