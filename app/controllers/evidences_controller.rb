@@ -2,7 +2,7 @@ class EvidencesController < ApplicationController
   before_action :logged_in_user,          only: [:index, :edit, :update, :new, :create, :destroy]
   before_action :correct_user,            only: [:index]
   before_action :company_user,            only: [:edit, :update, :new, :create, :destroy]
-  before_action :right_user,              only: [:index, :edit, :update, :destroy]
+  before_action :right_user,              only: [:index, :edit, :destroy]
   
   def index
     if !params[:answer_id]
@@ -46,7 +46,7 @@ class EvidencesController < ApplicationController
     @evidence = Evidence.find(params[:id])
     if @evidence.update_attributes(evidence_params)
       flash[:success] = "Successfully updated."
-      redirect_to evidences_path(answer_id: params[:answer_id])
+      redirect_to evidences_path(answer_id: params[:evidence][:answer_id])
     else
       render 'edit'
     end
