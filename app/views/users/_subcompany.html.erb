@@ -1,10 +1,25 @@
 <div class="col-md-8">
   <h3>Subcompanies (<%= @user.company.children.count %>)</h3>
- 
-  <% @user.company.children.each do |company| %>
-    <ol class="subcompany">
-      <p><%= get_company_name company%></p>
-      <%= render company %>
-    </ol>
-  <% end %>
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Index</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+    <tbody>
+      
+      <% @user.company.children.each do |company| %>
+      <% user = User.find_by_id(company.user_id)%>
+      <tr>
+        <th scope="row"><%= user.login_id%></th>
+        <td><%= user.name%></td>
+        <td><%= user.email%></td>
+        <td><%= link_to "Show details", user_path(user.id)%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

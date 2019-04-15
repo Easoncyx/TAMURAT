@@ -1,6 +1,5 @@
-<% company.children.each do |company| %>
-  
-  <ol class="subcompany">
-    <p><%= get_company_name company%></p>
-  </ol>
-<% end %>
+<ol class="subcompany">
+  <% company.children.each do |c| %>
+  <p><%= get_company_name c%></p>
+  <% end %>
+</ol>
