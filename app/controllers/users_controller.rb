@@ -1,4 +1,3 @@
-
 class UsersController < ApplicationController
   include CompaniesHelper
   before_action :logged_in_user, only: [:destory, :index, :show, :edit, :update]

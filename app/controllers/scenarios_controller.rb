@@ -39,7 +39,7 @@ class ScenariosController < ApplicationController
     else 
       @scenarios = Scenario.all
     end
-    @scenario = current_user.active_privileges.build
+    #@scenario = current_user.active_privileges.build
   end
   
   def create
