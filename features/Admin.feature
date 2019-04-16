@@ -88,6 +88,11 @@ Background:  Log in as an Admin
     Given I create a new scale "pickle-morty_scale"
     Then I should see "Scale was successfully created."
     Then I should see "This is another description for scale"
+    # TEST scale delete
+    # Given I am on Scales page
+    # Given I destroy a scale
+    # Given I accept the popup
+    # Then I should see "Scale deleted"
   
   Scenario: Admin can manage scenarios
     Given I am on All Scenarios page
@@ -96,14 +101,37 @@ Background:  Log in as an Admin
     Given I create a new scenario "pickle-rick"
     Then I should see "Scenario created!"
     Then I should see "pickle-rick"
-    Given I click link "pickle-rick"
     Then I should see "This is a description for scenario"
     # Edit scenario
     Given I am on All Scenarios page
     Given I edit scenario 1 into "pickle-morty"
     Then I should see "pickle-morty was successfully updated."
+    Given I am on All Scenarios page
     Then I should see "This is another description for scenario"
     # Asign
+    Given I click "Assign" of scenario "pickle-rick"
+    Then I should see "All Decision Makers"
+    Given I click "Assign" of "Example DM1" and "Exmaple DM2"
+    Then I should see "Successfully Assigned!"
+    Given I am on All Scenarios page
+    Given I click link "pickle-rick"
+    Then I should see "Related decision makers"
+    Then I should see "Example DM1"
+    Then I should see "Example DM2"
+    Given I am on All Scenarios page
+    Given I click "Assign" of scenario "pickle-rick"
+    Given I click "Delete" of "Example DM1"
+    Then I should see "Successfully Deleted!"
+    Given I am on All Scenarios page
+    Given I click link "pickle-rick"
+    Then I should not see "Example DM1"
+    Then I should see "Example DM2"
+    
+  Scenario: Help page
+    Given I am on Help page
+    Then I should see "Help"
+    Then I should see "Contact the Team TreeNewBee @ TAMU for help."
+    
     
   Scenario: Log out
     Given I log out

@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if update_params[:password] 
       if @user.update_attributes(update_params)
-        flash[:primary] = "Password has been changed, you need to login again."
+        flash[:primary] = "Account has been changed, please login again."
         log_out
         redirect_to root_path
       else

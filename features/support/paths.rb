@@ -16,7 +16,6 @@ module NavigationHelpers
     # ITERATION 2 -- NAVBAR
     when /^Home page$/
       '/'
-      
     when /^All user page$/
       '/users'
     when /^All question page$/
@@ -25,6 +24,8 @@ module NavigationHelpers
       '/scales'
     when /^All Scenarios page$/
       '/scenarios'
+    when /^Help page$/
+      '/help'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

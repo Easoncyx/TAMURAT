@@ -1,11 +1,8 @@
 require 'uri'
 require 'cgi'
+require 'selenium-webdriver'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
-
-# Capybara.add_selector(:my_selector_area) do
-#   xpath { "actual_xpath" }
-# end
 
 
 
@@ -100,7 +97,7 @@ end
 Given('I create a new category "pickle-morty"') do
   visit '/categories/new'
   fill_in "Name", :with => "pickle-morty"
-  click_button 'Create my subcategory'
+  click_button 'Create my category'
 end
 
 Given('I edit subcategory "Business_1" into "pickle-rick_1"') do
@@ -139,7 +136,7 @@ Given('I input invalid in "Weight"') do
   visit '/categories/new'
   fill_in "Name", :with => "invalid"
   fill_in "Weight", :with => "invalid"
-  click_button 'Create my subcategory'
+  click_button 'Create my category'
 end
 
 Given('I delete the question "pickle-rick"') do
@@ -177,6 +174,18 @@ Given('I create a new scale "pickle-morty_scale"') do
   click_button 'Create new scale'
 end
 
+Given('I destroy a scale') do
+  first(:link, "Destroy").click
+end
+
+Given('I accept the popup') do
+  #click_link 'OK'
+  #click_button('OK')
+  page.driver.browser.switch_to.alert.accept
+  #page.evaluate_script('window.confirm = function() { return true; }')
+  #page.click('Remove')
+end
+
 # ===== SCENARIOS
 
 Given('I create a new scenario "pickle-rick"') do
@@ -193,6 +202,20 @@ Given('I edit scenario 1 into "pickle-morty"') do
   click_button 'Save changes'
 end
 
+Given /^I click "Assign" of scenario "([^"]*)"$/ do |scenario|
+  id = Scenario.find_by(:name => scenario).id.to_s
+  link = '/privileges?scenario_id=' + id
+  visit link
+end
+#"
+Given('I click "Assign" of "Example DM1" and "Exmaple DM2"') do
+  first(:link, "Assign").click
+  first(:link, "Assign").click
+end
+Given('I click "Delete" of "Example DM1"') do
+  first(:link, "Delete").click
+end
+
 # ====== PROFILE
 Given('I edit user name into "Sekiro"') do
   fill_in "Name", :with => "Sekiro"
@@ -203,11 +226,23 @@ Given  /^I change password into "([^"]*)"$/ do |pw|
   fill_in "Password", :with => pw
   
 end
+
 #"
 Given /^I confirm password with "([^"]*)" and submit$/ do |pw|
   fill_in "Confirmation", :with => pw
   click_button 'Save changes'
 end
+
+#"
+Given("I log in with new password") do
+  visit '/login'
+  fill_in 'Login', :with => '1006'
+  fill_in 'Password', :with => '000000'
+  click_button 'Log in'
+end
+
+
+
 
 
 
