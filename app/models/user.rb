@@ -2,8 +2,8 @@ class User < ApplicationRecord
   attr_accessor :activation_token, :reset_token
   before_save   :downcase_email
   #before_create :create_activation_digest
-  has_many :active_privileges, class_name: "Privilege", foreign_key: "user_id", dependent: :destroy
-  has_many :scenarios, through: :active_privileges
+  has_many :privileges, class_name: "Privilege", foreign_key: "user_id", dependent: :destroy
+  has_many :scenarios, through: :privileges
 
   #subcompany relationship
 

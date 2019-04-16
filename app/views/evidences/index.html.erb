@@ -8,6 +8,7 @@
     <thead>
       <tr>
         <th scope="col">Name</th>
+        <th scope='col'>Comment</th>
         <th scope="col">Show</th>
         <% if company_representative? %>
           <th scope="col">Edit</th>
@@ -19,6 +20,7 @@
         <% @evidences.each do |evidence| %>
           <tr>
             <td><%= evidence.name %></td>
+            <td><%= evidence.comment %></td>
             <td><%= link_to "view file", evidence.file %></td>
             <% if company_representative? %>
               <td>
