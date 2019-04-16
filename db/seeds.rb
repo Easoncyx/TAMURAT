@@ -70,13 +70,13 @@ User.create!(name:  "pickle-morty",
              activated_at: Time.zone.now
            )
 
-50.times do |n|
+20.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@treenewbee.com"
   password = "123456"
   role = "Company Representative"
   login_id = n+1007
-  
+
   user = User.create!(name:  name,
                email: email,
                password:              password,
@@ -88,12 +88,19 @@ User.create!(name:  "pickle-morty",
              )
 
   Company.create!({user_id: user.id})
+  if n > 0
+    if n > 10
+      user.company.update_attributes!(parent_id: n / 2)
+    else
+      user.company.update_attributes!(parent_id: 1)
+    end
+  end
 end
 
 
-categories =[{:name => 'Business', :weight_sum => 3},
-             {:name => 'Security', :weight_sum => 0},
-             {:name => 'Finance', :weight_sum => 0},]
+categories =[{:name => 'Business', :weight_sum => 3, :weight => 2},
+             {:name => 'Security', :weight_sum => 3, :weight => 2},
+             {:name => 'Finance', :weight_sum => 3, :weight => 2},]
 
 categories.each do |category|
   Category.create!(category)
@@ -103,12 +110,12 @@ end
 subcategories =[{:name => 'Business_1', :weight_sum => 3, category_id:1, :weight => 1},
              {:name => 'Business_2', :weight_sum => 3, category_id:1, :weight => 1},
              {:name => 'Business_3', :weight_sum => 3, category_id:1, :weight => 1},
-             {:name => 'Security_1', :weight_sum => 0, category_id:2, :weight => 0},
-             {:name => 'Security_2', :weight_sum => 0, category_id:2, :weight => 0},
-             {:name => 'Security_3', :weight_sum => 0, category_id:2, :weight => 0},
-             {:name => 'Finance_1', :weight_sum => 0, category_id:3, :weight => 0},
-             {:name => 'Finance_2', :weight_sum => 0, category_id:3, :weight => 0},
-             {:name => 'Finance_3', :weight_sum => 0, category_id:3, :weight => 0},
+             {:name => 'Security_1', :weight_sum => 0, category_id:2, :weight => 1},
+             {:name => 'Security_2', :weight_sum => 0, category_id:2, :weight => 1},
+             {:name => 'Security_3', :weight_sum => 0, category_id:2, :weight => 1},
+             {:name => 'Finance_1', :weight_sum => 0, category_id:3, :weight => 1},
+             {:name => 'Finance_2', :weight_sum => 0, category_id:3, :weight => 1},
+             {:name => 'Finance_3', :weight_sum => 0, category_id:3, :weight => 1},
              ]
 
 subcategories.each do |subcategory|
@@ -148,30 +155,28 @@ end
 
 
 
-
-
-scales = [{:name => 'B trust level 0', :category_id => 1, :level => 'N/A', :score => 0},
-          {:name => 'B trust level 1', :category_id => 1, :level => '1', :score => 0.1},
-          {:name => 'B trust level 2', :category_id => 1, :level => '2', :score => 0.2},
-          {:name => 'B trust level 3', :category_id => 1, :level => '3', :score => 0.3},
-          {:name => 'B trust level 4', :category_id => 1, :level => '4', :score => 0.4},
-          {:name => 'B trust level 5', :category_id => 1, :level => '5', :score => 0.5},
-          {:name => 'B Insufficient',  :category_id => 1, :level => 'Insufficient evidence', :score => 0},
-          {:name => 'S trust level 0', :category_id => 2, :level => 'N/A', :score => 0},
-          {:name => 'S trust level 1', :category_id => 2, :level => '1', :score => 0.1},
-          {:name => 'S trust level 2', :category_id => 2, :level => '2', :score => 0.2},
-          {:name => 'S trust level 3', :category_id => 2, :level => '3', :score => 0.3},
-          {:name => 'S trust level 4', :category_id => 2, :level => '4', :score => 0.4},
-          {:name => 'S trust level 5', :category_id => 2, :level => '5', :score => 0.5},
-          {:name => 'S Insufficient',  :category_id => 2, :level => 'Insufficient evidence', :score => 0},
-          {:name => 'F trust level 0', :category_id => 3, :level => 'N/A', :score => 0},
-          {:name => 'F trust level 1', :category_id => 3, :level => '1', :score => 0.1},
-          {:name => 'F trust level 2', :category_id => 3, :level => '2', :score => 0.2},
-          {:name => 'F trust level 3', :category_id => 3, :level => '3', :score => 0.3},
-          {:name => 'F trust level 4', :category_id => 3, :level => '4', :score => 0.4},
-          {:name => 'F trust level 5', :category_id => 3, :level => '5', :score => 0.5},
-          {:name => 'F Insufficient',  :category_id => 3, :level => 'Insufficient evidence', :score => 0},
-          ]
+scales = [{:name => 'B trust level 0', :description => 'Something about this level', :category_id => 1, :level => 'N/A', :score => 0},
+          {:name => 'B trust level 1', :description => 'Something about this level', :category_id => 1, :level => '1', :score => 0.1},
+          {:name => 'B trust level 2', :description => 'Something about this level', :category_id => 1, :level => '2', :score => 0.2},
+          {:name => 'B trust level 3', :description => 'Something about this level', :category_id => 1, :level => '3', :score => 0.3},
+          {:name => 'B trust level 4', :description => 'Something about this level', :category_id => 1, :level => '4', :score => 0.4},
+          {:name => 'B trust level 5', :description => 'Something about this level', :category_id => 1, :level => '5', :score => 0.5},
+          {:name => 'B Insufficient',  :description => 'Something about this level', :category_id => 1, :level => 'Insufficient evidence', :score => 0},
+          {:name => 'S trust level 0', :description => 'Something about this level', :category_id => 2, :level => 'N/A', :score => 0},
+          {:name => 'S trust level 1', :description => 'Something about this level', :category_id => 2, :level => '1', :score => 0.1},
+          {:name => 'S trust level 2', :description => 'Something about this level', :category_id => 2, :level => '2', :score => 0.2},
+          {:name => 'S trust level 3', :description => 'Something about this level', :category_id => 2, :level => '3', :score => 0.3},
+          {:name => 'S trust level 4', :description => 'Something about this level', :category_id => 2, :level => '4', :score => 0.4},
+          {:name => 'S trust level 5', :description => 'Something about this level', :category_id => 2, :level => '5', :score => 0.5},
+          {:name => 'S Insufficient',  :description => 'Something about this level', :category_id => 2, :level => 'Insufficient evidence', :score => 0},
+          {:name => 'F trust level 0', :description => 'Something about this level', :category_id => 3, :level => 'N/A', :score => 0},
+          {:name => 'F trust level 1', :description => 'Something about this level', :category_id => 3, :level => '1', :score => 0.1},
+          {:name => 'F trust level 2', :description => 'Something about this level', :category_id => 3, :level => '2', :score => 0.2},
+          {:name => 'F trust level 3', :description => 'Something about this level', :category_id => 3, :level => '3', :score => 0.3},
+          {:name => 'F trust level 4', :description => 'Something about this level', :category_id => 3, :level => '4', :score => 0.4},
+          {:name => 'F trust level 5', :description => 'Something about this level', :category_id => 3, :level => '5', :score => 0.5},
+          {:name => 'F Insufficient',  :description => 'Something about this level', :category_id => 3, :level => 'Insufficient evidence', :score => 0}
+        ]
 scales.each do |s|
   Scale.create!(s)
 end

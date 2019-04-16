@@ -53,6 +53,8 @@ class ScalesController < ApplicationController
       flash[:info] = "Scale was successfully created."
       redirect_to scales_path
     else
+      #byebug
+      flash[:danger] = "Scale update failed."
       render 'new'
     end
   end
@@ -62,6 +64,7 @@ class ScalesController < ApplicationController
       flash[:success] = "Scale was successfully updated."
       redirect_to scales_url
     else
+      flash[:danger] = "Scale update failed."
       render 'edit'
     end
   end

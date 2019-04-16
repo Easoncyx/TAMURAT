@@ -1,0 +1,18 @@
+<%= form_for(@evidence) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <%= fields_for(@relationship) do |u| %>
+    <div class="field">
+      <%= u.label :comment %>
+      <%= u.text_field :comment, class: 'form-control' %>
+    </div>
+  <% end %>
+  
+  <%= f.label :file %>
+  <%= f.file_field :file, class: 'form-control' %>
+  
+  <%= f.hidden_field :answer_id, :value => params[:answer_id] %>
+
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>
