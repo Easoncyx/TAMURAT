@@ -57,7 +57,8 @@ class UsersController < ApplicationController
     if @user.save
       if company_representative?
         @newcompany = Company.new(user_id: @user.login_id-1000)
-        @newcompany.parent_id = current_user.id
+        @current_company = Company.where(user_id: current_user.id)
+        @newcompany.parent_id = @current_company[0].id
         @newcompany.save
       end
       
