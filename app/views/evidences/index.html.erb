@@ -2,7 +2,7 @@
 <h1>All Evidences</h1>
 
 <ul class="evidences">
-  
+
   <% if @evidences.any? %>
     <table class="table table-hover">
     <thead>
@@ -36,5 +36,5 @@
   <% if company_representative? %>
     <div class="panel-footer"><%=link_to 'New evidence',new_evidence_path(answer_id: params[:answer_id]) %></div>
   <% end %>
-  
+
 </ul>

@@ -1,0 +1,23 @@
+<% provide(:title, 'Outputs') %>
+<h1>Outputs</h1>
+
+<div class="container">
+  <div class="columns">
+    <h3> Companies</h3>
+    <div class="col-md-4">
+      <div id="tree"></div>
+    </div>
+    <div class="col-md-8">
+      <div>company</div>
+      
+    </div>
+  </div>
+</div>
+
+<br>
+
+<script>
+var result = <%=raw @result_tree.to_json %>;
+$('#tree').jstree(result);
+
+</script>

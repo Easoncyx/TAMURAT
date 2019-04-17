@@ -3,7 +3,14 @@
 <h1>Update your profile</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <div class="gravatar_edit">
+      <%= gravatar_for @user %>
+      <h2>
+      <a href="http://gravatar.com/emails" target="_blank">Change your gravatar</a></h2>
+    </div>
+
     <h2>Your login_id is <%= @user.login_id %></h2>
+
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
@@ -25,10 +32,5 @@
 
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>
     <% end %>
-
-    <div class="gravatar_edit">
-      <%= gravatar_for @user %>
-      <a href="http://gravatar.com/emails" target="_blank">Change</a>
-    </div>
   </div>
 </div>

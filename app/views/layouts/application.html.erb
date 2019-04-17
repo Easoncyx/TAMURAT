@@ -20,14 +20,16 @@
       <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
-   
+
 <script type="text/javascript">
 
 $(".panel .panel-collapse").on('shown.bs.collapse', function (e)
 {
   if($(this).is(e.target)) {
     var active = $(this).attr('id');
+    
     var panels= localStorage.panels === undefined ? new Array() : JSON.parse(localStorage.panels);
+    //console.log(panels)
     if ($.inArray(active,panels)==-1) //check that the element is not in the array
         panels.push(active);
     localStorage.panels=JSON.stringify(panels);
@@ -38,7 +40,9 @@ $(".panel .panel-collapse").on('hidden.bs.collapse', function (e)
 {
   if($(this).is(e.target)) {
     var active = $(this).attr('id');
+    
     var panels= localStorage.panels === undefined ? new Array() : JSON.parse(localStorage.panels);
+    //console.log(panels)
     var elementIndex=$.inArray(active, panels);
     
     if (elementIndex!==-1) //check the array
@@ -58,5 +62,5 @@ var panels=localStorage.panels === undefined ? new Array() : JSON.parse(localSto
   }
 </script>
   
- 
+
 </html>
