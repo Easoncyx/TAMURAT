@@ -33,7 +33,8 @@ class EvidencesController < ApplicationController
       redirect_to answers_url and return
     end
     @answer = Answer.find(params[:evidence][:answer_id])
-    object = ActiveStorage::Blob.find_by(filename: params[:evidence][:name])
+    name = params[:evidence][:file].original_filename
+    object = ActiveStorage::Blob.find_by(filename: name)
     if object
       attach = ActiveStorage::Attachment.find_by(blob_id: object.id)
       @evidence = Evidence.find(attach.record_id)

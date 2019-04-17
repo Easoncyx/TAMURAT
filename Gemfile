@@ -44,6 +44,13 @@ gem 'jbuilder', '2.7.0'
 # ransack for search and filter
 # gem 'ransack'
 
+
+#jstree
+gem 'bulma-rails'
+gem 'jstreejs-rails', '3.3.5.0'
+gem 'ancestry'
+
+
 group :development, :test do
   gem 'database_cleaner', '1.4.1'
   gem "rspec-rails"

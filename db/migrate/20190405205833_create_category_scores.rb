@@ -6,5 +6,7 @@ class CreateCategoryScores < ActiveRecord::Migration[5.1]
       t.integer :category_id
       t.timestamps
     end
+    add_index :category_scores, :company_id
+    add_index :category_scores, :category_id
   end
 end

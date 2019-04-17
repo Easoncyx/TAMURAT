@@ -10,5 +10,7 @@ class CreateAnswers < ActiveRecord::Migration[5.1]
       t.float :score
       t.timestamps
     end
+    add_index :answers, :company_id
+    add_index :answers, :question_id
   end
 end
