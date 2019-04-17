@@ -3,7 +3,8 @@ require 'cgi'
 require 'selenium-webdriver'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
-
+# enable javascript test
+require 'webdrivers'
 
 
 #====LOG-IN/ LOG-OUT
@@ -140,6 +141,11 @@ Given('I input invalid in "Weight"') do
 end
 
 Given('I delete the question "pickle-rick"') do
+  first(:link, "Delete").click
+end
+
+Given('I comfirm the popup') do
+  click_button('OK')
 end
 
 # ===== SCALES
@@ -192,6 +198,13 @@ Given('I create a new scenario "pickle-rick"') do
   click_link 'New Scenario'
   fill_in "Name", :with => "pickle-rick"
   fill_in "Description", :with => "This is a description for scenario"
+  click_button 'Create my scenario'
+end
+
+Given('I create a new scenario "pickle-morty"') do
+  click_link 'New Scenario'
+  fill_in "Name", :with => "pickle-morty"
+  fill_in "Description", :with => "This is a description for scenario (DM)"
   click_button 'Create my scenario'
 end
 

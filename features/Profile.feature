@@ -22,8 +22,8 @@ Background:  Log in as a normal user
     Then I should see "Update your profile"
     # Change name
     Given I edit user name into "Sekiro"
-    Then I should see "Account has been changed, please login again."
-    Given I log in as pickle-morty
+    Then I should see "Profile updated"
+    #Given I log in as pickle-morty
     Then I should see "Sekiro"
     # Change password (invalid)
     Given I am on Home page
@@ -38,7 +38,7 @@ Background:  Log in as a normal user
     # Change password
     Given I change password into "000000"
     Given I confirm password with "000000" and submit
-    Then I should see "Account has been changed, please login again."
+    Then I should see "Password has been changed, you need to login again."
     Given I log in with new password
     Then I should see "Welcome to the TAMURAT"
     Then I should see "Sekiro"

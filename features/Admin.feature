@@ -45,29 +45,34 @@ Background:  Log in as an Admin
     Given I edit subcategory "Business_1" into "pickle-rick_1"
     Then I should see "pickle-rick_1 was successfully updated."
     Then I should see "Weight_sum = 9.7"
-    Given I click link "pickle-rick Weight = 0.0"
+    #Given I click link "pickle-rick Weight = 0.0"
     Then I should see "pickle-rick_1"
     Given I create a new subcategory "pickle-rick_4"
     Then I should see "pickle-rick_4 was successfully created."
-    Given I click link "pickle-rick Weight = 0.0"
+    #Given I click link "pickle-rick Weight = 0.0"
     Then I should see "pickle-rick_4"
     # Question create/edit
     Given I click link "pickle-rick_1"
     Then I should see "Business_1_q1"
     Given I edit question "Business_1_q1" into "pickle-rick_1_q1"
     Then I should see "pickle-rick_1_q1 was successfully updated."
-    Given I click link "pickle-rick Weight = 0.0"
-    Given I click link "pickle-rick_1 Weight = 7.7"
+    #Given I click link "pickle-rick Weight = 0.0"
+    #Given I click link "pickle-rick_1 Weight = 7.7"
     Then I should see "pickle-rick_1_q1"
     Given I create a new question "pickle-rick_1_q4"
     Then I should see "pickle-rick_1_q4 was successfully created."
-    Given I click link "pickle-rick Weight = 0.0"
-    Given I click link "pickle-rick_1 Weight = 7.7"
+    #Given I click link "pickle-rick Weight = 0.0"
+    #Given I click link "pickle-rick_1 Weight = 7.7"
     Then I should see "pickle-rick_1_q4"
     # Invalid input
     Given I input invalid in "Weight"
     Then I should see "Weight Invalid, you need to type a float."
-    #Given I delete the question "pickle-rick"
+    # Delete 
+    # Given I am on All question page
+    # Given I delete the question "pickle-rick"
+    # Then I should see "You sure?"
+    # Given I comfirm the popup
+    # Then I should see "Category 'pickle-rick' deleted."
   
   Scenario: Admin can manage scales
     Given I am on Scales page
@@ -131,7 +136,6 @@ Background:  Log in as an Admin
     Given I am on Help page
     Then I should see "Help"
     Then I should see "Contact the Team TreeNewBee @ TAMU for help."
-    
     
   Scenario: Log out
     Given I log out

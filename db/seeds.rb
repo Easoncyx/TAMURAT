@@ -23,7 +23,6 @@ User.create!(name:  "Example DM1",
             activated: true,
             activated_at: Time.zone.now
           )
-
 User.create!(name:  "Example DM2",
             email: "example@railstutorial.org",
             password:              "123456",
@@ -69,13 +68,31 @@ User.create!(name:  "pickle-morty",
              activated: true,
              activated_at: Time.zone.now
            )
+User.create!(name:  "Example CR1",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Company Representative",
+             login_id: 1007,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+User.create!(name:  "Example CR2",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Company Representative",
+             login_id: 1008,
+             activated: true,
+             activated_at: Time.zone.now
+           )
 
 20.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@treenewbee.com"
   password = "123456"
   role = "Company Representative"
-  login_id = n+1007
+  login_id = n+1009
 
   user = User.create!(name:  name,
                email: email,
