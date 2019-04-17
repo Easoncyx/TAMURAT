@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     if @user.save
       if company_representative?
         @newcompany = Company.new(user_id: @user.id)
-        @current_company = Company.find_by(user_id: current_user.id)
+        @current_company = current_user.company
         @newcompany.parent_id = @current_company.id
         @newcompany.save
         flash[:info] = "Send invitation to subcompany."
