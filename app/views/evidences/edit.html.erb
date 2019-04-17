@@ -1,6 +1,25 @@
 <h1>Editing Evidence</h1>
 <% provide(:button_text, 'Edit my evidence') %>
+<%= form_for(@evidence) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
 
-<%= render 'form', evidence: @evidence %>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= fields_for(@relationship) do |u| %>
+      <%= u.label :comment %>
+      <%= u.text_field :comment, class: 'form-control' %>
+  <% end %>
+
+  <%= f.label :file %>
+  <%= f.file_field :file, class: 'form-control' %>
+
+  <%= f.hidden_field :answer_id, :value => params[:answer_id] %>
+
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>
+
+<%#= render 'form' %>
 
 <%= link_to 'Back', evidences_path(answer_id: params[:answer_id]) %>

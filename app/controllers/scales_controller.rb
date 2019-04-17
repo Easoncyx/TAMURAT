@@ -79,7 +79,11 @@ class ScalesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_scale
-      @scale = Scale.find(params[:id])
+      @scale = Scale.find_by_id(params[:id])
+      if !@scale
+        flash[:warning] = "Select a valid scale id."
+        redirect_to scales_url
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

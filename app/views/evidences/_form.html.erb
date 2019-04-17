@@ -3,17 +3,17 @@
 
   <%= f.label :name %>
   <%= f.text_field :name, class: 'form-control' %>
-  
+
   <%= fields_for(@relationship) do |u| %>
     <div class="field">
       <%= u.label :comment %>
       <%= u.text_field :comment, class: 'form-control' %>
     </div>
   <% end %>
-  
+
   <%= f.label :file %>
   <%= f.file_field :file, class: 'form-control' %>
-  
+
   <%= f.hidden_field :answer_id, :value => params[:answer_id] %>
 
 

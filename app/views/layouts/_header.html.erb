@@ -1,6 +1,10 @@
 <header class="navbar navbar-fixed-top navbar-inverse" style="background-color:  #500000;">
   <div class="container">
-    <%= link_to "RISK ASSESSMENT TOOL", root_path, id: "logo" %>
+    <% if logged_in?%>
+      <a id="logo" href="/">ROLE : <%= current_user.role %></a>
+    <% else %>
+      <%= link_to "RISK ASSESSMENT TOOL", root_path, id: "logo" %>
+    <% end %>
     <nav>
       <ul class="nav navbar-nav navbar-right" >
         <li><%= link_to "Home", root_path %></li>
