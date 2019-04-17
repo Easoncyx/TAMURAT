@@ -43,19 +43,17 @@ class EvidencesController < ApplicationController
       @evidence.save
     end
     Relationship.create(comment: params[:relationship][:comment], answer: @answer, evidence: @evidence)
-    # @answer.create_evidence(@evidence)
-    # relationship = @answer.relationships.where('evidence_id = ?',@evidence.id)
-    # relationship.update(comment: params[:relationship][:comment])
     flash[:success] = "Successfully upload evidence"
     redirect_to evidences_url(answer_id: params[:evidence][:answer_id])
   end
 
   def update
     @evidence = Evidence.find(params[:id])
-    if params[:relationship][:comment]
+    comment = params[:relationship][:comment]
+    if comment != ""
       @answer = Answer.find(params[:evidence][:answer_id])
       relationship = @answer.relationships.where('evidence_id = ?',@evidence.id)
-      relationship.update(comment: params[:relationship][:comment])
+      relationship.update(comment: comment)
     end
 
     if @evidence.update_attributes(evidence_params)
