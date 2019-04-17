@@ -45,5 +45,5 @@ Rails.application.routes.draw do
   
   resources :evidences
   
-  resources :outputs, only: [:index, :update, :create]
+  resources :outputs, only: [:index, :show]
 end
