@@ -80,7 +80,7 @@ Rails.application.configure do
     password: '04041616Aa~'
   }
   
-  host = '27bda18780774c12b6ea0e1d77cf6d59.vfs.cloud9.us-east-2.amazonaws.com'
+  host = 'aee7ba55952c4f12bac4da742212e7ec.vfs.cloud9.us-east-2.amazonaws.com'
   config.action_mailer.default_url_options = { host: host, protocol: 'https' }
 
   

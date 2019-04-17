@@ -40,20 +40,60 @@ class UsersController < ApplicationController
   end
 
   def create
-
+   
     @user = User.new(user_params)
     if User.maximum(:id)
       @user.login_id = User.maximum(:id).next + 1000
     else
       @user.login_id = 1000
     end
+    if company_representative?
+      password = rand(36 ** 10).to_s(36)
+      @user.password = password
+      @user.password_confirmation = password
+      @user.role = "Company Representative"
+      
+    end
     if @user.save
+      if company_representative?
+        @newcompany = Company.new(user_id: @user.login_id-1000)
+        @newcompany.parent_id = current_user.id
+        @newcompany.save
+      end
+      
+      
       flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
       redirect_to root_url
     else
       render 'new'
     end
   end
+  
+  
+  # def invite
+    
+  #   #@user = User.new
+  #   if company_representative?
+  #     @user = User.new
+  #     password = rand(36 ** 10).to_s(36)
+  #     @user.password = password
+  #     @user.password_confirmation = password
+  #     @user.role = "Company Representative"
+  #     @user.login_id = User.maximum(:id).next + 1000
+  #     @newcompany = Company.new(user_id: User.maximum(:id).next)
+  #     @newcompany.parent_id = current_user.id
+  
+      
+  #   else
+  #     redirect_to root_url
+  #   end
+    
+  # end
+  
+  
+  
+  
+  
 
   def edit
     @user = User.find(params[:id])

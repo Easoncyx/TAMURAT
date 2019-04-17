@@ -62,14 +62,16 @@ class User < ApplicationRecord
   end
 
   # 用户得到批准后添加到company数据库
-  def create_company
+  def create_company 
     if self.role == "Company Representative"
-      @company = Company.new(user_id: self.id, company_score: 0)
-      if @company.save
-        # flash[:info] = "Company saved!"
-      else
-        # not possible
-        # flash[:danger] = "Company saved failed!!"
+      if !Company.exists?(user_id: self.id)
+        @company = Company.new(user_id: self.id)
+        if @company.save
+          # flash[:info] = "Company saved!"
+        else
+          # not possible
+          # flash[:danger] = "Company saved failed!!"
+        end
       end
     end
   end
