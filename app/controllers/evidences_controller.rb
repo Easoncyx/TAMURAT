@@ -22,8 +22,6 @@ class EvidencesController < ApplicationController
   def edit
     @evidence = Evidence.find_by_id(params[:id])
     @relationship = @evidence.relationships.build
-    @answer = Answer.find(params[:answer_id])
-    # @relationship = @answer.relationships.where('evidence_id = ?',@evidence.id)
   end
 
 
