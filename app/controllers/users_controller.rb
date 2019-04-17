@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :company_user,   only: [:show]
   before_action :admin_user,     only: [:destroy, :index]
+  before_action :invite_user,    only: [:new]
   
   def index
     @users = User.search(params[:search]).paginate(page: params[:page])
@@ -40,7 +41,6 @@ class UsersController < ApplicationController
   end
 
   def create
-   
     @user = User.new(user_params)
     if User.maximum(:id)
       @user.login_id = User.maximum(:id).next + 1000
@@ -52,18 +52,18 @@ class UsersController < ApplicationController
       @user.password = password
       @user.password_confirmation = password
       @user.role = "Company Representative"
-      
     end
+    
     if @user.save
       if company_representative?
-        @newcompany = Company.new(user_id: @user.login_id-1000)
-        @current_company = Company.where(user_id: current_user.id)
-        @newcompany.parent_id = @current_company[0].id
+        @newcompany = Company.new(user_id: @user.id)
+        @current_company = Company.find_by(user_id: current_user.id)
+        @newcompany.parent_id = @current_company.id
         @newcompany.save
+        flash[:info] = "Send invitation to subcompany."
+      else
+        flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
       end
-      
-      
-      flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
       redirect_to root_url
     else
       render 'new'
@@ -160,6 +160,13 @@ class UsersController < ApplicationController
       end
       # may conflict with the previous flash
       # flash[:danger] = "Please log in as correct user."
+    end
+    
+    def invite_user
+      if logged_in? && !company_representative?
+        flash[:warning] = "You do not have permission to invite companies."
+        redirect_to root_url
+      end
     end
 
 end
