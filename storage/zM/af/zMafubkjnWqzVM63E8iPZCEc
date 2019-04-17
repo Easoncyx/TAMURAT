@@ -1,0 +1,125 @@
+CSCE 668:  Distributed Algorithms and Systems 
+Spring 2019 
+Homework 5 Solutions
+
+Problem A: Prove that in any wait-free simulation of a multi-writer
+multi-reader register from any number of single-writer multi-reader
+registers, at least one writer must read.
+
+Suppose in contradiction there is such an algorithm in which no writer reads.
+
+Observation: Since a writer never reads, the sequence of steps that it
+takes during a write solely depends on the value to be written and its
+current local state (which may depend on the sequence of writes that
+it has done).  But it cannot depend on anything that the other
+processes have done.
+
+Consider an execution e1 in which writer W1 writes 1 and then writer
+W2 writes 2.  Let S1 be the set of building-block registers that
+writer W1 writes and S2 be the set of building-block registers that
+writer W2 writes.  Since the building block registers are
+single-writer, S1 and S2 do not intersect.  Thus the observation above
+implies that the configuration at the end of e1 equals the
+configuration at the end of e2, in particular, each building-block
+register has the same value in e1 as in e2.
+
+But then a reader cannot tell what order the writes occurred in.  More
+specifically, suppose we append a read by reader R to the end of e1.
+By linearizability, the read must return 2.  But if we append a read
+by reader R to the end of e2, it will behave exactly the same and
+return 1, which is incorrect.
+
+------------------------------------------------------------------------
+
+Problem B: Prove that the stack data type, with the standard
+operations push(x) and pop(x), has consensus number 2.
+
+Algorithm to solve asynch wait-free consensus for 2 processors using stacks
+and registers (similar to that for FIFO queue):
+
+There is one shared stack, S, initially contains [0].
+There are two shared registers, R[0] and R[1].
+
+Code for p_i, i = 0,1:
+
+R[i] := p_i's input
+val := pop(S)
+if val = 0 then
+   decide R[i]
+else decide R[1-i]
+
+Termination:  Clear.
+
+Validity: If a processor decides its own value, fine.  If it decides
+the other processor's value, it is because the other processor popped
+the queue before this one did, thus it wrote its input to its register
+before this processor reads the register.
+
+Agreement:  Let p_i be the first processor to decide.
+
+Case 1:  p_i decides on its own value.  Then it popped the 0 from S,
+beating p_{1-i}, so p_{1-i} decides p_i's input.
+
+Case 2: p_i decides on the other processor's value.  Then the stack
+was empty when it tried to pop, meaning p_{1-i} got the 0 when it
+popped the stack, and thus p_{1-i} decides on its own value.
+
+................
+
+Proof that it is impossible to solve asynchronous wait-free consensus
+for 3 processors using stacks and registers (similar to FIFO queue
+proof):
+
+The proof has the same structure as for FIFO queue (and register and...).
+The key difference is when considering the situation when C is bivalent,
+p_0(C) is 0-valent, and p_1(C) is 1-valent.  The usual argument shows
+that p_0 and p_1 must be accessing the same stack S in these two steps.
+
+Case 1:  Both steps are pops.  Then p_0(C) and p_1(C) look the same to
+the third processor p_2, which contradicts Lemma 5.15.
+
+Case 2: Both steps are pushes; let x be the value pushed by p_0 and y
+be the value pushed by p_1.  Consider p_1(p_0(C)).  Let sigma be the
+sequence of steps taken by p_0 alone, starting at p_1(p_0(C)), until y
+is popped from S (below we show sigma must exist).  Let tau be the sequence
+of steps taken by p_1 alone, starting at sigma(p_1(p_0(C))), until x is
+popped from S (below we show tau must exist).  Note that
+tau(sigma(p_1(p_0(C))) = D_0 is 0-valent.  (Also x and y are popped in
+the opposite order in which they are pushed, because S is a stack.)
+
+Suppose p_1 and p_0 reverse the order in which they take their first
+steps from C, and then apply sigma, and then apply tau.  The result is
+tau(sigma(p_0(p_1(C))) = D_1, which is 1-valent.  But D_0 and D_1 look
+the same to p_2, contradicting Lemma 5.15.
+
+So why must sigma exist?  If p_0 takes steps alone from p_1(p_0(C)),
+it eventually decides (and terminates) by wait-freedom; since p_0(C)
+is 0-valent, p_0 decides 0.  Suppose p_0 decides after taking m steps
+but before popping y from S.  Then if p_0 takes m steps starting at
+p_0(p_1(C)), it will behave exactly the same since it never observes
+anything different in the shared variables, and also decide 0, which
+contradicts p_0(p_1(C)) being 1-valent.  Define sigma to be sequence
+of steps by p_0 ending immediately after popping y from S.
+
+The argument for the existence of tau is the same, except starting at
+sigma(p_1(p_0(C))) and sigma(p_0(p_1(C))) instead of p_1(p_0(C)) and
+p_0(p_1(C)).
+
+Case 3:  p_0's step is a pop and p_1's step is a push.
+
+  Case 3.1:  S is empty in C.  Then in p_0(C) S is still empty.
+  Thus p_1(p_0(C)) and p_1(C) look the same to p_2, contradicting Lemma 5.15.
+
+  Case 3.2:  S is not empty in C.  Let xw be the contents of S, where x
+  is the top and w is the sequence of remaining elements in S.
+  In p_1(p_0(C)) = D_0, the contents of S are yw where y is the argument to p_1's
+  push operation (pop x, then push y) and in p_0(p_1(C)) = D_1, the
+  contents of S are xw (push y, then pop y).  Also notice that p_1  has
+  the same local state in D_0 as in D_1, as does p_2.
+
+  The solo execution of p_2 from D_0 must eventually decide (by wait-freedom)
+  and must include a pop of S, which returns y; the argument is the same as
+  in Case 2.  Let sigma be the prefix of this solo execution ending with
+  the pop of S.  Observe that sigma(D_0) and sigma(D_1) look the same to p_2,
+  which contradicts Lemma 5.15.
+
