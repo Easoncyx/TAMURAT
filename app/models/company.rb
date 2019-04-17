@@ -47,8 +47,9 @@ class Company < ApplicationRecord
         end
         if subcat.weight_sum != 0 && cat.weight_sum != 0 && company_weight_sum != 0
           subcat_score /= subcat.weight_sum
-          subcat_score /= cat.weight_sum
-          subcat_score /= company_weight_sum
+          
+          # subcat_score /= cat.weight_sum
+          # subcat_score /= company_weight_sum
         else 
           subcat_score = 0
         end
@@ -66,7 +67,7 @@ class Company < ApplicationRecord
       
       if cat.weight_sum != 0 && company_weight_sum != 0
         cat_score /= cat.weight_sum
-        cat_score /= company_weight_sum
+        # cat_score /= company_weight_sum
       else 
         cat_score = 0
       end

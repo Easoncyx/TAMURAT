@@ -37,5 +37,12 @@ module AnswersHelper
     end
   end
   
+  def subcat_score company_id, subcategory_id
+    return SubcategoryScore.find_by({company_id: company_id, subcategory_id: subcategory_id})
+  end
+  
+  def cat_score company_id, category_id
+    return CategoryScore.find_by({company_id: company_id, category_id: category_id})
+  end
   
 end
