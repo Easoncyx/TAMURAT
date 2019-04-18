@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :company_user,   only: [:show]
   before_action :admin_user,     only: [:destroy, :index]
-  #before_action :invite_user,    only: [:new]
+  before_action :invite_user,    only: [:new]
   
   def index
     @users = User.search(params[:search]).paginate(page: params[:page])
@@ -175,7 +175,7 @@ class UsersController < ApplicationController
     end
     
     def invite_user
-      if !logged_in?
+      if logged_in? and !company_representative? and !admin
         flash[:warning] = "You do not have permission to invite other users."
         redirect_to root_url
       end
