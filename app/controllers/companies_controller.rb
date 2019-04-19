@@ -15,6 +15,13 @@ class CompaniesController < ApplicationController
     flash[:success] = "Successfully validated the company #{company_name}!"
     redirect_to companies_path
   end
+  
+  
+  
+  
+  
+  
+  
   private
     def correct_user
       if !validator?
@@ -25,5 +32,13 @@ class CompaniesController < ApplicationController
     def company_params
       params.require(:company).permit(:validated)
     end  
+    
+    
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
+    end
+    
+    
+    
     
 end

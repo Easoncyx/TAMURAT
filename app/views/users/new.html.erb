@@ -1,6 +1,19 @@
-<% provide(:title, 'Sign up') %>
-<% provide(:button_text, 'Create my account') %>
-<h1>Sign up</h1>
+<% if !logged_in? %>
+  <% provide(:title, 'Sign up') %>
+  <% provide(:button_text, 'Create new account') %>
+  <h1>Sign up</h1>
+
+<% elsif company_representative? %>
+  <% provide(:title, 'Invite') %>
+  <% provide(:button_text, 'Invite') %>
+  <h1> Invite Subcompany</h1>
+<% elsif admin? %>
+  <% provide(:title, 'Invite') %>
+  <% provide(:button_text, 'Invite') %>
+  <h1> Invite Administrator</h1>
+
+<% end %>
+
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
