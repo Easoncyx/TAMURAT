@@ -175,7 +175,7 @@ class UsersController < ApplicationController
     end
     
     def invite_user
-      if logged_in? and !company_representative? and !admin
+      if logged_in? and !company_representative? and !admin?
         flash[:warning] = "You do not have permission to invite other users."
         redirect_to root_url
       end
