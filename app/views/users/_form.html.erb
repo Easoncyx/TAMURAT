@@ -6,15 +6,28 @@
 
   <%= f.label :email %>
   <%= f.email_field :email, class: 'form-control' %>
-
-  <%= f.label :role %>
-  <%= f.select :role, ['Decision Maker', 'Company Representative', 'Validator'], class: 'form-control'%>
-
-  <%= f.label :password %>
-  <%= f.password_field :password, class: 'form-control' %>
-
-  <%= f.label :password_confirmation, "Confirmation" %>
-  <%= f.password_field :password_confirmation, class: 'form-control' %>
+  
+  <% if !logged_in? %>
+    <%= f.label :role %>
+    <%= f.select :role, ['Decision Maker', 'Company Representative', 'Validator'], class: 'form-control'%>
+  
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control' %>
+  
+    <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  
+  <% elsif admin?%>
+    <%= f.label :role %>
+    <%= f.select :role, ['Administrator'], class: 'form-control'%>
+  
+  <% elsif company_representative?%>
+    <%= f.label :role %>
+    <%= f.select :role, ['Company Representative'], class: 'form-control'%>
+    
+  <% end %>
+  
+ 
 
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>

@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :company_user,   only: [:show]
   before_action :admin_user,     only: [:destroy, :index]
+  before_action :invite_user,    only: [:new]
   
   def index
     @users = User.search(params[:search]).paginate(page: params[:page])
@@ -40,15 +41,38 @@ class UsersController < ApplicationController
   end
 
   def create
-
     @user = User.new(user_params)
     if User.maximum(:id)
       @user.login_id = User.maximum(:id).next + 1000
     else
       @user.login_id = 1000
     end
+    
+    
+    if admin?
+      password = rand(36 ** 10).to_s(36)
+      @user.password = password
+      @user.password_confirmation = password
+      @user.role = "Administrator"
+    elsif company_representative?
+      password = rand(36 ** 10).to_s(36)
+      @user.password = password
+      @user.password_confirmation = password
+      @user.role = "Company Representative"
+    end
+    
     if @user.save
-      flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
+      if company_representative?
+        @newcompany = Company.new(user_id: @user.id)
+        @current_company = current_user.company
+        @newcompany.parent_id = @current_company.id
+        @newcompany.save
+        flash[:info] = "Send invitation to subcompany."
+      elsif admin?
+        flash[:info] = "Send invitation to Administrator."
+      else
+        flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
+      end
       redirect_to root_url
     else
       render 'new'
@@ -119,6 +143,13 @@ class UsersController < ApplicationController
       end
       # may conflict with the previous flash
       # flash[:danger] = "Please log in as correct user."
+    end
+    
+    def invite_user
+      if logged_in? and !company_representative? and !admin?
+        flash[:warning] = "You do not have permission to invite other users."
+        redirect_to root_url
+      end
     end
 
 end

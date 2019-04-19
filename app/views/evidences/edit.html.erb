@@ -3,9 +3,6 @@
 <%= form_for(@evidence) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name, class: 'form-control' %>
-
   <%= fields_for(@relationship) do |u| %>
       <%= u.label :comment %>
       <%= u.text_field :comment, class: 'form-control' %>

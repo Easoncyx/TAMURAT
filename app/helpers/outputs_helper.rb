@@ -29,7 +29,7 @@ module OutputsHelper
         "opened"    => true,  
       },
       "li_attr"     => {},
-      "a_attr"      => {}  
+      "a_attr"      => {"href" => output_path(obj.id)}  
     }
     return result
   end

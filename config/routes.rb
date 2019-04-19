@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get    '/activate',to: 'activate#activate'
 
   resources :users
+  
 
   #questions
   resources :questions
