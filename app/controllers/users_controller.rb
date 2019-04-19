@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :company_user,   only: [:show]
   before_action :admin_user,     only: [:destroy, :index]
   before_action :invite_user,    only: [:new]
-  
+
   def index
     @users = User.search(params[:search]).paginate(page: params[:page])
     @all_roles_name = User.distinct.pluck(:role)
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       # flash.keep
       redirect_to users_path(roles: session[:roles], search:params[:search])
     else
-      @users = User.where(role: @selected_roles_name).search(params[:search]).paginate(page: params[:page])
+      @users = User.where(role: @selected_roles_name).search(params[:search]).order(:login_id).paginate(page: params[:page])
     end
   end
 
@@ -47,8 +47,8 @@ class UsersController < ApplicationController
     else
       @user.login_id = 1000
     end
-    
-    
+
+
     if admin?
       password = rand(36 ** 10).to_s(36)
       @user.password = password
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
       @user.password_confirmation = password
       @user.role = "Company Representative"
     end
-    
+
     if @user.save
       if company_representative?
         @newcompany = Company.new(user_id: @user.id)
@@ -103,7 +103,7 @@ class UsersController < ApplicationController
         render 'edit'
       end
     end
-    
+
   end
 
   def destroy
@@ -133,18 +133,18 @@ class UsersController < ApplicationController
       # may conflict with the previous flash
       # flash[:danger] = "Please log in as correct user."
     end
-    
+
     def company_user
       @user = User.find_by_id(params[:id])
       if company_representative? && @user.role == "Company Representative" && ancestor?(current_user.company, @user.company)
         return
-      else 
+      else
         redirect_to(root_url) unless current_user?(@user)
       end
       # may conflict with the previous flash
       # flash[:danger] = "Please log in as correct user."
     end
-    
+
     def invite_user
       if logged_in? and !company_representative? and !admin?
         flash[:warning] = "You do not have permission to invite other users."

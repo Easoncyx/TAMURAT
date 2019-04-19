@@ -62,11 +62,16 @@ class User < ApplicationRecord
   end
 
   # 用户得到批准后添加到company数据库
-  def create_company 
+  def create_company
     if self.role == "Company Representative"
       if !Company.exists?(user_id: self.id)
         @company = Company.new(user_id: self.id)
         if @company.save
+          # add all scenarios to scenario_weight table
+          @scenarios = Scenario.all
+          @scenarios.each do |s|
+            @company.scenarios << s
+          end
           # flash[:info] = "Company saved!"
         else
           # not possible
@@ -88,15 +93,15 @@ class User < ApplicationRecord
   def create_scenario(sn)
     scenarios << sn
   end
-    
+
   def delete_scenario(sn)
     scenarios.delete(sn)
   end
-  
+
   def has_scenario?(sn)
     scenarios.include?(sn)
   end
-  
+
   private
     # 把电子邮件地址转换成小写
     def downcase_email
