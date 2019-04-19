@@ -1,7 +1,5 @@
-require 'sessions_helper.rb'
-
-
 class ScenariosController < ApplicationController
+  include CompaniesHelper
 
   before_action :logged_in_user
   before_action :correct_user
@@ -76,6 +74,12 @@ class ScenariosController < ApplicationController
 
   def edit
     @scenario = Scenario.find(params[:id])
+    @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:id)
+    @company_name = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}.map{|y| get_company_name(y)}
+    # @result = {}
+    # @scenario_weight.each do |t|
+    #   @result[t] = @company_name
+    # end
   end
 
   private
@@ -85,7 +89,6 @@ class ScenariosController < ApplicationController
     end
 
     def correct_user
-
       if !admin? && !decision_maker?
         flash[:danger] = "Please log in as correct user."
         redirect_to root_url and return
