@@ -54,13 +54,11 @@ class UsersController < ApplicationController
       @user.password = password
       @user.password_confirmation = password
       @user.role = "Administrator"
-    
     elsif company_representative?
       password = rand(36 ** 10).to_s(36)
       @user.password = password
       @user.password_confirmation = password
       @user.role = "Company Representative"
-      
     end
     
     if @user.save
@@ -72,7 +70,6 @@ class UsersController < ApplicationController
         flash[:info] = "Send invitation to subcompany."
       elsif admin?
         flash[:info] = "Send invitation to Administrator."
-      
       else
         flash[:info] = "Please wait for approval from Administrator, and your login_id to be sent to your email."
       end
@@ -81,32 +78,6 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-  
-  
-  # def invite
-    
-  #   #@user = User.new
-  #   if company_representative?
-  #     @user = User.new
-  #     password = rand(36 ** 10).to_s(36)
-  #     @user.password = password
-  #     @user.password_confirmation = password
-  #     @user.role = "Company Representative"
-  #     @user.login_id = User.maximum(:id).next + 1000
-  #     @newcompany = Company.new(user_id: User.maximum(:id).next)
-  #     @newcompany.parent_id = current_user.id
-  
-      
-  #   else
-  #     redirect_to root_url
-  #   end
-    
-  # end
-  
-  
-  
-  
-  
 
   def edit
     @user = User.find(params[:id])
