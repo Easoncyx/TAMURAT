@@ -77,6 +77,7 @@ User.create!(name:  "Example CR1",
              activated: true,
              activated_at: Time.zone.now
            )
+           
 User.create!(name:  "Example CR2",
              email: "example@railstutorial.org",
              password:              "123456",
@@ -86,7 +87,8 @@ User.create!(name:  "Example CR2",
              activated: true,
              activated_at: Time.zone.now
            )
-
+Company.create!({user_id: 7})
+Company.create!({user_id: 8})
 20.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@treenewbee.com"

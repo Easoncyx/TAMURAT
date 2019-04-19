@@ -55,6 +55,8 @@ module NavigationHelpers
       '1003'
     when /^pickle-morty$/
       '1006'
+    when /^a Company Representative$/
+      '1007'
     end
   end
   
