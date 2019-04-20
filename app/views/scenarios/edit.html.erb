@@ -23,7 +23,9 @@
   <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Company</th>
+      <th scope="col">Company Login id</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Company Score</th>
       <th scope="col">Weight</th>
     </tr>
   </thead>
@@ -32,7 +34,9 @@
         <% @scenario_weight.each_with_index do |sw, index| %>
           <tr>
             <%= fields_for "sw[#{sw.id}]", sw do |item| %>
-              <td><%= @company_name[index] %></td>
+              <td><%= @companies_loginid[index] %></td>
+              <td><%= @companies_name[index] %></td>
+              <td><%= @companies[index].score %></td>
               <td><%= item.text_field :weight %></td>
             <% end %>
           </tr>
