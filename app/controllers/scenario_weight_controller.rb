@@ -11,13 +11,22 @@ class ScenarioWeightController < ApplicationController
         redirect_to edit_scenario_path(params[:scenario_id]) and return
       end
     end
+
     if ScenarioWeight.update(sw_params.keys, sw_params.values)
-      flash[:success] = "ScenarioWeights was successfully updated."
-      redirect_to scenarios_path and return
+      if @scenario = Scenario.find_by_id(params[:scenario_id])
+        @scenario.cal_scenario_score
+        flash[:success] = "ScenarioWeights was successfully updated."
+        redirect_to scenarios_path and return
+      else
+        flash[:danger] = "No scenario found."
+        redirect_to edit_scenario_path(params[:scenario_id])
+      end
     else
       flash[:danger] = "ScenarioWeights update failed."
       redirect_to edit_scenario_path(params[:scenario_id])
     end
+
+
   end
 
   private

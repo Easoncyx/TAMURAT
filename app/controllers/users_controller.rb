@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       @user.login_id = 1000
     end
 
-
+    # logged in as admin invite another admin
     if admin?
       password = rand(36 ** 10).to_s(36)
       @user.password = password
