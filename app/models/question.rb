@@ -1,3 +1,4 @@
+require 'csv'
 class Question < ApplicationRecord
   belongs_to :subcategory, class_name: "Subcategory"
   has_many :answers, class_name: "Answer", :foreign_key => :question_id, :dependent => :destroy
@@ -7,5 +8,30 @@ class Question < ApplicationRecord
 
   def self.valid_weight_regex
     @regex = VALID_WEIGHT_REGEX
+  end
+  
+  def self.import(file)
+    CSV.foreach(file, headers: true) do |row|
+      category, subcategory, name, weight = row
+      weight = weight[1].to_f
+      if !Category.exists?(name: category[1])
+        @category = Category.new(name: category[1])
+        @category.save
+      else
+        @category = Category.find_by(name: category[1])
+      end
+      
+      if !Subcategory.exists?(name: subcategory[1])
+        @subcategory = Subcategory.new(name: subcategory[1], category_id: @category.id)
+        @subcategory.save
+      else
+        @subcategory = Subcategory.find_by(name: subcategory[1])
+      end
+      
+      @category.subcategories << @subcategory
+      
+      @question = Question.new(name: name[1], weight: weight, subcategory_id: @subcategory.id)
+      @question.save
+    end
   end
 end

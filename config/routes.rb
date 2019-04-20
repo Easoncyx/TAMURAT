@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   
 
   #questions
-  resources :questions
+  resources :questions do
+    collection { post :import}
+  end
+  
   #get '/questions/edit/:id', to: 'questions#edit', as: 'question_edit'
 
   #subcategory
