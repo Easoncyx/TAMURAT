@@ -18,6 +18,12 @@ class OutputsController < ApplicationController
         @result_structure[cat][subcat] = subcat.questions
       end
     end
+    
+    respond_to do |format|
+      
+      format.json { render :json => {:success => true, :html => render_to_string('_show.html.erb', layout: false)}}
+      format.html { redirect_to outputs_path}
+    end
   end
 
   private
