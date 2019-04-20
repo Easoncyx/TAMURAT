@@ -29,6 +29,9 @@ class ScenariosController < ApplicationController
         end
       end
     end
+
+    @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:id)
+    @company_name = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}.map{|y| get_company_name(y)}
   end
 
   def index
@@ -75,18 +78,19 @@ class ScenariosController < ApplicationController
       flash[:success] = "#{@scenario.name} was successfully updated."
       redirect_to @scenario
     else
+      flash[:danger] = "Scenario update failed."
       render 'edit'
     end
   end
 
   def edit
     @scenario = Scenario.find(params[:id])
+    #get a list of scenario_weight instance belongs to the same scenario
     @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:id)
-    @company_name = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}.map{|y| get_company_name(y)}
-    # @result = {}
-    # @scenario_weight.each do |t|
-    #   @result[t] = @company_name
-    # end
+    # get a list of company_id, then Company instances, then company names and login_id
+    @companies = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}
+    @companies_name = @companies.map{|y| get_company_name(y)}
+    @companies_loginid = @companies.map{|y| get_company_login_id(y)}
   end
 
   private

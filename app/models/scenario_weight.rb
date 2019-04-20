@@ -3,4 +3,5 @@ class ScenarioWeight < ApplicationRecord
   belongs_to :scenario, :foreign_key => :scenario_id, :class_name => "Scenario"
 
   validates :weight, presence: true, format:{ with: self.valid_weight_regex }
+
 end

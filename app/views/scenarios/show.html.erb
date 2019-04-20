@@ -1,15 +1,16 @@
 <% provide(:title, 'All Scenarios') %>
-<h1>Related decision makers</h1>
+
 <ul class="scenarios">
-    
-  <aside class="col-md-4">
-    <h1>Name: </h1>
-    <h2><%= @scenario.name %></h2>
-    <h1>Description: </h1>
-    <h2><%= @scenario.description %></h2>
-  </aside>
-  
+
+  <section>
+    <h3>Name: </h3>
+    <h4><%= @scenario.name %></h4>
+    <h3>Description: </h3>
+    <h4><%= @scenario.description %></h4>
+  </section>
+
   <% if @dms.any? %>
+    <h1>Related decision makers</h1>
     <table class="table table-hover">
     <thead>
       <tr>
@@ -33,18 +34,26 @@
       </tbody>
     </table>
   <% end %>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </ul>
+
+<section>
+<h1>Scenario Weight for each company</h1>
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Company name</th>
+      <th scope="col">Weight</th>
+    </tr>
+  </thead>
+    <tbody>
+      <ul class="scenario_weight">
+        <% @scenario_weight.each_with_index do |sw, index| %>
+          <tr>
+            <td><%= @company_name[index] %></td>
+            <td><%= sw.weight %></td>
+          </tr>
+        <% end %>
+      </ul>
+    </tbody>
+  </table>
+</section>

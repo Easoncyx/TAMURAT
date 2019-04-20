@@ -146,7 +146,7 @@ end
   description = Faker::Lorem.sentence(5)
   Scenario.create!(name: name, description: description)
   20.times do |i|
-    ScenarioWeight.create!(scenario_id: n+1, company_id: i+1, weight: 0)
+    ScenarioWeight.create!(scenario_id: n+1, company_id: i+1, weight: 1)
   end
 end
 
