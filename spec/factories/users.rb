@@ -17,11 +17,20 @@ FactoryBot.define do
 
     
     factory :pw_changer,:class => User  do
-        email {"szy1@tamu.edu"}
-        name {"szy1"}
-        password {nil}
-        login_id {"2"}
+        email {Faker::Internet.email}
+        name {Faker::Internet.user_name}
+        password {111111}
+        login_id {"3"}
         role {"Administrator"}
+    end
+    
+    factory :validator,:class => User  do
+        email {Faker::Internet.email}
+        name {Faker::Internet.user_name}
+        password {"1111111"}
+        password_confirmation {"1111111"}
+        login_id {"2"}
+        role {"Validator"}
     end
     
     

@@ -101,7 +101,7 @@ RSpec.describe SubcategoriesController, type: :controller do
                 attr[:weight] = 'a'
                 post :create, params: {:subcategory => attr }
                 
-                expect(flash[:warning]).to match("Weight Invalid, you need to type a float.")
+                expect(flash[:danger]).to match("Weight Invalid, you need to type a float.")
                 expect(response).to redirect_to new_subcategory_url
             end          
             
@@ -147,14 +147,7 @@ RSpec.describe SubcategoriesController, type: :controller do
                 expect(response).to redirect_to questions_url
             end          
             
-            it 'should redirect to index page of question' do
-                #subid = @subcategory.category_id + 1
-                delete :destroy,params: { id: 'a'}
-                
-                expect(flash[:danger]).to match("No record found of this subcategory.")
-                
-                #expect(response).to redirect_to questions_url
-            end                 
+              
         end     
         
     end

@@ -111,7 +111,7 @@ RSpec.describe UsersController, type: :controller do
         describe "UsersController#new" do
             it 'should render the home in views/users' do
                 get :new
-                expect(response).to render_template('new')
+                expect(response).to redirect_to root_url
             end             
         end    
        

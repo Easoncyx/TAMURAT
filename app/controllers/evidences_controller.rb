@@ -94,12 +94,14 @@ class EvidencesController < ApplicationController
         end
       end
     end
+    
     def have_answer_id
       if !params[:answer_id]
         flash[:danger] = "Please choose an answer!"
         redirect_to answers_url and return
       end
     end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def evidence_params
       params.require(:evidence).permit(:name, :file)

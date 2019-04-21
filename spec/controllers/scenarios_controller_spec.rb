@@ -4,8 +4,9 @@ RSpec.describe ScenariosController, type: :controller do
 
     before :each do
         @admin = create(:admin)
-        @scenario = create(:scenario1, user_id: @admin.id)
-        
+        session[:user_id] = @admin.id
+        @scenario = create(:scenario1)
+        @admin.create_scenario(@scenario)
     end       
 
     describe "not login" do
@@ -107,7 +108,7 @@ RSpec.describe ScenariosController, type: :controller do
                 attr[:description] = nil
                 post :create, params: { :id => @scenario.id, :scenario => attr}
                 
-                expect(flash[:success]).to match("Scenario create failed!")
+                expect(flash[:warning]).to match("Scenario create failed!")
                 expect(response).to redirect_to scenarios_url
             end               
         end  
@@ -145,24 +146,26 @@ RSpec.describe ScenariosController, type: :controller do
         before :each do
             @DM = create(:DM)
             session[:user_id] = @DM.id
-            @scenario2 = create(:scenario2, user_id: @DM.id)            
         end
         
-        describe "ScenariosController#index" do
-            it 'should collect all the scenarios' do
-                get :index
-                expect(assigns(@scenarios)["scenarios"]).to eq(Scenario.where(user_id: @DM.id))
+        describe "ScenariosController#show" do
+            it 'not the right user and return to scenarios_url' do
+                get :show,params: { id: @scenario.id }
+                expect(flash[:danger]).to match("Do not meddle with other's scenarios!")
+                expect(response).to redirect_to scenarios_url
             end            
         end        
         
-        ### 如果身为DM但是传入错误的scenario id会报错
-        describe "ScenariosController#destroy" do
-            it 'should redirect to index page of question' do
-                delete :destroy,params: { id: @scenario2.id }
-                expect(flash[:success]).to match("Scenario deleted")
+        describe "ScenariosController#create" do
+            it 'create failed and redirect to scenarios_url' do
+                attr = attributes_for(:scenario3)
+                post :create, params: {:scenario => attr}
+                
+                expect(flash[:warning]).to match("Scenario create failed!")
                 expect(response).to redirect_to scenarios_url
             end          
-           
-        end            
+        end  
+        
+      
     end
 end

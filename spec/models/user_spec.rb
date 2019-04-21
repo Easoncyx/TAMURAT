@@ -30,10 +30,10 @@ RSpec.describe User, type: :model do
     end
     
     describe "value validation" do
-        it "pw could be nil when changing pw" do
-            user = FactoryBot.build(:pw_changer)
-            expect(user.password).to eq nil
-        end
+        # it "pw could be nil when changing pw" do
+        #     user = FactoryBot.build(:pw_changer)
+        #     expect(user.password).to eq nil
+        # end
 
         it { is_expected.to validate_length_of(:name).is_at_most(50)}
         it { is_expected.to validate_length_of(:email).is_at_most(255)}

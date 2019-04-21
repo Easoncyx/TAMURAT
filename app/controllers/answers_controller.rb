@@ -2,8 +2,7 @@ class AnswersController < ApplicationController
   
   before_action :logged_in_user
   before_action :correct_user
-  before_action :company_user, only: [:new, :create
-  ]
+  before_action :company_user, only: [:new, :create]
 
   def new
     question_id = params[:question_id]
@@ -108,6 +107,7 @@ class AnswersController < ApplicationController
     end
 
   end
+  
   private
 
     def answer_params
