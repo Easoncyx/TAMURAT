@@ -31,7 +31,9 @@ class ScenariosController < ApplicationController
     end
 
     @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:id)
-    @company_name = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}.map{|y| get_company_name(y)}
+    @companies = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}
+    @companies_name = @companies.map{|y| get_company_name(y)}
+    @companies_loginid = @companies.map{|y| get_company_login_id(y)}
   end
 
   def index
