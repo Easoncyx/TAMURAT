@@ -106,7 +106,15 @@ class QuestionsController < ApplicationController
     flash[:success] = "Question '#{@question.name}' deleted."
     redirect_to questions_url
   end
-
+  
+  def import
+    if params[:file] == nil
+      flash[:warning] = "Please provide csv file."
+      redirect_to questions_url and return
+    end
+    Question.import(params[:file].path)
+    redirect_to questions_path, notice: "Questions added successfully."
+  end
 
 
   private
