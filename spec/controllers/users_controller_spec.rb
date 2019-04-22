@@ -90,8 +90,9 @@ RSpec.describe UsersController, type: :controller do
     describe "login as Company Representative" do
         
         before :each do
-            @representative = create(:representative)
+            @representative = create(:representative, )
             session[:user_id] = @representative.id
+            @company = create(:company, user_id: @representative.id)
         end        
         
         describe "UsersController#index" do
@@ -111,7 +112,7 @@ RSpec.describe UsersController, type: :controller do
         describe "UsersController#new" do
             it 'should render the home in views/users' do
                 get :new
-                expect(response).to redirect_to root_url
+                expect(response).to render_template(:new)
             end             
         end    
        
