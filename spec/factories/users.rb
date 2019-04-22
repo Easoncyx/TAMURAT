@@ -43,7 +43,7 @@ FactoryBot.define do
             password_confirmation {"111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
             login_id {"1001"}
-            role {"company representative"}    
+            role {"Company Representative"}    
         end
     
         factory :admin, :class => User do 
@@ -92,7 +92,7 @@ FactoryBot.define do
             password_confirmation {"111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
             login_id {nil}
-            role {"company representative"}    
+            role {"Company Representative"}    
         end         
 
         factory :failed4, :class => User do 
@@ -102,7 +102,7 @@ FactoryBot.define do
             password_confirmation {"1111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
             login_id {nil}
-            role {"company representative"}    
+            role {"Company Representative"}    
         end       
     end
 end
