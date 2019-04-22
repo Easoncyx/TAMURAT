@@ -103,7 +103,7 @@ RSpec.describe QuestionsController, type: :controller do
                 attr[:weight] = 'a'
                 put :update, params: { :id => @question.id, :question => attr   }
                 
-                expect(flash[:warning]).to match("Weight Invalid, you need to type a float.")
+                expect(flash[:danger]).to match("Weight Invalid, you need to type a float.")
                 expect(response).to redirect_to edit_question_url(@question.id) 
             end               
         end  
@@ -124,7 +124,7 @@ RSpec.describe QuestionsController, type: :controller do
                 attr[:weight] = 'a'
                 post :create, params: {:question => attr }
                 
-                expect(flash[:warning]).to match("Weight Invalid, you need to type a float.")
+                expect(flash[:danger]).to match("Weight Invalid, you need to type a float.")
                 expect(response).to redirect_to new_question_url
             end               
         end  

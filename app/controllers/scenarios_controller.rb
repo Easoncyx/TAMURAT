@@ -54,7 +54,6 @@ class ScenariosController < ApplicationController
     else
       flash[:warning] = "Scenario create failed!"
     end
-
     # add all companies to scenario_weight table
     @companies = Company.all
     @companies.each do |c|

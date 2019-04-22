@@ -17,11 +17,20 @@ FactoryBot.define do
 
     
     factory :pw_changer,:class => User  do
-        email {"szy1@tamu.edu"}
-        name {"szy1"}
-        password {nil}
-        login_id {"2"}
+        email {Faker::Internet.email}
+        name {Faker::Internet.user_name}
+        password {111111}
+        login_id {"3"}
         role {"Administrator"}
+    end
+    
+    factory :validator,:class => User  do
+        email {Faker::Internet.email}
+        name {Faker::Internet.user_name}
+        password {"1111111"}
+        password_confirmation {"1111111"}
+        login_id {"2"}
+        role {"Validator"}
     end
     
     
@@ -34,7 +43,7 @@ FactoryBot.define do
             password_confirmation {"111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
             login_id {"1001"}
-            role {"company representative"}    
+            role {"Company Representative"}    
         end
     
         factory :admin, :class => User do 
@@ -83,7 +92,7 @@ FactoryBot.define do
             password_confirmation {"111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
             login_id {nil}
-            role {"company representative"}    
+            role {"Company Representative"}    
         end         
 
         factory :failed4, :class => User do 
@@ -93,7 +102,7 @@ FactoryBot.define do
             password_confirmation {"1111111"}
 #            sequence(:login_id) { |n| "user#{n}"}
             login_id {nil}
-            role {"company representative"}    
+            role {"Company Representative"}    
         end       
     end
 end

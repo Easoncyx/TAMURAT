@@ -25,29 +25,29 @@ RSpec.describe ScalesController, type: :controller do
         end         
     end
 
-    describe " not admin/decision_maker" do
+    describe " not admin" do
         
         before :each do
             @representative = create(:representative)
             session[:user_id] = @representative.id        
         end        
         
-        describe "ScalesController#index" do
-            it 'should redirect to the root page' do
-                get :index
+        describe "ScalesController#edit" do
+            it 'render edit' do
+                get :edit, params: { id: @scale1.id }
                 expect(response).to redirect_to root_url
             end             
-        end    
+        end       
     
         describe "ScalesController#show" do
             it 'should redirect to the root page' do
-                get :show, params: { id: @scale1.id }
-                expect(response).to redirect_to root_url
+                get :show, params: { id: 1234 }
+                expect(response).to redirect_to scales_url
             end             
         end 
     end
    
-    describe "login as admin or decision_maker" do
+    describe "login as admin" do
         
         before :each do
             @admin = create(:admin)

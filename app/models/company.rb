@@ -1,5 +1,6 @@
 class Company < ApplicationRecord
   belongs_to :user, :foreign_key => :user_id, :class_name => "User", dependent: :destroy
+  
   has_many :answers, :foreign_key => :company_id, :class_name => "Answer", dependent: :destroy
   has_many :subcategory_scores, :foreign_key => :company_id, :class_name => "SubcategoryScore", dependent: :destroy
   has_many :category_scores, :foreign_key => :company_id, :class_name => "CategoryScore", dependent: :destroy

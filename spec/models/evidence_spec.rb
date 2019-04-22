@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Evidence, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+    describe "ActiveRecord test" do
+
+        it { should have_many(:relationships)}
+        it { should have_many(:answers)}
+    end    
+  
 end
