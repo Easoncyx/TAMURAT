@@ -1,6 +1,8 @@
 <% provide(:title, 'All Questions') %>
 <h1>All Questions</h1>
 
+
+<% if logged_in? %>
 <% @result.each do |category, value| %>
 <div class="panel-group">
   <div class="panel panel-default">
@@ -103,3 +105,4 @@
   <%= submit_tag "Upload Questions" %>
 <% end %>
 <div class="panel-footer"><%=link_to 'New Category',new_category_path %></div>
+<% end %>
