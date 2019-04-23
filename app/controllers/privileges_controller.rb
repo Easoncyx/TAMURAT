@@ -9,6 +9,7 @@ class PrivilegesController < ApplicationController
             redirect_to scenarios_url and return
         end
         @scenario = Scenario.find(params[:scenario_id])
+
     end
     
     def edit
@@ -16,11 +17,12 @@ class PrivilegesController < ApplicationController
         scenario = Scenario.find(params[:scenario_id])
         if user.has_scenario?(scenario)
             flash[:success] = "Already assigned."
-            redirect_to  privileges_url(scenario_id: params[:scenario_id]) and return
+            redirect_to privileges_url(scenario_id: params[:scenario_id]) and return
         end
         user.create_scenario(scenario)
         flash[:success] = "Successfully Assigned!"
         redirect_to privileges_url(scenario_id: params[:scenario_id])
+
     end
     
     def destroy
