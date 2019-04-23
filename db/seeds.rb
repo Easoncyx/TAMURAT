@@ -32,16 +32,16 @@ User.create!(name:  "Example DM2",
             activated: true,
             activated_at: Time.zone.now
           )
-User.create!(name:  "Example VA1",
+User.create!(name:  "Example DM3",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
-             role: "Validator",
+             role: "Decision Maker",
              login_id: 1003,
              activated: true,
              activated_at: Time.zone.now
            )
-User.create!(name:  "Example VA2",
+User.create!(name:  "Example VA1",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
@@ -50,7 +50,7 @@ User.create!(name:  "Example VA2",
              activated: true,
              activated_at: Time.zone.now
            )
-User.create!(name:  "pickle-rick",
+User.create!(name:  "Example VA2",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
@@ -59,7 +59,7 @@ User.create!(name:  "pickle-rick",
              activated: false,
              # activated_at: Time.zone.now
            )
-User.create!(name:  "pickle-morty",
+User.create!(name:  "Example VA3",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
@@ -160,14 +160,13 @@ questions.each do |q|
 end
 
 
-10.times do |n|
-  name = "12345"
+3.times do |n|
+  name = "scenario_#{n+1}"
   description = Faker::Lorem.sentence(5)
   Scenario.create!(name: name, description: description)
-
-# user = User.first
-# scenarios = Scenario.all
-# scenarios.each { |scenario| user.create_scenario(scenario) }
+  20.times do |i|
+    ScenarioWeight.create!(scenario_id: n+1, company_id: i+1, weight: 1)
+  end
 end
 
 

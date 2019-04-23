@@ -7,7 +7,7 @@
   <% if admin? && !current_user?(user) %>
     <td>
       <button type="button" class="btn btn-outline-dark">
-        <%= link_to "Delete", user, method: :delete %>
+        <%= link_to "Delete", user, method: :delete, data: { confirm: 'Are you sure?' } %>
       </button>
     </td>
     <% if !user.activated %>

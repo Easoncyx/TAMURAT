@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post 'scenario_weight/submit'
   get 'evidences/new'
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'
@@ -15,7 +16,10 @@ Rails.application.routes.draw do
   
 
   #questions
-  resources :questions
+  resources :questions do
+    collection { post :import}
+  end
+  
   #get '/questions/edit/:id', to: 'questions#edit', as: 'question_edit'
 
   #subcategory
@@ -26,7 +30,7 @@ Rails.application.routes.draw do
   #get '/categories/edit/:id', to: 'categories#edit', as: 'category_edit'
 
   resources :account_activations, only: [:edit]
-  
+
   resources :privileges, only: [:index, :edit, :destroy]
 
   resources :scenarios
@@ -35,16 +39,16 @@ Rails.application.routes.draw do
   resources :password_resets,  only: [:new, :create, :edit, :update]
 
   resources :scales
-  
+
   #resources for answers
   resources :answers
   #get '/answers/validator_index', to: 'answers#validator', as: "validator_index"
   #get '/answers/validator_index/:id', to: 'answers#show', as: "validator_show"
   #resources for companies
-  
+
   resources :companies,  only: [:index, :update]
-  
+
   resources :evidences
-  
+
   resources :outputs, only: [:index, :show]
 end

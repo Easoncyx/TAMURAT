@@ -1,7 +1,5 @@
-require 'sessions_helper.rb'
-
-
 class ScenariosController < ApplicationController
+  include CompaniesHelper
 
   before_action :logged_in_user
   before_action :correct_user
@@ -31,6 +29,11 @@ class ScenariosController < ApplicationController
         end
       end
     end
+
+    @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:id)
+    @companies = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}
+    @companies_name = @companies.map{|y| get_company_name(y)}
+    @companies_loginid = @companies.map{|y| get_company_login_id(y)}
   end
 
   def index
@@ -51,6 +54,12 @@ class ScenariosController < ApplicationController
     else
       flash[:warning] = "Scenario create failed!"
     end
+    # add all companies to scenario_weight table
+    @companies = Company.all
+    @companies.each do |c|
+      @scenario.companys << c
+    end
+
     redirect_to scenarios_url
   end
 
@@ -70,12 +79,19 @@ class ScenariosController < ApplicationController
       flash[:success] = "#{@scenario.name} was successfully updated."
       redirect_to @scenario
     else
+      flash[:danger] = "Scenario update failed."
       render 'edit'
     end
   end
 
   def edit
     @scenario = Scenario.find(params[:id])
+    #get a list of scenario_weight instance belongs to the same scenario
+    @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:id)
+    # get a list of company_id, then Company instances, then company names and login_id
+    @companies = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}
+    @companies_name = @companies.map{|y| get_company_name(y)}
+    @companies_loginid = @companies.map{|y| get_company_login_id(y)}
   end
 
   private
@@ -85,7 +101,6 @@ class ScenariosController < ApplicationController
     end
 
     def correct_user
-
       if !admin? && !decision_maker?
         flash[:danger] = "Please log in as correct user."
         redirect_to root_url and return

@@ -1,0 +1,2 @@
+module ScenarioWeightHelper
+end

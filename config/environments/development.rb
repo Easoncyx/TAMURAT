@@ -11,7 +11,7 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
-  
+
   config.active_storage.service = :local
 
   # Enable/disable caching. By default caching is disabled.
@@ -58,31 +58,31 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   # 云端环境
-  # config.action_mailer.smtp_settings = {
-  #   address: 'smtp.gmail.com',
-  #   port: 587,
-  #   authentication: "plain",
-  #   enable_starttls_auto: true,
-  #   user_name: 'chenyixu0@gmail.com',
-  #   password: 'cYx709671676'
-  # }
-  # host = 'http://localhost:3000/'
-  # config.action_mailer.default_url_options = { host: host, protocol: 'http' }
-
-  # 本地环境
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
     authentication: "plain",
     enable_starttls_auto: true,
-
-    user_name: 'sidhughes2@gmail.com',
-    password: '04041616Aa~'
+    user_name: 'chenyixu0@gmail.com',
+    password: 'cYx709671676'
   }
-  
-  host = 'aee7ba55952c4f12bac4da742212e7ec.vfs.cloud9.us-east-2.amazonaws.com'
-  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  host = 'http://localhost:3000/'
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
 
-  
+  # 本地环境
+  # config.action_mailer.smtp_settings = {
+  #   address: 'smtp.gmail.com',
+  #   port: 587,
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
+  #
+  #   user_name: 'sidhughes2@gmail.com',
+  #   password: '04041616Aa~'
+  # }
+  #
+  # host = 'aee7ba55952c4f12bac4da742212e7ec.vfs.cloud9.us-east-2.amazonaws.com'
+  # config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+
+
 
 end

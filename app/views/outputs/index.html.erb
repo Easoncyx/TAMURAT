@@ -8,8 +8,8 @@
       <div id="tree"></div>
     </div>
     <div class="col-md-8">
-      
-      
+      <div id="ContentBody">
+      </div>
     </div>
   </div>
 </div>
@@ -24,9 +24,24 @@ $('#tree').on(
   "select_node.jstree", function(evt, data){
     //selected node object: data.node;
     
-    //console.log();  
-    window.location.assign(data.node.a_attr.href);
+    console.log(data.node.a_attr.href);  
+
+    var jqxhr = $.ajax({
+      type: "GET",
+      url: data.node.a_attr.href,
+    }).done(function (data) {
+      var divshow = $("#ContentBody");
+      divshow.text(""); // 清空数据
+      divshow.append(data.html);
+      //console.log('成功, 收到的数据: ' + JSON.stringify(data.html));
+    }).fail(function (xhr, status) {
+      //console.log('失败: ' + xhr.status + ', 原因: ' + status);
+    }).always(function () {
+      //console.log('请求完成: 无论成功或失败都会调用');
+    });
   }
 );
+
+
 
 </script>

@@ -12,9 +12,38 @@
       <%= f.text_field :description, class: 'form-control' %>
 
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>
-  
-    <% end %> 
+
+    <% end %>
   </div>
 </div>
 
+<h1>Edit Weight for <%= @scenario.name %> Scenario </h1>
 
+<%= form_tag(controller: "scenario_weight", action: "submit", method: "post") do %>
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Company Login id</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Company Score</th>
+      <th scope="col">Weight</th>
+    </tr>
+  </thead>
+    <tbody>
+      <ul class="scenario_weight">
+        <% @scenario_weight.each_with_index do |sw, index| %>
+          <tr>
+            <%= fields_for "sw[#{sw.id}]", sw do |item| %>
+              <td><%= @companies_loginid[index] %></td>
+              <td><%= @companies_name[index] %></td>
+              <td><%= @companies[index].score %></td>
+              <td><%= item.text_field :weight %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </ul>
+    </tbody>
+  </table>
+  <%= hidden_field_tag :scenario_id, params[:id] %>
+  <%= submit_tag "Submit" %>
+<% end %>

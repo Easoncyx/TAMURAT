@@ -42,7 +42,16 @@ RSpec.describe CategoriesController, type: :controller do
             
             expect(flash[:success]).to match("#{@category.name} was successfully created.")
             expect(response).to redirect_to questions_url
-        end             
+        end     
+        
+        it 'should redirect to index of question and give flash message' do
+            attr = attributes_for(:category)
+            attr[:weight] = nil
+            post :create, params: {:category => attr }
+            
+            expect(flash[:danger]).to match("Weight Invalid, you need to type a float.")
+            expect(response).to redirect_to new_category_path
+        end  
     end  
 
     describe "CategoriesController#edit" do
@@ -69,14 +78,14 @@ RSpec.describe CategoriesController, type: :controller do
             expect(response).to redirect_to questions_url
         end  
         
-        it 'should redirect to index page of question' do
-                #subid = @subcategory.category_id + 1
-            delete :destroy,params: { id: 'a'}
+        # it 'should redirect to index page of question' do
+        #         #subid = @subcategory.category_id + 1
+        #     delete :destroy,params: { id: 'a'}
                 
-            expect(flash[:danger]).to match("No record found of this category.")
+        #     expect(flash[:danger]).to match("No record found of this category.")
                 
-                #expect(response).to redirect_to questions_url
-        end                 
+        #         #expect(response).to redirect_to questions_url
+        # end                 
     end    
     
    
