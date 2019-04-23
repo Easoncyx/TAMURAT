@@ -32,21 +32,12 @@ User.create!(name:  "Example DM2",
             activated: true,
             activated_at: Time.zone.now
           )
-User.create!(name:  "Example DM3",
-             email: "example@railstutorial.org",
-             password:              "123456",
-             password_confirmation: "123456",
-             role: "Decision Maker",
-             login_id: 1003,
-             activated: true,
-             activated_at: Time.zone.now
-           )
 User.create!(name:  "Example VA1",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
              role: "Validator",
-             login_id: 1004,
+             login_id: 1003,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -55,11 +46,20 @@ User.create!(name:  "Example VA2",
              password:              "123456",
              password_confirmation: "123456",
              role: "Validator",
+             login_id: 1004,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+User.create!(name:  "pickle-rick",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
              login_id: 1005,
              activated: false,
              # activated_at: Time.zone.now
            )
-User.create!(name:  "Example VA3",
+User.create!(name:  "pickle-morty",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
