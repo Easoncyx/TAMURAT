@@ -12,7 +12,8 @@ class Question < ApplicationRecord
   
   def self.import(file)
     CSV.foreach(file, headers: true) do |row|
-      category, subcategory, name, weight = row
+      category, subcategory, weight_sum, name, weight = row
+      weight_sum = weight_sum[1].to_f
       weight = weight[1].to_f
       if !Category.exists?(name: category[1])
         @category = Category.new(name: category[1])
@@ -22,7 +23,7 @@ class Question < ApplicationRecord
       end
       
       if !Subcategory.exists?(name: subcategory[1])
-        @subcategory = Subcategory.new(name: subcategory[1], category_id: @category.id)
+        @subcategory = Subcategory.new(name: subcategory[1], weight_sum: weight_sum, category_id: @category.id)
         @subcategory.save
       else
         @subcategory = Subcategory.find_by(name: subcategory[1])
