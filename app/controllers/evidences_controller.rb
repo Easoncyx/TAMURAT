@@ -1,7 +1,7 @@
 class EvidencesController < ApplicationController
   before_action :logged_in_user,          only: [:index, :edit, :update, :new, :create, :destroy]
+  before_action :correct_user,            only: [:index]  
   before_action :have_answer_id,          only: [:index, :edit, :new]
-  before_action :correct_user,            only: [:index]
   before_action :company_user,            only: [:edit, :update, :new, :create, :destroy]
   before_action :right_user,              only: [:index, :edit, :destroy]
 
@@ -30,6 +30,7 @@ class EvidencesController < ApplicationController
       flash[:warning] = "Please choose evidence file."
       redirect_to answers_url and return
     end
+    # byebug
     @answer = Answer.find(params[:evidence][:answer_id])
     name = params[:evidence][:file].original_filename
     object = ActiveStorage::Blob.find_by(filename: name)
