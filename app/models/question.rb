@@ -3,12 +3,8 @@ class Question < ApplicationRecord
   belongs_to :subcategory, class_name: "Subcategory"
   has_many :answers, class_name: "Answer", :foreign_key => :question_id, :dependent => :destroy
   validates :name,  presence: true, length: { maximum: 512 }
-  VALID_WEIGHT_REGEX = /\A[0-9]+(.[0-9]*)?\z/
-  validates :weight, presence: true, format:{ with: VALID_WEIGHT_REGEX }
 
-  def self.valid_weight_regex
-    @regex = VALID_WEIGHT_REGEX
-  end
+  validates :weight, presence: true, format:{ with: self.valid_weight_regex }
   
   def self.import(file)
     subcat_weight_sum = {}
@@ -26,7 +22,7 @@ class Question < ApplicationRecord
       else
         @category = Category.find_by(name: category[1])
       end
-      
+
       if !Subcategory.exists?(name: subcategory[1])
         @subcategory = Subcategory.new(name: subcategory[1], category_id: @category.id, weight_sum: subcat_weight_sum[subcategory[1]])
         @subcategory.save
@@ -35,7 +31,7 @@ class Question < ApplicationRecord
         @subcategory.update_attributes!(weight_sum: subcat_weight_sum[subcategory[1]])
       end
       @category.subcategories << @subcategory
-      
+
       @question = Question.new(name: name[1], weight: weight, subcategory_id: @subcategory.id)
       @question.save
     end
