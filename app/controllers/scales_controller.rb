@@ -27,7 +27,7 @@ class ScalesController < ApplicationController
       redirect_to scales_path(categories: session[:categories])
     else
       @selected_categories_id = Category.where(name: @selected_categories_name).map{|t| t.id}
-      @scales = Scale.where(category_id: @selected_categories_id)
+      @scales = Scale.where(category_id: @selected_categories_id).order(:id)
     end
   end
 
@@ -48,24 +48,34 @@ class ScalesController < ApplicationController
   # POST /scales
   # POST /scales.json
   def create
-    @scale = Scale.new(scale_params)
-    if @scale.save
-      flash[:info] = "Scale was successfully created."
-      redirect_to scales_path
+    if(scale_params[:score] =~ Scale.valid_weight_regex)
+      @scale = Scale.new(scale_params)
+      if @scale.save
+        flash[:info] = "Scale was successfully created."
+        redirect_to scales_path
+      else
+        #byebug
+        flash[:danger] = "Scale update failed."
+        render 'new'
+      end
     else
-      #byebug
-      flash[:danger] = "Scale update failed."
-      render 'new'
+      flash[:danger] = "Score Invalid, you need to type a float."
+      redirect_to new_scale_url
     end
   end
 
   def update
-    if @scale.update(scale_params)
-      flash[:success] = "Scale was successfully updated."
-      redirect_to scales_url
+    if(scale_params[:score] =~ Scale.valid_weight_regex)
+      if @scale.update(scale_params)
+        flash[:success] = "Scale was successfully updated."
+        redirect_to scales_url
+      else
+        flash[:danger] = "Scale update failed."
+        render 'edit'
+      end
     else
-      flash[:danger] = "Scale update failed."
-      render 'edit'
+      flash[:danger] = "Score Invalid, you need to type a float."
+      redirect_to edit_scale_path(params[:id])
     end
   end
 
