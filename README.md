@@ -40,6 +40,19 @@ host    all             ec2-user        127.0.0.1/0             trust
 host    all             all             ::1/128                 md5
 ```
 
+The last step, we need to login as Postgres User and change Password / add ec2-user. Just paste the follow commands into the terminate.  
+`sudo service postgresql restart`
+`sudo su - postgres # login as postgres user`
+`psql -U postgres # login to postgres db as postgres user`
+Change Password
+`ALTER USER postgres WITH PASSWORD 'YOUR_PASSWORD';`
+Add ec2-user
+`CREATE USER "ec2-user" SUPERUSER;`
+`ALTER USER "ec2-user" WITH PASSWORD 'YOUR_PASSWORD';`
+Exit postgres:
+`postgres=# \q`
+`exit`
+
 ## Getting started
 When you complete all the installitation and editing above, we could start the APP.
 To get started with the app, we need to prepare the dataset by following commonds
