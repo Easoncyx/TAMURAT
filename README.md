@@ -28,6 +28,7 @@ listen_addresses = 'port = 5432
 ```
 
 The next is pg_hba.conf, there are many parameters we need to edit, be careful.
+
 `sudo vim /var/lib/pgsql9/data/pg_hba.conf`
 
 ```
@@ -42,16 +43,27 @@ host    all             all             ::1/128                 md5
 
 The last step, we need to login as Postgres User and change Password / add ec2-user. Just paste the follow commands into the terminate.  
 `sudo service postgresql restart`
+
 `sudo su - postgres # login as postgres user`
+
 `psql -U postgres # login to postgres db as postgres user`
+
 Change Password
+
 `ALTER USER postgres WITH PASSWORD 'YOUR_PASSWORD';`
+
 Add ec2-user
+
 `CREATE USER "ec2-user" SUPERUSER;`
+
 `ALTER USER "ec2-user" WITH PASSWORD 'YOUR_PASSWORD';`
+
 Exit postgres:
+
 `postgres=# \q`
+
 `exit`
+
 
 ## Getting started
 When you complete all the installitation and editing above, we could start the APP.
