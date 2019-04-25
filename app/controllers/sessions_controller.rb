@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(login_id: params[:session][:login_id])
+    # byebug
     if user && user.authenticate(params[:session][:password])
       if user.activated?
         log_in user

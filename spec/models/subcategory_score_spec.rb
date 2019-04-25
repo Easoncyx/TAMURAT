@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe SubcategoryScore, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+    describe "ActiveRecord test" do
+       it { should belong_to(:subcategory) } 
+       it { should belong_to(:company) } 
+    end    
+
 end
