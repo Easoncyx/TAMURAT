@@ -1,3 +1,22 @@
+# What's the logic behind this app?
+
+We have 4 roles in this app:
+
+- Administrator 
+- Decision Maker
+- Validator
+- Company Representative
+
+This app is for Company to evaluate their contractor and subcontractor. After company's answering the quesions and upload evidence. The validator log in and validated all the answers and evidences.
+
+Validated by validator, a score will be calculated following the formulea of weighted sum for each subcategory and category of questions.
+
+Then the Decision Maker can see the ouput of each company and the score of each scenarios to select the best solution for their project.
+
+The administrator is in charge of setting up every thing in this app, including user, questions, scenarios, and scales. Only administorator can invite other administrator.
+
+
+
 # How to add new user to the system?
 
 New user need to sign up and input their information and wait for the approval of administrator before they can log in to the system.
@@ -94,4 +113,8 @@ Company representative can upload evidence files to the website. Validator can s
 Creating questions one by one can be tiresome. We add a function to upload CSV file of questions and those questions will be stored in the database.
 - The CSV file will include header.
 - The CSV file has four columns: category, subcategory, question, weight. These four attributes are necessary to identify and define a question.
+
+# How to calculate the final score of a company in a certain scenario?
+
+In the `Help` tab, you can see the formulae of calculating the final score and the weight of each category and subcategory.
 
