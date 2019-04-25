@@ -18,12 +18,6 @@ class CompaniesController < ApplicationController
     redirect_to companies_path
   end
   
-  
-  
-  
-  
-  
-  
   private
   
     def correct_user

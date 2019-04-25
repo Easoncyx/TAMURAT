@@ -5,6 +5,7 @@ class ScenarioWeightController < ApplicationController
 
   def submit
     sw_params = params[:sw]
+    # byebug
     sw_params.values.each do |t|
       if t[:weight] !~ ScenarioWeight.valid_weight_regex
         flash[:danger] = "Weight Invalid, you need to type a float."
