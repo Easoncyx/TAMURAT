@@ -13,6 +13,7 @@ Third, fork and clone repo on your own AWS cloud9:
 Changing to the folder of TAMUART_new and type `bundle install`
 #### Installitation of PG
 Finally we need to do something so that we could use PG on AWS cloud9. Start the PG server:
+
 `sudo service postgresql initdb` 
 
 Then change the setting in postgresql.conf, there are two lines we need to edit.
