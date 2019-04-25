@@ -66,8 +66,8 @@ Rails.application.configure do
     user_name: 'chenyixu0@gmail.com',
     password: 'cYx709671676'
   }
-  host = 'http://localhost:3000/'
-  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
+  host = 'http://localhost:3000'
+  config.action_mailer.default_url_options = { host: host, port: 3000, protocol: 'http' }
 
   # 本地环境
   # config.action_mailer.smtp_settings = {
