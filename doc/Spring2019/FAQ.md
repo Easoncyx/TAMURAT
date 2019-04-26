@@ -7,15 +7,17 @@ We have 4 roles in this app:
 - Validator
 - Company Representative
 
-This app is for Company to evaluate their contractor and subcontractor. After the company's answering the questions and upload evidence. The validator logs in and validates all the answers and evidence.
+This app is for a large company to evaluate its contractor and sub-contractor. After the contractor's answering the questions and upload evidence. The validators log in and validate all the answers and evidence and finalize their decision so that the contractor can't change their answers and evidence.
 
 Validated by the validator, a score will be calculated following the formulae of weighted sum for each subcategory and category of questions.
 
+The Admin and the Decision Maker can both create scenarios to weight company on different scales. The Admin decides which Decision Maker can see and edit which scenario. 
+
 Then the Decision Maker can see the output of each company and the score of each scenario to select the best solution for their project.
 
-The administrator is in charge of setting up everything in this app, including user, questions, scenarios, and scales. The only administrator can invite another administrator.
+The administrator is in charge of setting up everything in this app, including users, questions, scenarios, and scales. Only the administrator can invite other administrators.
 
-
+The Company Representative can also invite their sub-company after approved by the Admin, they will receive their activation email and login_id.
 
 # How to add a new user to the system?
 
@@ -45,13 +47,13 @@ As an admin, you can:
   - Activate the pending application
 - In the `Questions` tab. You can manage all the questions, subcategories and categories
   - Import questions through a CSV file
-  - Create a new question, category, and subcategory
-  - Delete question, category or subcategory
-  - Edit question, including the name and weight and which subcategory they belong to
-  - Edit subcategory and category
+  - Create new questions, categories, and subcategories
+  - Delete questions, categories or subcategories
+  - Edit questions, including the name and weight and which subcategory they belong to
+  - Edit subcategories and categories
 - In the `Scales` tab. You can manage scales which are the answers for a certain type of questions
   - Each scale belongs to a category 
-  - The level is the text of answer that the company user can see when answering questions
+  - The level is the text of answer that the company user can choose from when answering questions
   - The score is the credit they get when choosing this answer, used for calculating the final score
 - In the `Scenarios` tab. You can manage the visibility of  scenarios
   - Assign or delete the authority of a Decision Maker to view a certain scenario
@@ -114,7 +116,20 @@ Creating questions one by one can be tiresome. We add a function to upload CSV f
 - The CSV file will include a header.
 - The CSV file has four columns: category, subcategory, question, weight. These four attributes are necessary to identify and define a question.
 
+This is an example csv:
+
+| **category**  | **subcategory** | **name**       | **weight** |
+| ------------- | --------------- | -------------- | ---------- |
+| **Bussiness** | Bussiness_1     | Bussiness_1_q1 | 1          |
+| **Bussiness** | Bussiness_1     | Bussiness_1_q2 | 1          |
+| **Bussiness** | Bussiness_2     | Bussiness_2_q1 | 1          |
+| **Bussiness** | Bussiness_2     | Bussiness_2_q2 | 1          |
+| **Security**  | Security_1      | Security_1_q1  | 1          |
+| **Security**  | Security_1      | Security_1_q2  | 1          |
+| **Security**  | Security_2      | Security_2_q1  | 1          |
+| **Security**  | Security_2      | Security_2_q2  | 1          |
+
+
 # How to calculate the final score of a company in a certain scenario?
 
 In the `Help` tab, you can see the formulae of calculating the final score and the weight of each category and subcategory.
-

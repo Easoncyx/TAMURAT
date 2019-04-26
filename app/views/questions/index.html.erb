@@ -17,8 +17,8 @@
           <% if admin? %>
             <div>
               <div class="btn-group">
-                <%=button_to 'Edit', edit_category_path(category.id), :method => :get, class:"btn-outline-dark"%>
-                <%=button_to 'Delete', category_path(category.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn-outline-dark"%>
+                <%=button_to 'Edit', edit_category_path(category.id), :method => :get, class:"btn btn-outline-dark short-input"%>
+                <%=button_to 'Delete', category_path(category.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn btn-outline-dark short-input"%>
               </div>
             </div>
           <% end %>
@@ -41,8 +41,8 @@
                     <% if admin? %>
                       <div>
                         <div class="btn-group">
-                          <%=button_to 'Edit', edit_subcategory_path(subcat.id), :method => :get, class:"btn-outline-dark" %>
-                          <%=button_to 'Delete', subcategory_path(subcat.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn-outline-dark"%>
+                          <%=button_to 'Edit', edit_subcategory_path(subcat.id), :method => :get, class:"btn btn-outline-dark short-input" %>
+                          <%=button_to 'Delete', subcategory_path(subcat.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn btn-outline-dark short-input"%>
                         </div>
                       </div>
                     <% end %>
@@ -69,8 +69,8 @@
                       <% if admin? %>
                         <td>
                           <div class="btn-group">
-                            <%=button_to 'Edit Question', edit_question_path(question.id), :method => :get, class:"btn-outline-dark" %>
-                            <%=button_to 'Delete Question', question_path(question.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn-outline-dark" %>
+                            <%=button_to 'Edit Question', edit_question_path(question.id), :method => :get, class:"btn btn-outline-dark short-input" %>
+                            <%=button_to 'Delete Question', question_path(question.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn btn-outline-dark short-input" %>
                           </div>
                         </td>
                       <% end %>
@@ -80,7 +80,7 @@
                 </table>
                 <% if admin? %>
                   <div class="panel-footer">
-                    <%=button_to 'New Question',new_question_path, method: :get, class: "btn btn-primary" %>
+                    <%=button_to 'New Question',new_question_path, method: :get, params: {subcategory_id: subcat.id}, class: "btn btn-primary short-input" %>
                   </div>
                 <% end %>
                 </div>
@@ -91,7 +91,7 @@
         </ul>
         <% if admin? %>
           <div class="panel-footer">
-            <%=button_to 'New Subcategory',new_subcategory_path, method: :get, class: "btn btn-primary" %>
+            <%=button_to 'New Subcategory',new_subcategory_path, method: :get, params: {category_id: category.id}, class: "btn btn-primary short-input" %>
           </div>
         <% end %>
       </div>
@@ -100,11 +100,13 @@
   <% end %>
 
   <% if admin? %>
+    <div class="panel-footer"><%=button_to 'New Category',new_category_path, method: :get, class: "btn btn-primary short-input" %></div>
+  
     <h3>Import Questions</h3>
     <%= form_tag import_questions_path, multipart: true do %>
-      <%= file_field_tag :file %>
-      <%= submit_tag "Upload Questions" %>
+      <%= file_field_tag :file, class: "short-input" %>
+      <%= submit_tag "Upload Questions", class: "short-input"%>
     <% end %>
-    <div class="panel-footer"><%=button_to 'New Category',new_category_path, method: :get, class: "btn btn-primary" %></div>
+
   <% end %>
 <% end %>

@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  
+  include CompaniesHelper
   before_action :logged_in_user
   before_action :correct_user
   before_action :company_user, only: [:new, :create]
@@ -9,6 +9,7 @@ class AnswersController < ApplicationController
     question_id = params[:question_id]
     company_id = params[:company_id]
     answer = Answer.find_by({company_id: company_id, question_id: question_id})
+
     if answer
       redirect_to edit_answer_path(answer.id) and return
     end

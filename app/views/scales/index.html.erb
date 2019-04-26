@@ -13,7 +13,7 @@
 <% end %>
 
 
-<table class="table table-hover">
+<table class="table table-hover", style="text-align:center;">
 <thead>
   <tr>
     <th scope="col">Index</th>
@@ -23,7 +23,8 @@
     <th scope="col">Level</th>
     <th scope="col">Score</th>
     <% if admin? %>
-      <th scope="col">Handler</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Destory</th>
     <% end %>
   </tr>
 </thead>
@@ -38,8 +39,10 @@
       <td><%=scale.score%></td>
       <% if admin? %>
         <td>
-        <%= button_to 'Edit', edit_scale_path(scale), :method => :get %>
-        <%= button_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' }%>
+          <%= button_to 'Edit', edit_scale_path(scale), :method => :get, class: "short-input" %>
+        </td>
+        <td>
+            <%= button_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' }, class: "short-input"%>
         </td>
       <% end %>
     </tr>
@@ -47,5 +50,5 @@
   </tbody>
 </table>
 <% if admin? %>
-    <%= button_to 'New Scale', new_scale_path, :method => :get, class: "btn btn-primary" %>
+    <%= button_to 'New Scale', new_scale_path, :method => :get, class: "btn btn-primary short-input" %>
 <% end %>

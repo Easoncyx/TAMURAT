@@ -9,7 +9,8 @@
 
   <%= f.label :subcategory %>
   
+  <% %>
   <%= f.select :subcategory_id, @subcategories, class: 'form-control'%>
-
+  <% %>
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>
