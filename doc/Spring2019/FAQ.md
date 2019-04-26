@@ -7,17 +7,17 @@ We have 4 roles in this app:
 - Validator
 - Company Representative
 
-This app is for a large company to evaluate their contractor and sub-contractor. After the contractor's answering the questions and upload evidence. The validators log in and validate all the answers and evidence and finalize their decision so that the contractor can't change their answers and evidences.
+This app is for a large company to evaluate its contractor and sub-contractor. After the contractor's answering the questions and upload evidence. The validators log in and validate all the answers and evidence and finalize their decision so that the contractor can't change their answers and evidence.
 
 Validated by the validator, a score will be calculated following the formulae of weighted sum for each subcategory and category of questions.
 
-The Admin and the Decision Maker can both create scenarios to weight company on different scale. The Admin decide which Decision Maker can see and edit which scenario. 
+The Admin and the Decision Maker can both create scenarios to weight company on different scales. The Admin decides which Decision Maker can see and edit which scenario. 
 
 Then the Decision Maker can see the output of each company and the score of each scenario to select the best solution for their project.
 
 The administrator is in charge of setting up everything in this app, including users, questions, scenarios, and scales. Only the administrator can invite other administrators.
 
-The Company Representative can also invite their sub-company, after approved by the Admin, they will receive their activation email and login_id.
+The Company Representative can also invite their sub-company after approved by the Admin, they will receive their activation email and login_id.
 
 # How to add a new user to the system?
 
@@ -133,4 +133,3 @@ This is an example csv:
 # How to calculate the final score of a company in a certain scenario?
 
 In the `Help` tab, you can see the formulae of calculating the final score and the weight of each category and subcategory.
-
