@@ -16,7 +16,7 @@ RSpec.describe AnswersController, type: :controller do
         
         describe "AnswersController#index" do
             it 'should render the index page' do
-                get :index
+                get :index, params:{:company_id => @company.id}
                 expect(response).to render_template :index
             end    
         end

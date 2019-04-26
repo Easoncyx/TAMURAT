@@ -132,7 +132,9 @@ RSpec.describe QuestionsController, type: :controller do
        
         describe "QuestionsController#new" do
             it 'should render new' do
-                get :new
+                @category = create(:category)
+                @subcategory = create(:sub, :category_id => @category.id)
+                get :new, params:{:subcategory_id => @subcategory.id}
                 expect(response).to render_template('new')
             end             
         end        
