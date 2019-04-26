@@ -100,12 +100,12 @@
   <% end %>
 
   <% if admin? %>
-    <div class="panel-footer"><%=button_to 'New Category',new_category_path, method: :get, class: "btn btn-primary btn-sm" %></div>
+    <div class="panel-footer"><%=button_to 'New Category',new_category_path, method: :get, class: "btn btn-primary short-input" %></div>
   
     <h3>Import Questions</h3>
     <%= form_tag import_questions_path, multipart: true do %>
-      <%= file_field_tag :file, class: "btn-sm" %>
-      <%= submit_tag "Upload Questions", class: "btn-sm"%>
+      <%= file_field_tag :file, class: "short-input" %>
+      <%= submit_tag "Upload Questions", class: "short-input"%>
     <% end %>
 
   <% end %>

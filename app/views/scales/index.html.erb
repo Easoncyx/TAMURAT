@@ -39,10 +39,10 @@
       <td><%=scale.score%></td>
       <% if admin? %>
         <td>
-          <%= button_to 'Edit', edit_scale_path(scale), :method => :get %>
+          <%= button_to 'Edit', edit_scale_path(scale), :method => :get, class: "short-input" %>
         </td>
         <td>
-            <%= button_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' }%>
+            <%= button_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' }, class: "short-input"%>
         </td>
       <% end %>
     </tr>
@@ -50,5 +50,5 @@
   </tbody>
 </table>
 <% if admin? %>
-    <%= button_to 'New Scale', new_scale_path, :method => :get, class: "btn btn-primary" %>
+    <%= button_to 'New Scale', new_scale_path, :method => :get, class: "btn btn-primary short-input" %>
 <% end %>
