@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
   def edit
     id = params[:id]
     question_id = params[:question_id]
-    
+
     @answer = Answer.find_by_id(id)
 
     if !@answer
@@ -37,7 +37,7 @@ class AnswersController < ApplicationController
     @answer = Answer.find_by_id(id)
     question = Question.find_by_id(answer_params[:question_id])
     # byebug
-    
+
     if validator?
       @answer.update_attributes!(validate_params)
       flash[:success] = "Successfully validate question #{question.name}"
@@ -74,6 +74,7 @@ class AnswersController < ApplicationController
   def index
     if validator?
       @company_id = params[:company_id]
+      @company_name = get_company_name(Company.find_by_id(@company_id))
     else
       @company_id = current_user.company.id
     end
@@ -90,7 +91,7 @@ class AnswersController < ApplicationController
     end
 
   end
-  
+
   private
 
     def answer_params
@@ -114,7 +115,7 @@ class AnswersController < ApplicationController
         redirect_to root_path and return
       end
     end
-    
+
     def not_validated
       if company_representative? && current_user.company.validated
         flash[:warning] = "You have already been validated!"
