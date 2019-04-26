@@ -1,13 +1,9 @@
 class StaticPagesController < ApplicationController
   
- 
-  
-  
-  
-  
   def home
     @user = current_user
     @scenario = current_user.scenarios.build if logged_in?
+    @j = User.exists?(activated: false)
   end
 
   def help
