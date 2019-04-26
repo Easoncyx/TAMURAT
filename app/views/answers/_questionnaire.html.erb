@@ -23,7 +23,7 @@
                 </h4>
               </div>
               <div id=<%="collapse_subcategory#{subcat.id}"%> class="panel-collapse collapse">
-              <table class="table table-hover">
+              <table class="table table-hover", style="text-align:center;">
               <thead>
                 <tr>
                   <th scope="col">Index</th>
@@ -40,8 +40,8 @@
 
                     <th scope="row"><%=question.id%></th>
                     <td><%=question.name%></td>
-                    
-                    <td> 
+
+                    <td>
                       <% if !answered?(question.id, @company_id) %>
                         Not Answered
                       <% elsif !validated?(question.id, @company_id) %>
@@ -70,10 +70,10 @@
                         <% if !answered?(question.id, @company_id) %>
                           Not Answered.
                         <% else %>
-                          
+
                           <% id = get_answer_id(question.id, @company_id) %>
                           <%= link_to "Validate this answer", edit_answer_url(id: id, question_id: question.id) %>
-                          
+
                         <% end %>
                       <% end %>
                     </td>

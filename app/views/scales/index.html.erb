@@ -38,12 +38,8 @@
       <td><%=scale.score%></td>
       <% if admin? %>
         <td>
-        <button type="button" class="btn btn-outline-dark">
-          <%= link_to 'Edit', edit_scale_path(scale) %>
-        </button>
-        <button type="button" class="btn btn-outline-dark">
-          <%= link_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </button>
+        <%= button_to 'Edit', edit_scale_path(scale), :method => :get %>
+        <%= button_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' }%>
         </td>
       <% end %>
     </tr>
@@ -51,7 +47,5 @@
   </tbody>
 </table>
 <% if admin? %>
-  <button type="button" class="btn btn-outline-dark">
-    <%= link_to 'New Scale', new_scale_path %>
-  </button>
+    <%= button_to 'New Scale', new_scale_path, :method => :get, class: "btn btn-primary" %>
 <% end %>
