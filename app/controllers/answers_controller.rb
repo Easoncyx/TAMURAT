@@ -8,9 +8,7 @@ class AnswersController < ApplicationController
   def new
     question_id = params[:question_id]
     company_id = params[:company_id]
-    
     answer = Answer.find_by({company_id: company_id, question_id: question_id})
-    
     if answer
       redirect_to edit_answer_path(answer.id) and return
     end
