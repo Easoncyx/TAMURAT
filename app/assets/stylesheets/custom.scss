@@ -185,10 +185,10 @@ input, textarea, select, .uneditable-input {
 }
 
 input.form-check-input{
-    width: unset;
+  width: unset;
 }
 input#user_search{
-  width: 30%;
+  width: auto;
 }
 
 
@@ -368,4 +368,12 @@ th{
 
 div.btn-group form{
   display: inline;
+}
+
+.pending {
+ color: red;
+}
+
+.green {
+  color: green;
 }

@@ -20,7 +20,11 @@
         <% end %>
       </td>
       <td>
-        <%= link_to "Validate", answers_path(:company_id => company.id)%>
+        <% if company.answers.any? %>
+          <%= link_to "Validate", answers_path(:company_id => company.id)%>
+        <% else %>
+          Not answered yet
+        <% end %>
       </td>
     </tr>
     <% end %>
