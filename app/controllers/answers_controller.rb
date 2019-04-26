@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  
+  include CompaniesHelper
   before_action :logged_in_user
   before_action :correct_user
   before_action :company_user, only: [:new, :create]
@@ -8,13 +8,13 @@ class AnswersController < ApplicationController
     question_id = params[:question_id]
     company_id = params[:company_id]
     company = Company.find_by_id(company_id)
-    
+
     if company.validated
       flash[:warning] = "Your answer has validated."
       redirect_to answers_path and return
     end
     answer = Answer.find_by({company_id: company_id, question_id: question_id})
-    
+
     if answer
       redirect_to edit_answer_path(answer.id) and return
     end
@@ -26,9 +26,9 @@ class AnswersController < ApplicationController
   def edit
     id = params[:id]
     question_id = params[:question_id]
-    
+
     @answer = Answer.find_by_id(id)
-    
+
     company = Company.find_by_id(@answer.company_id)
 
     if company.validated
@@ -49,7 +49,7 @@ class AnswersController < ApplicationController
     @answer = Answer.find_by_id(id)
     question = Question.find_by_id(answer_params[:question_id])
     # byebug
-    
+
     if validator?
       @answer.update_attributes!(validate_params)
       flash[:success] = "Successfully validate question #{question.name}"
@@ -57,8 +57,8 @@ class AnswersController < ApplicationController
     else
       if current_user.company.validated
         flash[:warning] = "You have been validated, you can't change answers."
-        redirect_to answers_path and return 
-      else 
+        redirect_to answers_path and return
+      else
         @answer.update_attributes!(answer_params)
         flash[:success] = "Successfully Answered question #{question.name}"
         redirect_to answers_path
@@ -95,6 +95,7 @@ class AnswersController < ApplicationController
   def index
     if validator?
       @company_id = params[:company_id]
+      @company_name = get_company_name(Company.find_by_id(@company_id))
     else
       @company_id = current_user.company.id
     end
@@ -111,7 +112,7 @@ class AnswersController < ApplicationController
     end
 
   end
-  
+
   private
 
     def answer_params
