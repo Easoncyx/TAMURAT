@@ -6,39 +6,40 @@
       <%= link_to "RISK ASSESSMENT TOOL", root_path, id: "logo" %>
     <% end %>
     <nav>
-      <ul class="nav navbar-nav navbar-right" >
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Help", help_path %></li>
+      <button class="navbar-toggle collapsed" id="menu-icon"></button>
+      <ul class="nav navbar-nav navbar-right collapse-nav-ul-custom" >
+        <li class="collapse-nav-li-custom"><%= link_to "Home", root_path %></li>
+        <li class="collapse-nav-li-custom"><%= link_to "Help", help_path %></li>
 
         <% if logged_in? %>
           <% if admin? %>
-            <li><%= link_to "Users", users_path %></li>
-            <li><%= link_to "Questions", questions_path %></li>
-            <li><%= link_to "Scales", scales_path %></li>
-            <li><%= link_to "Scenarios", scenarios_path %></li>
-            <li><%= link_to "Outputs", outputs_path %></li>
-            <li><%= link_to "Invite", new_user_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Users", users_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Questions", questions_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Scales", scales_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Scenarios", scenarios_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Outputs", outputs_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Invite", new_user_path %></li>
           <% elsif decision_maker? %>
-            <li><%= link_to "Questions", questions_path %></li>
-            <li><%= link_to "Scenarios", scenarios_path %></li>
-            <li><%= link_to "Outputs", outputs_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Questions", questions_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Scenarios", scenarios_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Outputs", outputs_path %></li>
           <% elsif validator? %>
-            <li><%= link_to "Scales", scales_path %></li>
-            <li><%= link_to "Companies", companies_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Scales", scales_path %></li>
+            <li  class="collapse-nav-li-custom"><%= link_to "Companies", companies_path %></li>
           <% else %>
-            <li><%= link_to "Scales", scales_path %></li>
-            <li><%= link_to "Questionnaires", answers_path %></li>
-            <li><%= link_to "Invite", new_user_path %></li>
+            <li  class="collapse-nav-li-custom"><%= link_to "Scales", scales_path %></li>
+            <li  class="collapse-nav-li-custom"><%= link_to "Questionnaires", answers_path %></li>
+            <li  class="collapse-nav-li-custom"><%= link_to "Invite", new_user_path %></li>
           <% end %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <li class="dropdown collapse-nav-li-custom">
+            <a href="response-list" class="dropdown-toggle" data-toggle="dropdown">
               Account <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+              <li class="collapse-nav-li-custom"><%= link_to "Profile", current_user %></li>
+              <li class="collapse-nav-li-custom"><%= link_to "Settings", edit_user_path(current_user) %></li>
               <li class="divider"></li>
-              <li>
+              <li class="collapse-nav-li-custom">
                 <%= link_to "Log out", logout_path, method: :delete %>
               </li>
             </ul>
@@ -48,5 +49,27 @@
         <% end %>
       </ul>
     </nav>
+    <div>
+    
+    </div>
   </div>
+  
 </header>
+<script>
+  $("#menu-icon").click(function () {
+      
+      if($(".collapse-nav-ul-custom").css("display")=="none")
+        $(".collapse-nav-ul-custom").css("display", "block");
+      else
+        $(".collapse-nav-ul-custom").css("display", "none");
+  })
+  $(window).resize(function () {   
+    if($(window).width() > 1200){
+      $(".collapse-nav-ul-custom").css("display","block");
+    }
+    else {
+      $(".collapse-nav-ul-custom").css("display", "none");
+    }
+  });
+  
+</script>
