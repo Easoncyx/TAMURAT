@@ -399,6 +399,18 @@ div.btn-group form{
   display: block;
 }
 
+.collapse-nav-li-custom:hover {
+  background: #500000;  
+}
+
+.dropdown-menu {
+  width: 100%;
+	margin: 0;
+	text-align: center;
+}
+
+
+
 @media only screen and (max-width : 1200px) {
 
 	header {
@@ -432,10 +444,11 @@ div.btn-group form{
 		text-align: center;
 
 	}
+
 	
-	.collapse-nav-li-custom:hover {
-	  background: #500000;  
-	}
+  .navbar-inverse .navbar-nav > li > a:focus {
+    color: #9d9d9d;
+  }
 }
 
 @media only screen and (max-width : 600px) {
