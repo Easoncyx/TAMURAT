@@ -253,8 +253,56 @@ Given("I log in with new password") do
   fill_in 'Password', :with => '000000'
   click_button 'Log in'
 end
+# ====== COMPANIES
+Given('I click "Validate" of "pickle-morty"') do
+  #visit '/answers?company_id=1'
+  first(:link, "Validate").click
+end
 
+Given('I click "Answer this question" of "Business_1_q1"') do
+  #visit '/answers?company_id=1'
+  first(:link, "Answer this question").click
+end
 
+Given('I answer and submit') do
+  find('#answer_level').find(:xpath, 'option[4]').select_option
+  click_button 'Submit my answer'
+end
+
+Given('I edit the answer and submit') do
+  find('#answer_level').find(:xpath, 'option[5]').select_option
+  click_button 'Edit my answer'
+end
+
+Given('I comment and attach file') do
+  fill_in "Comment", :with => "This is an evidence for Business_1_q1."
+  page.attach_file('File', File.join(Rails.root, '/features/upload_file/evidence.txt'))
+  #attach_file('File', File.join(Rails.root, '/features/upload_file/evidence.txt'))
+  #attach_file('File', "~/environment/TAMUART_new/features/upload_file/evidence.txt")
+end
+
+When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
+  attach_file(field, File.expand_path(path))
+end
+
+Given('I click "Validate" of "Example CR1"') do
+  visit '/answers?company_id=2'
+end
+
+# Given(/^I go back$/) do
+#   page.evaluate_script('window.history.back()')
+# end
+
+Given('I validate this question and submit') do
+  find('#answer_level').find(:xpath, 'option[6]').select_option
+  #fill_in "Comment", :with => "This is a validation for Business_1_q1."
+  click_button 'Validate'
+end
+
+Given('I mark "pickle-morty" as "Validated"') do
+  first('#validated').find(:xpath, 'option[1]').select_option
+  first(:button, "Validated").click
+end
 
 
 
@@ -442,9 +490,6 @@ When /^(?:|I )choose "([^"]*)"$/ do |field|
   choose(field)
 end
 
-When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
-  attach_file(field, File.expand_path(path))
-end
 
 # Then /^(?:|I )should see "([^"]*)"$/ do |text|
 #   if page.respond_to? :should

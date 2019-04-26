@@ -24,6 +24,10 @@ module NavigationHelpers
       '/scales'
     when /^All Scenarios page$/
       '/scenarios'
+    when /^Companies page$/
+      '/companies'
+    when /^Questionnaire page$/
+      '/answers'
     when /^Help page$/
       '/help'
 
