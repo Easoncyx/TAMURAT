@@ -63,6 +63,7 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'fixture'
+  gem 'email_spec'
 end
 
 group :development do

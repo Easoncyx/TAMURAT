@@ -20,6 +20,11 @@ RSpec.describe Company, type: :model do
     end
 
     describe "uniqueness validation" do
-        it { is_expected.to validate_uniqueness_of(:user_id) }   
+        it 'should not have two companies with the same user_id' do
+            @validator = create(:validator)
+            @company = create(:company, user_id:  @validator.id)        
+            CP1 = Company.new(user_id: @validator.id ,weight_sum: 5,score: 4)
+            expect(CP1).not_to be_valid 
+        end
     end
 end

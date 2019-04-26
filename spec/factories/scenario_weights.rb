@@ -9,6 +9,6 @@ FactoryBot.define do
     factory :scenario_weight2, :class => ScenarioWeight do
         company_id {nil}
         scenario_id {nil}
-        weight {[1,2]}
+        weight {1}
     end    
 end
