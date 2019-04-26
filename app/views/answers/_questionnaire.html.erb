@@ -43,11 +43,12 @@
 
                     <td>
                       <% if !answered?(question.id, @company_id) %>
+                        
                         Not Answered
                       <% elsif !validated?(question.id, @company_id) %>
-                        Not Validated
+                        <div class="green">Not Validated</div>
                       <% else %>
-                        Validated
+                        <div class="pending">Validated</div>
                       <% end %>
                     </td>
                     <td>
@@ -68,7 +69,7 @@
                         <% end %>
                       <% elsif validator?%>
                         <% if !answered?(question.id, @company_id) %>
-                          Not Answered.
+                          Not Answered
                         <% else %>
 
                           <% id = get_answer_id(question.id, @company_id) %>
@@ -79,10 +80,15 @@
                     </td>
                     <td>
                       <% if !answered?(question.id, @company_id) %>
-                        Not provided.
+                        Not provided
                       <% else %>
                         <% answer_id = get_answer_id(question.id, @company_id) %>
-                        <%= link_to "Manage evidences", evidences_url(answer_id: answer_id) %>
+                        <% answer = Answer.find(answer_id) %>
+                        <% if validator? && !answer.evidences.any? %>
+                          Not provided
+                        <% else %>
+                          <%= link_to "Manage evidences", evidences_url(answer_id: answer_id) %>
+                        <% end %>
                       <% end %>
                     </td>
                   </tr>
