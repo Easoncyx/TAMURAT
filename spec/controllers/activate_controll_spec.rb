@@ -42,11 +42,12 @@ RSpec.describe ActivateController, type: :controller do
             @admin = create(:admin)
             session[:user_id] = @admin.id
             
-            @user = create(:representative)
+            
             
         end    
         describe "AnswersController#index" do
-            it 'has no right and redirect_to root_path' do
+            it 'send email successfully and return to users_url' do
+                @user = create(:representative)
                 get :activate,params:{:login_id => @user.login_id}
                 
                 expect(open_last_email).to be_delivered_from 'noreply@example.com'
@@ -54,6 +55,16 @@ RSpec.describe ActivateController, type: :controller do
                 expect(open_last_email).to have_subject "Account activation"
 
                 expect(flash[:success]).to match("Successfully send email")
+                expect(response).to redirect_to users_url
+            end    
+        end
+        
+        describe "AnswersController#index" do
+            it 'already activated and return to users_url, no email sent' do
+                @user = create(:representative, activated: true)
+                get :activate,params:{:login_id => @user.login_id}
+
+                expect(flash[:warning]).to match("User Already Activated!")
                 expect(response).to redirect_to users_url
             end    
         end
