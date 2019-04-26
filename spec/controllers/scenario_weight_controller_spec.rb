@@ -36,25 +36,71 @@ RSpec.describe ScenarioWeightController, type: :controller do
           @admin = create(:admin)
           session[:user_id] = @admin.id
           
-          # @CP = create(:representative)
-          # @company = create(:company, user_id: @CP.id )
-          # @scenario = create(:scenario1)
-          # @scenario_weight = create(:scenario_weight1, company_id: @company.id, scenario_id: @scenario.id)
+          @CP = create(:representative)
+          @company = create(:company, user_id: @CP.id )
+          @scenario = create(:scenario1)
+          @scenario_weight1 = create(:scenario_weight1, company_id: @company.id, scenario_id: @scenario.id)
+          # @scenario_weight2 = create(:scenario_weight2, company_id: @company.id, scenario_id: @scenario.id)
       end
       
-      # describe "ScenarioWeightController#submit" do
-      #     it 'should redirect to the page of login' do
-      #         post :submit
-      #         expect(response).to redirect_to login_url
-      #     end             
-      # end 
-      
       describe "ScenarioWeightController#submit" do
-        it "returns http success" do
-          get :submit
-          expect(response).to have_http_status(:success)
+        it "update weight successfully and redirect_to scenarios_path" do
+          # byebug
+          get :submit, params:{:scenario_id => @scenario.id ,:sw => {@scenario_weight1.id =>{"weight"=>"343"}}}
+          expect(response).to redirect_to scenarios_path
         end
+        
+        it "weight contain invalid symbol and redirect_to edit_scenario_path(@scenario.id)" do
+          # byebug
+          get :submit, params:{:scenario_id => @scenario.id ,:sw => {@scenario_weight1.id =>{"weight"=>"3a"}}}
+          expect(flash[:danger]).to match("Weight Invalid, you need to type a float.")
+          expect(response).to redirect_to edit_scenario_path(@scenario.id)
+        end
+        
+        # it "invalid scenario found" do
+        #   # byebug
+        #   get :submit, params:{:scenario_id => @scenario.id+1 ,:sw => {@scenario_weight1.id =>{"weight"=>"3a"}}}
+        #   expect(flash[:danger]).to match("No scenario found.")
+        #   expect(response).to redirect_to edit_scenario_path(@scenario.id)
+        # end        
+        
       end      
   end
-
+  
+  describe "login as admin" do
+      
+      before :each do
+          @DM = create(:DM)
+          session[:user_id] = @DM.id
+          
+          @CP = create(:representative)
+          @company = create(:company, user_id: @CP.id )
+          @scenario = create(:scenario1)
+          @scenario_weight1 = create(:scenario_weight1, company_id: @company.id, scenario_id: @scenario.id)
+          # @scenario_weight2 = create(:scenario_weight2, company_id: @company.id, scenario_id: @scenario.id)
+      end
+      
+      describe "ScenarioWeightController#submit" do
+        it "has no privilege and redirect_to scenarios_path" do
+          get :submit, params:{:scenario_id => @scenario.id ,:sw => {@scenario_weight1.id =>{"weight"=>"343"}}}
+          expect(flash[:danger]).to match("Do not meddle with other's scenarios!")
+          expect(response).to redirect_to scenarios_path
+        end
+        
+        it "update weight successfully and redirect_to scenarios_path" do
+          @DM.create_scenario(@scenario)
+          get :submit, params:{:scenario_id => @scenario.id ,:sw => {@scenario_weight1.id =>{"weight"=>"343"}}}
+          expect(flash[:success]).to match("ScenarioWeights was successfully updated.")
+          expect(response).to redirect_to scenarios_path
+        end     
+        
+        it "weight contain invalid symbol and redirect_to edit_scenario_path(@scenario.id)" do
+          @DM.create_scenario(@scenario)
+          get :submit, params:{:scenario_id => @scenario.id ,:sw => {@scenario_weight1.id =>{"weight"=>"3a"}}}
+          expect(flash[:danger]).to match("Weight Invalid, you need to type a float.")
+          expect(response).to redirect_to edit_scenario_path(@scenario.id)
+        end
+        
+      end      
+  end
 end

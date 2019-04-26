@@ -43,12 +43,11 @@
 
                     <td>
                       <% if !answered?(question.id, @company_id) %>
-                        
                         Not Answered
                       <% elsif !validated?(question.id, @company_id) %>
-                        <div class="green">Not Validated</div>
+                        <div class="pending">Not Validated</div>
                       <% else %>
-                        <div class="pending">Validated</div>
+                        <div class="green">Validated</div>
                       <% end %>
                     </td>
                     <td>

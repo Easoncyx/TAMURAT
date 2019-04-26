@@ -363,7 +363,7 @@ th{
 
 
 .btn-outline-dark{
-  width: 120px;
+  width: auto;
 }
 
 div.btn-group form{
@@ -376,4 +376,85 @@ div.btn-group form{
 
 .green {
   color: green;
+}
+
+
+#menu-icon {
+
+	display: none;
+	width: 40px;
+	height: 40px;
+	background: url(menu-icon.png);
+  
+}
+
+#menu-icon:hover{
+
+	background-color: #444;
+	border-radius: 4px 4px 0 0;
+
+}
+
+.collapse-nav-ul-custom {
+  display: block;
+}
+
+.collapse-nav-li-custom:hover {
+  background: #500000;  
+}
+
+.dropdown-menu {
+  width: 100%;
+	margin: 0;
+	text-align: center;
+}
+
+
+
+@media only screen and (max-width : 1200px) {
+
+	header {
+
+		position: absolute;
+
+	}
+
+	#menu-icon {
+
+		display:inline-block;
+    float: right
+	}
+
+	.collapse-nav-ul-custom { 
+		display: none;
+		position: absolute;
+		padding: 0px;
+		background: #fff;
+		border: 5px solid #444;
+		right: 30px;
+		top: 35px;
+		width: 20%;
+		border-radius: 4px 0 4px 4px;
+	}
+
+	.collapse-nav-li-custom {
+
+		width: 100%;
+		margin: 0;
+		text-align: center;
+
+	}
+
+	
+  .navbar-inverse .navbar-nav > li > a:focus {
+    color: #9d9d9d;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+
+	.collapse-nav-ul-custom { 
+		width: auto;
+	}
+  
 }

@@ -119,13 +119,14 @@ RSpec.describe SubcategoriesController, type: :controller do
         describe "SubcategoriesController#new" do
 
             it "collects category into @category" do
+                @category = create(:category)
                 @subcategory_new = Subcategory.new
-                get :new
+                get :new,params:{:category_id => @category.id}
                 expect(assigns(@subcategory.name)).to eq(@subcategory_new.name)
             end        
             
             it 'should render new' do
-                get :new
+                get :new,params:{:category_id => @category.id}
                 expect(response).to render_template('new')
             end             
         end        

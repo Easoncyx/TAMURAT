@@ -10,6 +10,7 @@ class ActivateController < ApplicationController
       if !@user.activated
         @user.create_activation_digest
         @user.create_company
+        # byebug
         UserMailer.account_activation(@user).deliver_now
         flash[:success] = "Successfully send email"
       else
