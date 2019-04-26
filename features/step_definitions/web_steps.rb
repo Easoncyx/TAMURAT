@@ -84,7 +84,7 @@ When /^I confirm popup$/ do
 end
 
 When("I activate a user") do
-  first(:link, "Activate").click
+  click_button 'Activate'
 end
 
 #" #===== QUESTIONS
@@ -171,7 +171,7 @@ Given('I edit the first scale into "pickle-rick_scale"') do
 end
 
 Given('I create a new scale "pickle-morty_scale"') do
-  click_link 'New Scale'
+  click_button 'New Scale'
   fill_in "Name", :with => "pickle-morty_scale"
   fill_in "Description", :with => "This is another description for scale"
   find('#scale_category_id').find(:xpath, 'option[3]').select_option
@@ -195,14 +195,14 @@ end
 # ===== SCENARIOS
 
 Given('I create a new scenario "pickle-rick"') do
-  click_link 'New Scenario'
+  click_button 'New Scenario'
   fill_in "Name", :with => "pickle-rick"
   fill_in "Description", :with => "This is a description for scenario"
   click_button 'Create my scenario'
 end
 
 Given('I create a new scenario "pickle-morty"') do
-  click_link 'New Scenario'
+  click_button 'New Scenario'
   fill_in "Name", :with => "pickle-morty"
   fill_in "Description", :with => "This is a description for scenario (DM)"
   click_button 'Create my scenario'
@@ -222,11 +222,11 @@ Given /^I click "Assign" of scenario "([^"]*)"$/ do |scenario|
 end
 #"
 Given('I click "Assign" of "Example DM1" and "Exmaple DM2"') do
-  first(:link, "Assign").click
-  first(:link, "Assign").click
+  first(:button, "Assign").click
+  first(:button, "Assign").click
 end
 Given('I click "Delete" of "Example DM1"') do
-  first(:link, "Delete").click
+  first(:button, "Delete").click
 end
 
 # ====== PROFILE
@@ -301,7 +301,7 @@ end
 
 Given('I mark "pickle-morty" as "Validated"') do
   first('#validated').find(:xpath, 'option[1]').select_option
-  first(:button, "Validated").click
+  first(:button, "Finalize").click
 end
 
 

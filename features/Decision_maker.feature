@@ -14,33 +14,41 @@ Background:  Log in as a Decision maker
   Scenario: Decision maker can management all questions
     Given I am on All question page
     Then I should see "All Question"
-    # Category create/edit
-    Given I edit the first category into "pickle-rick"
-    Then I should see "pickle-rick was successfully updated."
-    Given I create a new category "pickle-morty"
-    Then I should see "pickle-morty was successfully created."
-    # Subcategory create/edit
-    Given I click link "pickle-rick"
-    Then I should see "Business_1"
-    Given I edit subcategory "Business_1" into "pickle-rick_1"
-    Then I should see "pickle-rick_1 was successfully updated."
-    Then I should see "Weight_sum = 9.7"
-    Then I should see "pickle-rick_1"
-    Given I create a new subcategory "pickle-rick_4"
-    Then I should see "pickle-rick_4 was successfully created."
-    Then I should see "pickle-rick_4"
-    # Question create/edit
-    Given I click link "pickle-rick_1"
+    Then I should not see "Edit"
+    Then I should not see "Delete"
+    Then I should not see "New Category"
+    Then I should not see "Import Questions"
+    Given I click link "Business Weight = 2.0 Weight_sum = 3.0"
+    Then I should see "Business_1 "
+    Given I click link "Business_1 "
     Then I should see "Business_1_q1"
-    Given I edit question "Business_1_q1" into "pickle-rick_1_q1"
-    Then I should see "pickle-rick_1_q1 was successfully updated."
-    Then I should see "pickle-rick_1_q1"
-    Given I create a new question "pickle-rick_1_q4"
-    Then I should see "pickle-rick_1_q4 was successfully created."
-    Then I should see "pickle-rick_1_q4"
-    # Invalid input
-    Given I input invalid in "Weight"
-    Then I should see "Weight Invalid, you need to type a float."
+    # # Category create/edit
+    # Given I edit the first category into "pickle-rick"
+    # Then I should see "pickle-rick was successfully updated."
+    # Given I create a new category "pickle-morty"
+    # Then I should see "pickle-morty was successfully created."
+    # # Subcategory create/edit
+    # Given I click link "pickle-rick"
+    # Then I should see "Business_1"
+    # Given I edit subcategory "Business_1" into "pickle-rick_1"
+    # Then I should see "pickle-rick_1 was successfully updated."
+    # Then I should see "Weight_sum = 9.7"
+    # Then I should see "pickle-rick_1"
+    # Given I create a new subcategory "pickle-rick_4"
+    # Then I should see "pickle-rick_4 was successfully created."
+    # Then I should see "pickle-rick_4"
+    # # Question create/edit
+    # Given I click link "pickle-rick_1"
+    # Then I should see "Business_1_q1"
+    # Given I edit question "Business_1_q1" into "pickle-rick_1_q1"
+    # Then I should see "pickle-rick_1_q1 was successfully updated."
+    # Then I should see "pickle-rick_1_q1"
+    # Given I create a new question "pickle-rick_1_q4"
+    # Then I should see "pickle-rick_1_q4 was successfully created."
+    # Then I should see "pickle-rick_1_q4"
+    # # Invalid input
+    # Given I input invalid in "Weight"
+    # Then I should see "Weight Invalid, you need to type a float."
     
   Scenario: Decision maker can partially manage assigned scenarios
     Given I am on All Scenarios page

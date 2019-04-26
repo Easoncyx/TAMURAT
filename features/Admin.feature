@@ -20,11 +20,11 @@ Background:  Log in as an Admin
     Then I should see "pickle-rick"
     Then I should see "pickle-morty"
 
-  Scenario: Admin can delete user
-    Given I am on All user page
-    When I delete the first user
-    Then I should see "User deleted"
-    Then I should not see "Example DM1"
+  # Scenario: Admin can delete user
+  #   Given I am on All user page
+  #   When I delete the first user
+  #   Then I should see "User deleted"
+  #   Then I should not see "Example DM1"
     
   Scenario: Activate a user
     Given I am on All user page
