@@ -3,106 +3,108 @@
 
 
 <% if logged_in? %>
-<% @result.each do |category, value| %>
-<div class="panel-group">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" href=#<%="collapse_category#{category.id}"%>>
-          <%= category.name %>
-          </br>
-          <% if true%>
-          <small>Weight = <%= category.weight %></small>
-          <small>Weight_sum = <%= category.weight_sum %></small>
-          <% end %>
-          <div>
-          <button type="button" class="btn btn-outline-dark">
-            <%=link_to 'Edit', edit_category_path(category.id), :method => :get%>
-          </button>
-          <button type="button" class="btn btn-outline-dark">
-            <%=link_to 'Delete', category_path(category.id), :method => :delete, data: { confirm: "You sure?" }%>
-          </button>
-          </div>
-        </a>
-      </h4>
-    </div>
-    <div id=<%="collapse_category#{category.id}"%> class="panel-collapse collapse">
-      <ul class="list-group">
-        <li class="list-group-item">
-          <% value.each do |subcat, questions| %>
-          <div class="panel-group">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" href=<%="#collapse_subcategory#{subcat.id}"%>>
-                    <%=subcat.name %>
-                    </br>
-                    <% if true %>
-                    <small>Weight = <%= subcat.weight %></small>
-                    <small>Weight_sum = <%= subcat.weight_sum %></small>
-                    <% end %>
-                    <div>
-                    <button type="button" class="btn btn-outline-dark">
-                      <%=link_to 'Edit', edit_subcategory_path(subcat.id), :method => :get %>
-                    </button>
-                    <button type="button" class="btn btn-outline-dark">
-                      <%=link_to 'Delete', subcategory_path(subcat.id), :method => :delete, data: { confirm: "You sure?" }%>
-                    </button>
-
-                    </div>
-                  </a>
-                </h4>
-              </div>
-              <div id=<%="collapse_subcategory#{subcat.id}"%> class="panel-collapse collapse">
-              <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Index</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Weight</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-                <tbody>
-                  <% questions.each do |question| %>
-                  <tr>
-
-                    <th scope="row"><%=question.id%></th>
-                    <td><%=question.name%></td>
-                    <td><%=question.weight%></td>
-                    <td>
-                    <button type="button" class="btn btn-outline-dark">
-                      <%=link_to 'Edit Question', edit_question_path(question.id), :method => :get %>
-                    </button>
-                    <button type="button" class="btn btn-outline-dark">
-                      <%=link_to 'Delete Question', question_path(question.id), :method => :delete, data: { confirm: "You sure?" } %>
-                    </button>
-                    </td>
-                  </tr>
-                  <% end %>
-                </tbody>
-              </table>
-              <div class="panel-footer">
-                <%=link_to 'New Question',new_question_path %>
-              </div>
+  <% @result.each do |category, value| %>
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href=#<%="collapse_category#{category.id}"%>>
+            <%= category.name %>
+            <br>
+            <small>Weight = <%= category.weight %></small>
+            <small>Weight_sum = <%= category.weight_sum %></small>
+          </a>
+          <% if admin? %>
+            <div>
+              <div class="btn-group">
+                <%=button_to 'Edit', edit_category_path(category.id), :method => :get, class:"btn-outline-dark"%>
+                <%=button_to 'Delete', category_path(category.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn-outline-dark"%>
               </div>
             </div>
+          <% end %>
+        </h4>
+      </div>
+      <div id=<%="collapse_category#{category.id}"%> class="panel-collapse collapse">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <% value.each do |subcat, questions| %>
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href=<%="#collapse_subcategory#{subcat.id}"%>>
+                      <%=subcat.name %>
+                      <br>
+                      <small>Weight = <%= subcat.weight %></small>
+                      <small>Weight_sum = <%= subcat.weight_sum %></small>
+                    </a>
+                    <% if admin? %>
+                      <div>
+                        <div class="btn-group">
+                          <%=button_to 'Edit', edit_subcategory_path(subcat.id), :method => :get, class:"btn-outline-dark" %>
+                          <%=button_to 'Delete', subcategory_path(subcat.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn-outline-dark"%>
+                        </div>
+                      </div>
+                    <% end %>
+                  </h4>
+                </div>
+                <div id=<%="collapse_subcategory#{subcat.id}"%> class="panel-collapse collapse">
+                <table class="table table-hover", style="text-align:center;">
+                  <thead>
+                    <tr>
+                      <th scope="col">Index</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Weight</th>
+                      <% if admin? %>
+                        <th scope="col">Handle</th>
+                      <% end %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% questions.each do |question| %>
+                    <tr>
+                      <th scope="row"><%=question.id%></th>
+                      <td><%=question.name%></td>
+                      <td><%=question.weight%></td>
+                      <% if admin? %>
+                        <td>
+                          <div class="btn-group">
+                            <%=button_to 'Edit Question', edit_question_path(question.id), :method => :get, class:"btn-outline-dark" %>
+                            <%=button_to 'Delete Question', question_path(question.id), :method => :delete, data: { confirm: "You sure?" }, class:"btn-outline-dark" %>
+                          </div>
+                        </td>
+                      <% end %>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+                <% if admin? %>
+                  <div class="panel-footer">
+                    <%=button_to 'New Question',new_question_path, method: :get, class: "btn btn-primary" %>
+                  </div>
+                <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          </li>
+        </ul>
+        <% if admin? %>
+          <div class="panel-footer">
+            <%=button_to 'New Subcategory',new_subcategory_path, method: :get, class: "btn btn-primary" %>
           </div>
         <% end %>
-        </li>
-      </ul>
-      <div class="panel-footer">
-        <%=link_to 'New Subcategory',new_subcategory_path %>
       </div>
     </div>
   </div>
-</div>
-<% end %>
+  <% end %>
 
-<h3>Import Questions</h3>
-<%= form_tag import_questions_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Upload Questions" %>
-<% end %>
-<div class="panel-footer"><%=link_to 'New Category',new_category_path %></div>
+  <% if admin? %>
+    <h3>Import Questions</h3>
+    <%= form_tag import_questions_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "Upload Questions" %>
+    <% end %>
+    <div class="panel-footer"><%=button_to 'New Category',new_category_path, method: :get, class: "btn btn-primary" %></div>
+  <% end %>
 <% end %>

@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
 
   before_action :logged_in_user
   before_action :correct_user
+  before_action :admin_user,        only:[:import, :edit, :new, :destroy]
 
   def index
 
@@ -137,6 +138,13 @@ class QuestionsController < ApplicationController
 
         flash[:danger] = "Please log in as correct user."
         redirect_to root_url and return
+      end
+    end
+    
+    def admin_user
+      if !admin?
+        flash[:danger] = "You do not have permission to edit questions!"
+        redirect_to questions_url and return
       end
     end
 end

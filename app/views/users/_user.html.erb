@@ -6,15 +6,11 @@
   <td><%= user.role %></td>
   <% if admin? && !current_user?(user) %>
     <td>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to "Delete", user, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </button>
+      <%= button_to "Delete", user, method: :delete, data: { confirm: 'Are you sure?' } %>
     </td>
     <% if !user.activated %>
       <td>
-        <button type="button" class="btn btn-outline-dark">
-          <%= link_to "Activate", activate_url(login_id: user.login_id) %>
-        </button>
+        <%= button_to "Activate", activate_url(), params:{login_id: user.login_id}, method: :get %>
      </td>
     <% else %>
       <td>
