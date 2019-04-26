@@ -22,15 +22,11 @@
           <% if admin? && !current_user?(privilege) %>
             <% if !privilege.has_scenario?(@scenario) %>
               <td>
-                <button type="button" class="btn btn-outline-dark">
-                  <%= link_to "Assign", edit_privilege_url(privilege.id, scenario_id: params[:scenario_id])%>
-                </button>
+                <%= button_to "Assign", edit_privilege_url(privilege.id), params: {scenario_id: params[:scenario_id]}, method: :get %>
              </td>
             <% else %>
               <td>
-                <button type="button" class="btn btn-outline-dark">
-                  <%= link_to "Delete", privilege_url(privilege.id, scenario_id: params[:scenario_id]), method: :delete%>
-                </button>
+                <%= button_to "Delete", privilege_url(privilege.id), params:{scenario_id: params[:scenario_id]}, method: :delete%>
               </td>
             <% end %>
           <% end %>
@@ -39,3 +35,5 @@
     </ul>
   </tbody>
 </table>
+
+<%= button_to 'Back', scenarios_path, :method => :get %>

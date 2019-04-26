@@ -62,6 +62,7 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers', '~> 3.0'
+  gem 'fixture'
 end
 
 group :development do

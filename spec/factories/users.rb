@@ -67,8 +67,8 @@ FactoryBot.define do
         end        
         
         factory :DM, :class => User do 
-            email {Faker::Internet.email}
-            name {Faker::Internet.user_name}
+            email {"michael@walter.net"}
+            name {"zella.harris"}
             password {"111111"}
             password_confirmation {"111111"}
             login_id {1002}

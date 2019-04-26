@@ -2,3 +2,100 @@
 
 <h1>Help</h1>
 <p> Contact the Team TreeNewBee @ TAMU for help.</p>
+<br />
+<p> Scenario Score = Sum(Company Score &times Company Weight) / Sum(Company Weight)</p>
+<p> Company Score = Sum(Category Score &times Category Weight) / Sum(Category Weight)</p>
+<p> Category Score = Sum(Subcategory Score &times Subcategory Weight) / Sum(Subcategory Weight)</p>
+
+<br />
+<br />
+
+<% if logged_in?%>
+<p> Company Score = </p>
+<% @result.each do |category, value| %>
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href=#<%="collapse_category#{category.id}"%>>
+          + <%= category.name %> Socre &times <%= category.weight %> / <%= @category_weight_sum %>
+          </br>
+          <% if true%>
+          <small>Weight = <%= category.weight %></small>
+          <small>Weight_sum = <%= category.weight_sum %></small>
+          <% end %>
+          <div>
+          
+          </div>
+        </a>
+      </h4>
+    </div>
+    
+    <div id=<%="collapse_category#{category.id}"%> class="panel-collapse collapse">
+      <ul class="list-group">
+        <li class="list-group-item">
+            
+        <% if true%>
+            <p> <%= category.name %> Score = </p>
+        <% end %>
+        
+          <% value.each do |subcat, questions| %>
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href=<%="#collapse_subcategory#{subcat.id}"%>>
+                    
+                    + <%= subcat.name %> Socre &times <%= subcat.weight %> / <%= category.weight_sum %>
+                    </br>
+                    <% if true %>
+                    <small>Weight = <%= subcat.weight %></small>
+                    <small>Weight_sum = <%= subcat.weight_sum %></small>
+                    <% end %>
+                    <div>
+
+                    </div>
+                  </a>
+                </h4>
+              </div>
+              
+              <div id=<%="collapse_subcategory#{subcat.id}"%> class="panel-collapse collapse">
+              <table class="table table-hover">
+                  
+              <% if !subcat.nil?%>
+                  <p> <%= subcat.name %> Score = </p>
+              <% end %>
+              
+                <tbody>
+                    
+                  <% questions.each do |question| %>
+                  <tr>
+
+                    <th scope="row"></th>
+                    <td>+ <%=question.name%> &times <%=question.weight%> / <%= subcat.weight_sum %></td>
+                    
+                    <td>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+              
+              </div>
+              
+              
+              
+              
+              
+            </div>
+          </div>
+        <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<% end %>
+
+
+<% end %>
