@@ -15,39 +15,38 @@ RSpec.describe AnswersController, type: :controller do
         end    
         
         describe "AnswersController#index" do
-            it 'should render the home in views/users' do
+            it 'should render the index page' do
                 get :index
                 expect(response).to render_template :index
             end    
         end
         
         describe "AnswersController#show" do
-            it 'should render the home in views/users' do
+            it 'should render the show page' do
                 get :show, params:{id: @answer.id, question_id: @question.id  }
                 expect(response).to render_template :show
             end                
         end
         
         describe "AnswersController#edit" do
-            it 'should render the home in views/users' do
+            it 'should render the edit page' do
                 get :edit, params:{id: @answer.id, question_id: @question.id  }
                 # expect(flash[:warning]).to match("Your answer has validated.")
                 expect(response).to render_template :edit
             end         
             
-            it 'should render the home in views/users' do
+            it 'validator could edit comment or level after company has been validated' do
                 @cp = create(:representative)
                 @company1 = create(:company1,user_id: @cp.id)
                 @answer = create(:answer, company_id: @company1.id, question_id: @question.id, validator_id: @validator.id)
                 
                 get :edit, params:{id: @answer.id, question_id: @question.id  }
-                expect(flash[:warning]).to match("Your answer has validated.")
-                expect(response).to redirect_to root_path
+                expect(response).to render_template :edit
             end   
         end
         
         describe "AnswersController#update" do
-            it 'should render the show in views/users' do
+            it 'update successfully and redirect_to answers_path' do
                 answer_attr = attributes_for(:answer)
                 answer_attr[:company_id] = @company.id
                 answer_attr[:question_id] = @question.id
@@ -112,12 +111,6 @@ RSpec.describe AnswersController, type: :controller do
                 expect(response).to redirect_to answers_path
             end   
         end     
-        # describe "AnswersController#edit" do
-        #     it 'should render the home in views/users' do
-        #         post :create, params: { question_id: @question.id, company_id:  @company.id }
-        #         expect(response).to render_template('edit')
-        #     end             
-        # end            
         
     end
     
