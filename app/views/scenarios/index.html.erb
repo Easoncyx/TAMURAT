@@ -26,7 +26,6 @@
     </table>
   <% end %>
   <% if decision_maker? or admin? %>
-    <div class="panel-footer"><%=link_to 'New Scenario',new_scenario_path %></div>
+    <div class="panel-footer"><%=button_to 'New Scenario',new_scenario_path, method: :get, class: "btn btn-primary" %></div>
   <% end %>
 </ul>
-

@@ -1,4 +1,7 @@
 <% provide(:title, 'All Questions Answers') %>
-<h1>Validate <%=@company_name%>'s answers</h1>
-
+<% if validator? %>
+  <h1>Validate <%=@company_name%>'s answers</h1>
+<% else %>
+  <h1>Questionnaire</h1>
+<% end %>
 <%= render 'questionnaire' %>
