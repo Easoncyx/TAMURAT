@@ -3,16 +3,11 @@ class AnswersController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
   before_action :company_user, only: [:new, :create]
+  before_action :not_validated, only: [:new, :create, :edit]
 
   def new
     question_id = params[:question_id]
     company_id = params[:company_id]
-    company = Company.find_by_id(company_id)
-
-    if company.validated
-      flash[:warning] = "Your answer has validated."
-      redirect_to answers_path and return
-    end
     answer = Answer.find_by({company_id: company_id, question_id: question_id})
 
     if answer
@@ -29,12 +24,6 @@ class AnswersController < ApplicationController
 
     @answer = Answer.find_by_id(id)
 
-    company = Company.find_by_id(@answer.company_id)
-
-    if company.validated
-      flash[:warning] = "Your answer has validated."
-      redirect_to root_path and return
-    end
     if !@answer
       flash[:danger] = "Answer_invalid"
       redirect_to answers_path
@@ -55,24 +44,15 @@ class AnswersController < ApplicationController
       flash[:success] = "Successfully validate question #{question.name}"
       redirect_to answers_path(:company_id => answer_params[:company_id])
     else
-      if current_user.company.validated
-        flash[:warning] = "You have been validated, you can't change answers."
-        redirect_to answers_path and return
-      else
-        @answer.update_attributes!(answer_params)
-        flash[:success] = "Successfully Answered question #{question.name}"
-        redirect_to answers_path
-      end
+      @answer.update_attributes!(answer_params)
+      flash[:success] = "Successfully Answered question #{question.name}"
+      redirect_to answers_path
     end
 
 
   end
 
   def create
-    if current_user.company.validated
-      flash[:warning] = "Your answer has validated."
-      redirect_to answers_path and return
-    end
     Answer.create!(answer_params)
     question = Question.find_by_id(answer_params[:question_id])
     flash[:success] = "Successfully Answered question #{question.name}"
@@ -137,4 +117,10 @@ class AnswersController < ApplicationController
       end
     end
 
+    def not_validated
+      if company_representative? && current_user.company.validated
+        flash[:warning] = "You have already been validated!"
+        redirect_to answers_url and return
+      end
+    end
 end
