@@ -28,6 +28,8 @@ module NavigationHelpers
       '/companies'
     when /^Questionnaire page$/
       '/answers'
+    when /^Invite page$/
+      '/users/new'
     when /^Help page$/
       '/help'
 

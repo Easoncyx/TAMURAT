@@ -31,11 +31,12 @@ Background:  Log in as a Validator
     Given I am on Companies page
     Then I should see "pickle-morty"
     Then I should see "Example CR1"
-    Given I click "Validate" of "pickle-morty"
-    Then I should see "Questionnaire"
-    Then I should see "Business_1_q1"
-    Then I should see "Not Answered"
-    Then I should see "Not provided."
+    Then I should see "Not answered yet"
+    # Given I click "Validate" of "pickle-morty"
+    # Then I should see "Questionnaire"
+    # Then I should see "Business_1_q1"
+    # Then I should see "Not Answered"
+    # Then I should see "Not provided."
     Given I log out
     # log in as a CR
     Given I log in as a Company Representative
@@ -52,6 +53,7 @@ Background:  Log in as a Validator
     Then I should see "Question: Business_1_q1"
     Given I answer and submit
     Then I should see "Successfully Answered question Business_1_q1"
+    Then I should see "Not Validated"
     Then I should see "Detail"
     Then I should see "Edit your answer"
     Then I should see "Manage evidences"
@@ -83,7 +85,7 @@ Background:  Log in as a Validator
     Given I log in as a Validator
     Given I am on Companies page
     Given I click "Validate" of "Example CR1" 
-    Then I should see "Questionnaire"
+    Then I should see "Validate Example CR1's answers"
     Given I click link "Detail"
     Then I should see "Question: Business_1_q1"
     Then I should see "level: 4"
@@ -98,7 +100,7 @@ Background:  Log in as a Validator
     Then I should see "validated: true"
     Then I should see "validator: Example VA1"
     Then I should see "Validate Time:"
-    #Then I should see "Comment: This is a validation for Business_1_q1."
+    Then I should see "Comment: This is a validation for Business_1_q1."
     # Validated
     Given I am on Companies page
     Given I mark "pickle-morty" as "Validated"

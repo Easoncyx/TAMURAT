@@ -87,7 +87,18 @@ When("I activate a user") do
   click_button 'Activate'
 end
 
-#" #===== QUESTIONS
+#" # ===== USER
+Given /^I search user "([^"]*)"$/ do |user| #"
+  fill_in "user_search", :with => user
+  click_button "Search"
+end
+
+When /I (un)?check the following role: (.*)/ do |uncheck, category_list|
+  category_list.split(', ').each do |category|
+    step %{I #{uncheck.nil? ? '' : 'un'}check "roles[#{category}]"}
+  end
+end
+#===== QUESTIONS
 
 Given('I edit the first category into "pickle-rick"') do
   visit '/categories/1/edit'
@@ -112,8 +123,10 @@ Given('I edit subcategory "Business_1" into "pickle-rick_1"') do
 end
 
 Given('I create a new subcategory "pickle-rick_4"') do
-  visit '/subcategories/new'
+  #click_button 'New Subcategory'
+  first(:button, 'New Subcategory').click
   fill_in "Name", :with => "pickle-rick_4"
+  #fill_in "Weight", :with => "1.0"
   find('#subcategory_category_id').find(:xpath, 'option[4]').select_option
   click_button 'Create my subcategory'
 end
@@ -125,7 +138,7 @@ Given('I edit question "Business_1_q1" into "pickle-rick_1_q1"') do
 end
 
 Given('I create a new question "pickle-rick_1_q4"') do
-  visit '/questions/new'
+  first(:button, 'New Question').click
   fill_in "Name", :with => "pickle-rick_1_q4"
   fill_in "Weight", :with => "11.1"
   #select('pickle-rick_1', from: 'select_box')
@@ -256,7 +269,7 @@ end
 # ====== COMPANIES
 Given('I click "Validate" of "pickle-morty"') do
   #visit '/answers?company_id=1'
-  first(:link, "Validate").click
+  first(:button, "Validate").click
 end
 
 Given('I click "Answer this question" of "Business_1_q1"') do
@@ -295,7 +308,7 @@ end
 
 Given('I validate this question and submit') do
   find('#answer_level').find(:xpath, 'option[6]').select_option
-  #fill_in "Comment", :with => "This is a validation for Business_1_q1."
+  fill_in "answer_validator_comment", :with => "This is a validation for Business_1_q1."
   click_button 'Validate'
 end
 
@@ -304,7 +317,11 @@ Given('I mark "pickle-morty" as "Validated"') do
   first(:button, "Finalize").click
 end
 
-
+Given /^(?:|I )invite user "([^"]*)" with email "([^"]*)"$/ do |user, email|
+  fill_in "Name", :with => user
+  fill_in "Email", :with => email
+  click_button "Invite"
+end
 
 
 

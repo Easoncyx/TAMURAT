@@ -19,6 +19,22 @@ Background:  Log in as an Admin
     Then I should see "All users"
     Then I should see "pickle-rick"
     Then I should see "pickle-morty"
+    # Search
+    Given I search user "pickle-rick"
+    Then I should see "pickle-rick"
+    Then I should not see "pickle-morty"
+    Then I should not see "Example DM1"
+    Given I press "Refresh"
+    Then I should see "pickle-rick"
+    Then I should see "pickle-morty"
+    Then I should see "Example DM1"
+    # Filter
+    When I uncheck the following role: Administrator, Validator
+    When I press "Refresh"
+    Then I should not see "Example Admin"
+    Then I should not see "Example VA1"
+    Then I should see "Example DM1"
+    Then I should see "Example CR1"
 
   # Scenario: Admin can delete user
   #   Given I am on All user page
@@ -131,6 +147,15 @@ Background:  Log in as an Admin
     Given I click link "pickle-rick"
     Then I should not see "Example DM1"
     Then I should see "Example DM2"
+    
+  Scenario: Admin can invite other people to be an Admin
+    Given I am on Invite page
+    Then I should see "Invite Administrator"
+    Given I invite user "Example Admin2" with email "admin@test.org"
+    Then I should see "Send invitation to Administrator."
+    Then I should see "You have new users to approve."
+    Given I am on All user page
+    Then I should see "Example Admin2"
     
   Scenario: Help page
     Given I am on Help page
