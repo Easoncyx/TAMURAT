@@ -6,20 +6,13 @@
   <td><%= scenario.score%></td>
   <% if admin? %>
     <td>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to "delete", scenario, method: :delete,
-        data: { confirm: "You sure?" } %>
-      </button>
+      <%= button_to "delete", scenario, method: :delete, data: { confirm: "You sure?" } %>
     </td>
     <td>
-      <button type="button" class="btn btn-outline-dark">
-        <%= link_to "assign", privileges_url(scenario_id: scenario.id) %>
-      </button>
+      <%= button_to "assign", privileges_url, params: {scenario_id: scenario.id}, method: :get %>
     </td>
   <% end %>
   <td>
-    <button type="button" class="btn btn-outline-dark">
-      <%= link_to "edit", edit_scenario_url(scenario.id) %>
-    </button>
+    <%= button_to 'Edit', edit_scenario_url(scenario.id), method: :get %>
   </td>
 </tr>
