@@ -14,7 +14,6 @@ RSpec.describe AccountActivationsController, type: :controller do
             activation_token = @user.activation_token
             @user.create_company
             @user.save
-            # UserMailer.account_activation(@user).deliver_now
 
             
             get :edit, params:{:id =>activation_token,:login_id => @user.login_id}
