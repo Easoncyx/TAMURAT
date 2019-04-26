@@ -64,7 +64,8 @@ class SubcategoriesController < ApplicationController
   
   def new
     @categories = all_categories
-    @subcategory = Subcategory.new
+    category = Category.find_by_id(params[:category_id])
+    @subcategory = category.subcategories.new
   end
 
   def edit

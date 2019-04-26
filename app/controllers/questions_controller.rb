@@ -81,7 +81,9 @@ class QuestionsController < ApplicationController
 
   def new
     @subcategories = all_subcategories
-    @question = Question.new
+    subcategory = Subcategory.find_by_id(params[:subcategory_id])
+    #byebug
+    @question = subcategory.questions.new
   end
 
   def edit
