@@ -19,11 +19,16 @@ end
 
 Given("I log out") do
   #select "Log out", :from => "Account"
-  click_link 'Account'
+  #click_link 'Account'
+  #click_link 'Log out'
+  find('#account_link').click
+  #click_link 'Account'
   click_link 'Log out'
 end
 
-
+Given('I click "Account"') do
+  find('#account_link').click
+end
 
 #====BASIC OPERATIONS
 

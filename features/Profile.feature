@@ -10,14 +10,14 @@ Background:  Log in as a normal user
   
   Scenario: Users can see their profile
     Given I am on Home page
-    Given I click link "Account"
+    Given I click "Account"
     Given I click link "Profile"
     Then I should see "pickle-morty"
     Then I should see "1006"
   
   Scenario: Users can edit their account information
     Given I am on Home page
-    Given I click link "Account"
+    Given I click "Account"
     Given I click link "Settings"
     Then I should see "Update your profile"
     # Change name
@@ -27,7 +27,7 @@ Background:  Log in as a normal user
     Then I should see "Sekiro"
     # Change password (invalid)
     Given I am on Home page
-    Given I click link "Account"
+    Given I click "Account"
     Given I click link "Settings"
     Given I change password into "12345"
     Given I confirm password with "12345" and submit
