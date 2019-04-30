@@ -23,7 +23,6 @@ User.create!(name:  "Example DM1",
             activated: true,
             activated_at: Time.zone.now
           )
-
 User.create!(name:  "Example DM2",
             email: "example@railstutorial.org",
             password:              "123456",
@@ -33,21 +32,12 @@ User.create!(name:  "Example DM2",
             activated: true,
             activated_at: Time.zone.now
           )
-User.create!(name:  "Example DM3",
-             email: "example@railstutorial.org",
-             password:              "123456",
-             password_confirmation: "123456",
-             role: "Decision Maker",
-             login_id: 1003,
-             activated: true,
-             activated_at: Time.zone.now
-           )
 User.create!(name:  "Example VA1",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
              role: "Validator",
-             login_id: 1004,
+             login_id: 1003,
              activated: true,
              activated_at: Time.zone.now
            )
@@ -56,11 +46,20 @@ User.create!(name:  "Example VA2",
              password:              "123456",
              password_confirmation: "123456",
              role: "Validator",
+             login_id: 1004,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+User.create!(name:  "pickle-rick",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Validator",
              login_id: 1005,
              activated: false,
              # activated_at: Time.zone.now
            )
-User.create!(name:  "Example VA3",
+User.create!(name:  "pickle-morty",
              email: "example@railstutorial.org",
              password:              "123456",
              password_confirmation: "123456",
@@ -69,13 +68,33 @@ User.create!(name:  "Example VA3",
              activated: true,
              activated_at: Time.zone.now
            )
-
+User.create!(name:  "Example CR1",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Company Representative",
+             login_id: 1007,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+           
+User.create!(name:  "Example CR2",
+             email: "example@railstutorial.org",
+             password:              "123456",
+             password_confirmation: "123456",
+             role: "Company Representative",
+             login_id: 1008,
+             activated: true,
+             activated_at: Time.zone.now
+           )
+Company.create!({user_id: 7})
+Company.create!({user_id: 8})
 20.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@treenewbee.com"
   password = "123456"
   role = "Company Representative"
-  login_id = n+1007
+  login_id = n+1009
 
   user = User.create!(name:  name,
                email: email,

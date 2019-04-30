@@ -1,35 +1,43 @@
 require 'uri'
 require 'cgi'
+require 'selenium-webdriver'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
-
-# Capybara.add_selector(:my_selector_area) do
-#   xpath { "actual_xpath" }
-# end
+# enable javascript test
+require 'webdrivers'
 
 
+#====LOG-IN/ LOG-OUT
 
-#====LOG-IN AS ADMIN
-Given("I log in as an Admin") do
+Given /^(?:|I )log in as (.+)$/ do |user|
   visit '/login'
-  fill_in 'Login', :with => '1000'
-  fill_in 'Password', :with => '123456'
-  click_button 'Log in'
-end
-
-Given('I log in as "pickle-rick"') do
-  visit '/login'
-  fill_in 'Login', :with => '1003'
+  fill_in 'Login', :with => user_id(user)
   fill_in 'Password', :with => '123456'
   click_button 'Log in'
 end
 
 
+Given("I log out") do
+  #select "Log out", :from => "Account"
+  #click_link 'Account'
+  #click_link 'Log out'
+  find('#account_link').click
+  #click_link 'Account'
+  click_link 'Log out'
+end
+
+Given('I click "Account"') do
+  find('#account_link').click
+end
 
 #====BASIC OPERATIONS
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
+end
+
+When /^(?:|I )click link "([^"]*)"$/ do |link|
+  click_link(link)
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
@@ -56,7 +64,13 @@ end
 
 When("I delete the first user") do
 #"
-   first(:link, "delete").click
+   first(:link, "Delete").click
+
+end
+
+When /^I delete the user "([^"]*)"$/ do |name|
+  user = User.find_by(:name => name)
+  user.id
 
 end
 
@@ -70,8 +84,248 @@ Given /^I expect to click "([^"]*)" on a confirmation box saying "([^"]*)"$/ do 
 
 end
 
-When("I activate user {string}") do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+When /^I confirm popup$/ do
+  page.driver.browser.switch_to.alert.accept    
+end
+
+When("I activate a user") do
+  click_button 'Activate'
+end
+
+#" # ===== USER
+Given /^I search user "([^"]*)"$/ do |user| #"
+  fill_in "user_search", :with => user
+  click_button "Search"
+end
+
+When /I (un)?check the following role: (.*)/ do |uncheck, category_list|
+  category_list.split(', ').each do |category|
+    step %{I #{uncheck.nil? ? '' : 'un'}check "roles[#{category}]"}
+  end
+end
+#===== QUESTIONS
+
+Given('I edit the first category into "pickle-rick"') do
+  visit '/categories/1/edit'
+  fill_in "Name", :with => "pickle-rick"
+  click_button 'Save changes'
+end
+
+Given('I create a new category "pickle-morty"') do
+  visit '/categories/new'
+  fill_in "Name", :with => "pickle-morty"
+  click_button 'Create my category'
+end
+
+Given('I edit subcategory "Business_1" into "pickle-rick_1"') do
+  visit '/subcategories/1/edit'
+  fill_in "Name", :with => "pickle-rick_1"
+  fill_in "Weight", :with => "7.7"
+  #select "pickle_morty", :from => "Subcategory"
+  #find_field('subcategory_category_id option[pickle_morty]').text
+  #find_field('subcategory_category_id').find('option[Security]').text
+  click_button 'Save changes'
+end
+
+Given('I create a new subcategory "pickle-rick_4"') do
+  #click_button 'New Subcategory'
+  first(:button, 'New Subcategory').click
+  fill_in "Name", :with => "pickle-rick_4"
+  #fill_in "Weight", :with => "1.0"
+  find('#subcategory_category_id').find(:xpath, 'option[4]').select_option
+  click_button 'Create my subcategory'
+end
+
+Given('I edit question "Business_1_q1" into "pickle-rick_1_q1"') do
+  visit '/questions/1/edit'
+  fill_in "Name", :with => "pickle-rick_1_q1"
+  click_button 'Save changes'
+end
+
+Given('I create a new question "pickle-rick_1_q4"') do
+  first(:button, 'New Question').click
+  fill_in "Name", :with => "pickle-rick_1_q4"
+  fill_in "Weight", :with => "11.1"
+  #select('pickle-rick_1', from: 'select_box')
+  find('#question_subcategory_id').find(:xpath, 'option[10]').select_option
+  click_button 'Create my question'
+end
+
+Given('I input invalid in "Weight"') do
+  visit '/categories/new'
+  fill_in "Name", :with => "invalid"
+  fill_in "Weight", :with => "invalid"
+  click_button 'Create my category'
+end
+
+Given('I delete the question "pickle-rick"') do
+  first(:link, "Delete").click
+end
+
+Given('I comfirm the popup') do
+  click_button('OK')
+end
+
+# ===== SCALES
+When /I (un)?check the following category: (.*)/ do |uncheck, category_list|
+  category_list.split(', ').each do |category|
+    step %{I #{uncheck.nil? ? '' : 'un'}check "categories[#{category}]"}
+  end
+end
+
+When /^(?:|I )check "([^"]*)"$/ do |field|
+  check(field)
+end
+
+When /^(?:|I )uncheck "([^"]*)"$/ do |field|
+  uncheck(field)
+end
+
+Given('I edit the first scale into "pickle-rick_scale"') do
+  visit '/scales/1/edit'
+  fill_in "Name", :with => "pickle-rick_scale"
+  fill_in "Description", :with => "This is a description for scale"
+  click_button 'Save changes'
+end
+
+Given('I create a new scale "pickle-morty_scale"') do
+  click_button 'New Scale'
+  fill_in "Name", :with => "pickle-morty_scale"
+  fill_in "Description", :with => "This is another description for scale"
+  find('#scale_category_id').find(:xpath, 'option[3]').select_option
+  fill_in "Level", :with => "1"
+  fill_in "Score", :with => "1.0"
+  click_button 'Create new scale'
+end
+
+Given('I destroy a scale') do
+  first(:link, "Destroy").click
+end
+
+Given('I accept the popup') do
+  #click_link 'OK'
+  #click_button('OK')
+  page.driver.browser.switch_to.alert.accept
+  #page.evaluate_script('window.confirm = function() { return true; }')
+  #page.click('Remove')
+end
+
+# ===== SCENARIOS
+
+Given('I create a new scenario "pickle-rick"') do
+  click_button 'New Scenario'
+  fill_in "Name", :with => "pickle-rick"
+  fill_in "Description", :with => "This is a description for scenario"
+  click_button 'Create my scenario'
+end
+
+Given('I create a new scenario "pickle-morty"') do
+  click_button 'New Scenario'
+  fill_in "Name", :with => "pickle-morty"
+  fill_in "Description", :with => "This is a description for scenario (DM)"
+  click_button 'Create my scenario'
+end
+
+Given('I edit scenario 1 into "pickle-morty"') do
+  visit '/scenarios/1/edit'
+  fill_in "Name", :with => "pickle-morty"
+  fill_in "Description", :with => "This is another description for scenario"
+  click_button 'Save changes'
+end
+
+Given /^I click "Assign" of scenario "([^"]*)"$/ do |scenario|
+  id = Scenario.find_by(:name => scenario).id.to_s
+  link = '/privileges?scenario_id=' + id
+  visit link
+end
+#"
+Given('I click "Assign" of "Example DM1" and "Exmaple DM2"') do
+  first(:button, "Assign").click
+  first(:button, "Assign").click
+end
+Given('I click "Delete" of "Example DM1"') do
+  first(:button, "Delete").click
+end
+
+# ====== PROFILE
+Given('I edit user name into "Sekiro"') do
+  fill_in "Name", :with => "Sekiro"
+  click_button 'Save changes'
+end
+
+Given  /^I change password into "([^"]*)"$/ do |pw|
+  fill_in "Password", :with => pw
+  
+end
+
+#"
+Given /^I confirm password with "([^"]*)" and submit$/ do |pw|
+  fill_in "Confirmation", :with => pw
+  click_button 'Save changes'
+end
+
+#"
+Given("I log in with new password") do
+  visit '/login'
+  fill_in 'Login', :with => '1006'
+  fill_in 'Password', :with => '000000'
+  click_button 'Log in'
+end
+# ====== COMPANIES
+Given('I click "Validate" of "pickle-morty"') do
+  #visit '/answers?company_id=1'
+  first(:button, "Validate").click
+end
+
+Given('I click "Answer this question" of "Business_1_q1"') do
+  #visit '/answers?company_id=1'
+  first(:link, "Answer this question").click
+end
+
+Given('I answer and submit') do
+  find('#answer_level').find(:xpath, 'option[4]').select_option
+  click_button 'Submit my answer'
+end
+
+Given('I edit the answer and submit') do
+  find('#answer_level').find(:xpath, 'option[5]').select_option
+  click_button 'Edit my answer'
+end
+
+Given('I comment and attach file') do
+  fill_in "Comment", :with => "This is an evidence for Business_1_q1."
+  page.attach_file('File', File.join(Rails.root, '/features/upload_file/evidence.txt'))
+  #attach_file('File', File.join(Rails.root, '/features/upload_file/evidence.txt'))
+  #attach_file('File', "~/environment/TAMUART_new/features/upload_file/evidence.txt")
+end
+
+When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
+  attach_file(field, File.expand_path(path))
+end
+
+Given('I click "Validate" of "Example CR1"') do
+  visit '/answers?company_id=2'
+end
+
+# Given(/^I go back$/) do
+#   page.evaluate_script('window.history.back()')
+# end
+
+Given('I validate this question and submit') do
+  find('#answer_level').find(:xpath, 'option[6]').select_option
+  fill_in "answer_validator_comment", :with => "This is a validation for Business_1_q1."
+  click_button 'Validate'
+end
+
+Given('I mark "pickle-morty" as "Validated"') do
+  first('#validated').find(:xpath, 'option[1]').select_option
+  first(:button, "Finalize").click
+end
+
+Given /^(?:|I )invite user "([^"]*)" with email "([^"]*)"$/ do |user, email|
+  fill_in "Name", :with => user
+  fill_in "Email", :with => email
+  click_button "Invite"
 end
 
 
@@ -253,21 +507,11 @@ When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
-When /^(?:|I )check "([^"]*)"$/ do |field|
-  check(field)
-end
-
-When /^(?:|I )uncheck "([^"]*)"$/ do |field|
-  uncheck(field)
-end
 
 When /^(?:|I )choose "([^"]*)"$/ do |field|
   choose(field)
 end
 
-When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
-  attach_file(field, File.expand_path(path))
-end
 
 # Then /^(?:|I )should see "([^"]*)"$/ do |text|
 #   if page.respond_to? :should
