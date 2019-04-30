@@ -16,9 +16,22 @@ module NavigationHelpers
     # ITERATION 2 -- NAVBAR
     when /^Home page$/
       '/'
-      
     when /^All user page$/
       '/users'
+    when /^All question page$/
+      '/questions'
+    when /^Scales page$/
+      '/scales'
+    when /^All Scenarios page$/
+      '/scenarios'
+    when /^Companies page$/
+      '/companies'
+    when /^Questionnaire page$/
+      '/answers'
+    when /^Invite page$/
+      '/users/new'
+    when /^Help page$/
+      '/help'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
@@ -37,6 +50,22 @@ module NavigationHelpers
       end
     end
   end
+  
+  def user_id(user)
+    case user
+    when /^an Admin$/
+      '1000'
+    when /^a Decision maker$/
+      '1001'
+    when /^a Validator$/
+      '1003'
+    when /^pickle-morty$/
+      '1006'
+    when /^a Company Representative$/
+      '1007'
+    end
+  end
+  
 end
 
 World(NavigationHelpers)
