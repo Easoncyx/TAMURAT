@@ -37,7 +37,7 @@ To make our app more user-friendly, some useful output massage is added on pages
 Navigation bar and contents on page can adapt to the window size. Navigation menu will be folded in an icon
 ![UI.png](images/UI.png)
 This feature works on mobile devices as well. 
-![mobile.png](images/mobile.png)
+![mobile.PNG](images/mobile.PNG)
 
 &nbsp;
 &nbsp;
