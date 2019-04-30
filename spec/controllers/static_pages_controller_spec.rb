@@ -20,6 +20,12 @@ RSpec.describe StaticPagesController, type: :controller do
     end
     
     describe "StaticPagesController#help" do
+        before :each do
+            @category = create(:category)
+            @sub = create(:sub, :category_id => @category.id)
+        end        
+        
+        
         it 'should render the help in views/static_pages' do
             get :help
             expect(response).to render_template('help')
@@ -34,8 +40,22 @@ RSpec.describe StaticPagesController, type: :controller do
         
     end
 
-
-   
+    # describe "login as admins or validators" do
+    #     before :each do
+    #         @admin = create(:admin)
+    #         session[:user_id] = @admin.id
+    #     end   
+    #     describe "StaticPagesController#home" do
+    #         it 'should render the home in views/static_pages' do
+    #             get :home
+    #             expect(response).to render_template('home')
+    #         end        
+    #         it 'should render the home in views/static_pages' do
+    #             get :home
+    #             expect(response).to render_template('home')
+    #         end               
+    #     end        
+    # end
    
    
    
