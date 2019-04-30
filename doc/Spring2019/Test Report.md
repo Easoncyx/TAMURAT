@@ -11,7 +11,7 @@ In this project, we use Rsepc for TDD. Since there are many functions are implem
 * shoulda_matchers : simplifing the Model test
 * email_sepc : email testing
 
-Up to now, the overall coverage is about 81%, only few files are not covered yet and the following rspec test will be done soon. We use rspec here here mainly for unit test and cucumber for integration test.
+Up to now, the overall coverage is about 81%, only few functions in the Model are not covered yet and the following rspec test will be done soon. We use rspec here here mainly for unit test and cucumber for integration test.
 
 ### Model Test
 In model test, we focus on the relationships between each model and the definition of each model variables. `shoulda_matchers` is widely used here because it has many simplified matchers. 

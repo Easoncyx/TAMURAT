@@ -1,8 +1,12 @@
 <%= form_for(@scenario) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
+    <%= f.label :name %>
     <%= f.text_field :name, placeholder: "Compose new scenario name..."%>
+    
+    <%= f.label :description %>
     <%= f.text_area :description, placeholder: "Compose new scenario description..." %>
   </div>
-  <%= f.submit "Post", class: "btn btn-primary" %>
+  <%#= f.submit "Post", class: "btn btn-primary" %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>
