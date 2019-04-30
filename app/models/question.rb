@@ -5,7 +5,7 @@ class Question < ApplicationRecord
   validates :name,  presence: true, length: { maximum: 512 }
 
   validates :weight, presence: true, format:{ with: self.valid_weight_regex }
-  
+
   def self.import(file)
     subcat_weight_sum = {}
     CSV.foreach(file, headers: true) do |row|
