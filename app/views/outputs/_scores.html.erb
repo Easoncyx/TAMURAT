@@ -7,7 +7,7 @@
         <h2><%= gravatar_for User.find_by_id(@company.user_id), size: 50 %><%= get_company_name @company %></h2>
       </td>
       
-      <td><h2 class = "pull-right">Score: <%= @company.score %></h2></td>
+      <td><h2 class = "pull-right">Score: <%= @company.score.round(4) %></h2></td>
       </tr> 
     </ul>
   </tbody>
@@ -23,7 +23,7 @@
           <span><%= category.name %> </span> 
           <span class = "pull-right">
             <% if cat_score(@company.id, category.id)%>
-              <%= cat_score(@company.id, category.id).score%> 
+              <%= cat_score(@company.id, category.id).score.round(4)%> 
             <% else %>
               No Answers
             <% end %>
@@ -45,7 +45,7 @@
                     <span><%=subcat.name %> </span> 
                     <span class = "pull-right">
                       <% if subcat_score(@company.id, subcat.id)%>
-                        <%= subcat_score(@company.id, subcat.id).score%> 
+                        <%= subcat_score(@company.id, subcat.id).score.round(4)%> 
                       <% else %>
                         No Answers
                       <% end %>
@@ -75,7 +75,7 @@
                         Not Validated
                       <% else %>
                         <% id = get_answer_id(question.id, @company.id) %>
-                        <%= Answer.find_by_id(id).score %>
+                        <%= Answer.find_by_id(id).score.round(4) %>
                       <% end %>
                     </td>
                   </tr>
