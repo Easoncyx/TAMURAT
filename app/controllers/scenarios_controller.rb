@@ -30,7 +30,7 @@ class ScenariosController < ApplicationController
       end
     end
 
-    @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:id)
+    @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:company_id)
     @companies = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}
     @companies_name = @companies.map{|y| get_company_name(y)}
     @companies_loginid = @companies.map{|y| get_company_login_id(y)}
@@ -87,7 +87,7 @@ class ScenariosController < ApplicationController
   def edit
     @scenario = Scenario.find(params[:id])
     #get a list of scenario_weight instance belongs to the same scenario
-    @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:id)
+    @scenario_weight = ScenarioWeight.where("scenario_id = ?", @scenario.id).order(:company_id)
     # get a list of company_id, then Company instances, then company names and login_id
     @companies = @scenario_weight.map{|t| t.company_id}.map{|x| Company.find_by_id(x)}
     @companies_name = @companies.map{|y| get_company_name(y)}

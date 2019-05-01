@@ -10,13 +10,15 @@ class Scenario < ApplicationRecord
 
   def cal_scenario_score()
     total_score = 0
+    weisum = 0
     self.scenario_weights.each do |wei|
       company = Company.find_by_id(wei.company_id)
       if company.validated
         total_score += company.score * wei.weight
+        weisum += wei.weight
       end
     end
-    self.score = total_score
+    self.score = total_score / weisum
     self.save
   end
 end

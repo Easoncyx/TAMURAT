@@ -77,6 +77,15 @@ class User < ApplicationRecord
           # not possible
           # flash[:danger] = "Company saved failed!!"
         end
+      else
+        @company = Company.find_by(user_id: self.id)
+        # add all scenarios to scenario_weight table
+        @scenarios = Scenario.all
+        @scenarios.each do |s|
+          if !@company.scenarios.include?(s)
+            @company.scenarios << s
+          end
+        end
       end
     end
   end
