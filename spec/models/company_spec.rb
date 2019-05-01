@@ -27,4 +27,33 @@ RSpec.describe Company, type: :model do
             expect(CP1).not_to be_valid 
         end
     end
+    
+    describe "function calculate_score" do
+    
+        before :each do
+            @validator = create(:validator)
+            
+            @category = create(:category)
+            @subcategory = create(:sub, category_id: @category.id)
+            @question = create(:question, subcategory_id: @subcategory.id)
+            @company = create(:company, user_id: @validator.id )
+            @answer = create(:answer, company_id: @company.id, question_id: @question.id, validator_id: @validator.id)
+                
+            @scale1 = create(:scale1, category_id: @category.id)
+            @scale2 = create(:scale2, category_id: @category.id)
+            
+            # @subscore = create(:subscore, subcategory_id: @subcategory.id, company_id: @company.id)
+        end    
+        
+        describe "Company#calculate_score" do
+            it 'calculate_score should get correct socre' do
+                @company.calculate_score
+                expect(@company.score).to eq 0.1
+            end           
+        end
+        
+    end    
+    
+    
+    
 end

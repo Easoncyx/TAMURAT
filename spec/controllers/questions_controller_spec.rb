@@ -158,7 +158,34 @@ RSpec.describe QuestionsController, type: :controller do
         end     
        
     end
-
+    
+    describe 'Question#import' do
+        before :each do
+            @admin = create(:admin)
+            session[:user_id] = @admin.id            
+            @validator = create(:validator)
+            @CP = create(:representative)
+            
+            @category = create(:category)
+            @subcategory = create(:sub, category_id: @category.id)
+            @question = create(:question, subcategory_id: @subcategory.id)
+            @company = create(:company, user_id: @CP.id )
+            @answer = create(:answer, company_id: @company.id, question_id: @question.id, validator_id: @validator.id)
+            
+            @file = fixture_file_upload('files/help.csv')
+        end       
+        
+        it "should redirect_to questions_path" do
+            post :import ,params:{:file => @file}
+            expect(response).to redirect_to questions_path          
+        end
+        
+        it "should go back to questions_url if no file" do
+            post :import
+            expect(response).to redirect_to questions_url          
+        end
+    end  
+    
 end
 
 
