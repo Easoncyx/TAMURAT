@@ -44,11 +44,7 @@ RSpec.describe PrivilegesController, type: :controller do
                     expect(flash[:success]).to match("Already assigned.")
                     expect(response).to redirect_to privileges_url(scenario_id: @scenario.id)
                 end                    
-                
-                # it 'redirect_to privileges_url if chosen DM do not have scenario' do
-                #     get :edit, params:{id: @DM.id, scenario_id: @scenario.id  }
-                #     expect(assigns("user").scenarios).to match @scenario
-                # end            
+            
         
             end
             
@@ -73,7 +69,7 @@ RSpec.describe PrivilegesController, type: :controller do
     
     describe 'not login' do
         describe "PrivilegesController#index" do
-            it 'have scenario_id and render index' do
+            it 'no right and should redirect to login_url' do
                 get :index
                 expect(response).to redirect_to login_url
             end    
@@ -82,7 +78,7 @@ RSpec.describe PrivilegesController, type: :controller do
 
     describe 'login as DM or Validator' do
         describe "PrivilegesController#index" do
-            it 'have scenario_id and render index' do
+            it 'no right and should redirect to root_url' do
                 @CP = create(:representative)
                 session[:user_id] = @CP.id
                 get :index
@@ -91,7 +87,7 @@ RSpec.describe PrivilegesController, type: :controller do
         end       
         
         describe "PrivilegesController#index" do
-            it 'have scenario_id and render index' do
+            it 'no right and should redirect to root_url' do
                 @validator = create(:validator)
                 session[:user_id] = @validator.id
                 get :index
