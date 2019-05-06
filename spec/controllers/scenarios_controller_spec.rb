@@ -102,7 +102,7 @@ RSpec.describe ScenariosController, type: :controller do
                 expect(response).to redirect_to scenarios_url
             end          
             
-            it 'update failed and redirect to new_question_url' do
+            it 'update failed and redirect to scenarios_url' do
                 attr = attributes_for(:scenario1)
                 attr[:user_id] = @admin.id
                 attr[:description] = nil
@@ -130,7 +130,7 @@ RSpec.describe ScenariosController, type: :controller do
      
         describe "ScenariosController#destroy" do
             
-            it 'should redirect to index page of question' do
+            it 'should redirect to scenarios_url' do
                 delete :destroy,params: { id: @scenario.id }
                 
                 expect(flash[:success]).to match("Scenario deleted")

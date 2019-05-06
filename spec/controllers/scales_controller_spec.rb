@@ -11,14 +11,14 @@ RSpec.describe ScalesController, type: :controller do
     
     describe "not login" do
         describe "ScalesController#index" do
-            it 'should redirect to the page of login' do
+            it 'has no right should redirect to the page of login' do
                 get :index
                 expect(response).to redirect_to login_url
             end             
         end    
     
         describe "ScalesController#show" do
-            it 'should redirect to the page of login' do
+            it 'has no right should redirect to the page of login' do
                 get :show, params: { id: @scale1.id }
                 expect(response).to redirect_to login_url
             end             
@@ -33,14 +33,14 @@ RSpec.describe ScalesController, type: :controller do
         end        
         
         describe "ScalesController#edit" do
-            it 'render edit' do
+            it 'should redirect to root_url' do
                 get :edit, params: { id: @scale1.id }
                 expect(response).to redirect_to root_url
             end             
         end       
     
         describe "ScalesController#show" do
-            it 'should redirect to the root page' do
+            it 'should redirect to the scales_url' do
                 get :show, params: { id: 1234 }
                 expect(response).to redirect_to scales_url
             end             
@@ -54,21 +54,21 @@ RSpec.describe ScalesController, type: :controller do
             session[:user_id] = @admin.id
         end
         describe "ScalesController#index" do
-            it 'should redirect to index page of question' do
+            it 'should render index' do
                 get :index
                 expect(response).to render_template("index")
             end             
         end    
     
         describe "ScalesController#show" do
-            it 'should redirect to index page of question' do
+            it 'should render show' do
                 get :show, params: { id: @scale1.id }
                 expect(response).to render_template("show")
             end             
         end 
          
         describe "ScalesController#update" do
-            it 'update successfully and redirect to questions_url' do
+            it 'update successfully and redirect to scales_url' do
                 attr = attributes_for(:scale1)
                 attr[:category_id] = @category.id
                 put :update, params: { :id => @scale1.id, :scale => attr}
@@ -77,7 +77,7 @@ RSpec.describe ScalesController, type: :controller do
                 expect(response).to redirect_to scales_url
             end       
             
-            it 'update failed and redirect to edit page' do
+            it 'update failed and render edit page' do
                 attr = attributes_for(:scale2)
                 attr[:category_id] = nil
                 put :update, params: { :id => @scale1.id, :scale => attr}
@@ -87,7 +87,7 @@ RSpec.describe ScalesController, type: :controller do
         end  
        
         describe "ScalesController#create" do
-            it 'create successfully and redirect to questions_url' do
+            it 'create successfully and redirect to scales_path' do
                 attr = attributes_for(:scale1)
                 attr[:category_id] = @category.id
                 post :create, params: { :id => @scale1.id, :scale => attr}
@@ -96,7 +96,7 @@ RSpec.describe ScalesController, type: :controller do
                 expect(response).to redirect_to scales_path
             end          
             
-            it 'update failed and redirect to questions_url' do
+            it 'update failed and render new' do
                 attr = attributes_for(:scale2)
                 attr[:category_id] = nil
                 post :create, params: { :id => @scale2.id, :scale => attr}
@@ -116,7 +116,7 @@ RSpec.describe ScalesController, type: :controller do
     
     
         describe "ScalesController#edit" do
-            it 'render edit' do
+            it 'should render edit' do
                 get :edit, params: { id: @scale1.id }
                 expect(response).to render_template('edit')
             end             
@@ -124,7 +124,7 @@ RSpec.describe ScalesController, type: :controller do
       
         describe "ScalesController#destroy" do
             
-            it 'should redirect to index page of question' do
+            it 'should redirect to scales_url' do
                 delete :destroy,params: { id: @scale1.id }
                 
                 expect(flash[:success]).to match("Scale deleted")

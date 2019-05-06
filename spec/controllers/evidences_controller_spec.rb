@@ -3,15 +3,9 @@ require 'fixture'
 
 RSpec.describe EvidencesController, type: :controller do
 
-  # describe "GET #new" do
-  #   it "returns http success" do
-  #     get :new
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
     
   describe 'not login' do
-    it 'should redirect to index page of question' do
+    it 'should redirect to login_url' do
         get :index
         expect(response).to redirect_to login_url
     end   
@@ -23,7 +17,7 @@ RSpec.describe EvidencesController, type: :controller do
       session[:user_id] = @admin.id
     end    
     describe "EvidencesController#index" do
-      it 'should redirect to index page of question' do
+      it 'should redirect to root_url' do
           get :index
           expect(flash[:warning]).to match("You do not permission.")
           expect(response).to redirect_to root_url
@@ -64,7 +58,7 @@ RSpec.describe EvidencesController, type: :controller do
     end
     
     describe "EvidencesController#create" do
-      it 'permission denied' do
+      it 'permission denied and redirect to root_url' do
           post :create
           expect(flash[:warning]).to match("You do not have permission.")
           expect(response).to redirect_to root_url
@@ -86,7 +80,6 @@ RSpec.describe EvidencesController, type: :controller do
       
       @file = fixture_file_upload('files/help.csv')
       @evidence = create(:evidence, file: @file)
-      # @relationship = create(:relationship, answer_id: @answer.id, evidence_id: @evidence.id, comment: '2333')
     end    
 
     describe "EvidencesController#index" do
@@ -157,7 +150,7 @@ RSpec.describe EvidencesController, type: :controller do
     
     describe "EvidencesController#update" do
       
-        it 'update successfully will redirect_to evidences_url' do
+        it 'update successfully will redirect_to evidences_url with id' do
           
             evi_attr = attributes_for(:evidence)
             evi_attr[:file] = @file
@@ -175,7 +168,7 @@ RSpec.describe EvidencesController, type: :controller do
           
         end      
         
-        it 'update successfully with empty file will redirect_to evidences_url' do
+        it 'update successfully with empty file will redirect_to evidences_url with id' do
           
             evi_attr = attributes_for(:evidence)
             evi_attr[:answer_id] = @answer.id          
@@ -193,7 +186,7 @@ RSpec.describe EvidencesController, type: :controller do
     end         
     
     describe "EvidencesController#destroy" do
-      it 'should redirect to index page of question' do
+      it 'destroy successfully and redirect_to evidences_url with id' do
         delete :destroy,params: { id: @evidence.id, answer_id: @answer.id}
           
         expect(flash[:success]).to match("Evidence deleted")

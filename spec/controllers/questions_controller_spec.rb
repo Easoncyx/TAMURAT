@@ -15,28 +15,28 @@ RSpec.describe QuestionsController, type: :controller do
         end
         
         describe "QuestionsController#index" do
-            it 'should redirect to the page of login' do
+            it 'not login and should redirect to the page of login' do
                 get :index
                 expect(response).to redirect_to login_url
             end             
         end    
     
         describe "QuestionsController#show" do
-            it 'should redirect to the page of login' do
+            it 'not login and should redirect to the page of login' do
                 get :show, params: { id: @question.id }
                 expect(response).to redirect_to login_url
             end             
         end         
         
         describe "QuestionsController#update" do
-            it 'should redirect to the page of login' do
+            it 'not login and should redirect to the page of login' do
                 put :update, params: { :id => @question.id, :subcategory => attributes_for(:question)   }
                 expect(response).to redirect_to login_url
             end             
         end          
     end
 
-    describe " not admin/decision_maker" do
+    describe "not admin/decision_maker" do
         
         before :each do
             @representative = create(:representative)
@@ -67,7 +67,7 @@ RSpec.describe QuestionsController, type: :controller do
         
         describe "QuestionsController#index" do
             
-            it 'should redirect to index page of question' do
+            it 'should render index' do
                 get :index
                 expect(response).to render_template('index')
             end       
@@ -80,7 +80,7 @@ RSpec.describe QuestionsController, type: :controller do
         end    
   
         describe "QuestionsController#show" do
-            it 'should redirect to index page of question' do
+            it 'should redirect to questions_url' do
                 get :show, params: { id: @question.id }
                 expect(response).to redirect_to questions_url
             end             
