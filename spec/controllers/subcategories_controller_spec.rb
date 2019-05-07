@@ -60,14 +60,14 @@ RSpec.describe SubcategoriesController, type: :controller do
             session[:user_id] = @admin.id
         end
         describe "SubcategoriesController#index" do
-            it 'should redirect to index page of question' do
+            it 'should redirect to questions_url' do
                 get :index
                 expect(response).to redirect_to questions_url
             end             
         end    
     
         describe "SubcategoriesController#show" do
-            it 'should redirect to index page of question' do
+            it 'should redirect to questions_url' do
                 get :show, params: { id: @subcategory.id }
                 expect(response).to redirect_to questions_url
             end             
@@ -83,7 +83,7 @@ RSpec.describe SubcategoriesController, type: :controller do
                 expect(response).to redirect_to questions_url
             end       
             
-            it 'update failed and redirect to edit page' do
+            it 'update failed and redirect to edit_subcategory_url' do
                 attr = attributes_for(:sub)
                 attr[:category_id] = @category.id
                 attr[:weight] = 'a'
@@ -95,7 +95,7 @@ RSpec.describe SubcategoriesController, type: :controller do
         end  
         
         describe "SubcategoriesController#create" do
-            it 'create successfully and redirect to questions_url' do
+            it 'create successfully and redirect to new_subcategory_url' do
                 attr = attributes_for(:sub)
                 attr[:category_id] = @category.id
                 attr[:weight] = 'a'
@@ -141,7 +141,7 @@ RSpec.describe SubcategoriesController, type: :controller do
        
         describe "SubcategoriesController#destroy" do
             
-            it 'should redirect to index page of question' do
+            it 'should redirect to questions_url' do
                 delete :destroy,params: { id: @subcategory.id }
                 
                 expect(flash[:success]).to match("Subcategory '#{@subcategory.name}' deleted.")

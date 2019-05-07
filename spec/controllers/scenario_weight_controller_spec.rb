@@ -8,7 +8,7 @@ RSpec.describe ScenarioWeightController, type: :controller do
       end
       
       describe "ScenarioWeightController#submit" do
-          it 'should redirect to the page of login' do
+          it 'no login and should redirect to the page of login' do
               post :submit
               expect(response).to redirect_to login_url
           end             
@@ -22,7 +22,7 @@ RSpec.describe ScenarioWeightController, type: :controller do
       end        
       
       describe "ScenarioWeightController#submit" do
-          it 'should redirect to the root page' do
+          it 'has no right and should redirect to the root page' do
               post :submit
               expect(response).to redirect_to root_url
           end             
@@ -56,13 +56,6 @@ RSpec.describe ScenarioWeightController, type: :controller do
           expect(flash[:danger]).to match("Weight Invalid, you need to type a float.")
           expect(response).to redirect_to edit_scenario_path(@scenario.id)
         end
-        
-        # it "invalid scenario found" do
-        #   # byebug
-        #   get :submit, params:{:scenario_id => @scenario.id+1 ,:sw => {@scenario_weight1.id =>{"weight"=>"3a"}}}
-        #   expect(flash[:danger]).to match("No scenario found.")
-        #   expect(response).to redirect_to edit_scenario_path(@scenario.id)
-        # end        
         
       end      
   end

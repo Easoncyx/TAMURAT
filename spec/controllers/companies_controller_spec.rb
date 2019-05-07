@@ -11,7 +11,7 @@ RSpec.describe CompaniesController, type: :controller do
         end    
         
         describe "CompaniesController#update" do
-            it 'should render the show in views/users' do
+            it 'should redirect to root_url' do
                 patch :update, params: { id: @company.id }
                 expect(response).to redirect_to root_url
             end           
@@ -28,7 +28,7 @@ RSpec.describe CompaniesController, type: :controller do
         end    
         
         describe "CompaniesController#update" do
-            it 'should render the show in views/users' do
+            it 'should redirect to companies_path' do
                 patch :update, params: { id: @company.id }
                 # expect(flash[:danger]).to match("Please log in as correct user.")
                 expect(response).to redirect_to companies_path
@@ -36,7 +36,7 @@ RSpec.describe CompaniesController, type: :controller do
         end
 
         describe "CompaniesController#index" do
-            it 'should render the show in views/users' do
+            it 'should render index' do
                 get :index
                 expect(response).to render_template('index')
             end           
