@@ -43,14 +43,14 @@ We use the latest version of Rspec and take a period of time to get used to it. 
 ---
 ## Test with Cucumber/Capybara
 ### Overview
-The BDD tests are mainly implemented by Cucumber and Capybara. Pakages support BDD test are listed below:
+The BDD tests are mainly implemented by Cucumber and Capybara. Packages support BDD test are listed below:
 * cucumber-rails: run automated tests written in plain language
-* capybara: simulate user interactions with app
+* capybara: simulate user interactions with the app
 * webdrivers: apply simulations of user operation on a browser
 * selenium-webdriver: offer some methods to deal with Javascript
 * guard: run the tests automatically
 
-In this project, BDD tests focus on features and scenarios of different roles: Admin, Decision Maker, Validator and Company Representative. Most of scenarios are included in `*.feature` files in `/feature`. Some fake users are created `in seed.rb` for test.
+In this project, BDD tests focus on features and scenarios of different roles: Admin, Decision Maker, Validator and Company Representative. Most of the scenarios are included in `*.feature` files in `/feature`. Some fake users are created `in seed.rb` for the test.
 To implement BDD test, prepare the test database first and then run cucumber:
 ```
 $ rails db:test:prepare
@@ -63,14 +63,14 @@ $ cucumber
 * User can `log in` with their login id and password
 * User can `log out` 
 
-Up to now, all the features of sign up and log in are tested and pass the tests. except email features.
+Up to now, all the features of sign up and log in are tested and pass the tests. except for email features.
 ### All users features
 * User can see `Home page`
 * User can see `Help page`
 * User can see `Profile`
-* User can change account inofrmation (name, password, gravatar) in `Settings`
+* User can change account information (name, password, gravatar) in `Settings`
 
-All the users features are tested and pass.
+All the users' features are tested and pass.
 ### Admin features
 * Admin can see all users information in `Users` (gravatar, name, login id, email, role, activated)
 * Admin can manage users in `Users` (search, filter, delete, activate)
@@ -80,13 +80,13 @@ All the users features are tested and pass.
 * Admin can see all scales in 'Scales'
 * Admin can manage all scales in `Scales`(filter, create, edit, delete)
 * Admin can see all scenarios in `Scenarios`
-* Admin can see the detail information of a scenario by clicking name in `Scenarios`
+* Admin can see the detail information of a scenario by clicking a name in `Scenarios`
 * Admin can manage scenarios in `Scenarios`(create, edit, delete, assign to Decision Makers)
 * Admin can see all companies and their dependency in a JS-tree in `Output`
 * Admin can see task achievement of each company by clicking its name in the JS-tree in `Output`
 * Admin can invite other people to be an Admin in `Invite`. The person who is invited will receive an email
 
-Up to now, all the features of Admin are tested and pass, except scenarios relate to email, JS-tree or deleting.
+Up to now, all the features of Admin are tested and pass, except for scenarios relate to email, JS-tree or deleting.
 ### Decision maker features
 * Decision maker can see all questions in `Questions`
 * Decision maker cannot manage questions
@@ -117,3 +117,6 @@ Company Representative features have not been fully tested in BDD yet.
 
 ### Result
 The overall coverage of cucumber is 61.62%.
+
+### Challenge
+Operations based on JavaScript is hard to test, due to different versions of webdrivers' vague syntax. Most of the functions, such as confirm a JavaScript popup or upload files, are failed to implement a Cucumber test. There is no doubt that these features can be tested via Cucumber and Capybara. Further research is still needed on this part.
