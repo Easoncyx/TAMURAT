@@ -18,7 +18,11 @@ class Scenario < ApplicationRecord
         weisum += wei.weight
       end
     end
-    self.score = total_score / weisum
+    if weisum == 0
+      self.score = 0
+    else
+      self.score = total_score / weisum
+    end
     self.save
   end
 end
