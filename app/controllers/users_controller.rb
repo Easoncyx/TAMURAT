@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:destory, :index, :show, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
   before_action :company_user,   only: [:show]
-  before_action :admin_user,     only: [:destroy, :index]
+  before_action :admin_user,     only: [:destroy, :index, :importnew, :import]
   before_action :invite_user,    only: [:new]
 
   def index
@@ -112,12 +112,52 @@ class UsersController < ApplicationController
      redirect_to users_url
   end
 
+
+  def importnew
+    @user = User.new
+  end
+
+  def import
+    @user = User.new(name: user_import_params['name'], email: user_import_params['email'])
+    # @user = User.new(user_import_params)
+    if User.maximum(:id)
+      @user.login_id = User.maximum(:id).next + 1000
+    else
+      @user.login_id = 1000
+    end
+
+    password = rand(36 ** 10).to_s(36)
+    @user.password = password
+    @user.password_confirmation = password
+    @user.role = "Company Representative"
+    @user.activated = true
+    @user.activated_at = Time.zone.now
+
+    if @user.save
+      @newcompany = Company.new(user_id: @user.id)
+      if user_import_params['parent_login_id']
+        parent_user = User.find_by(login_id: user_import_params['parent_login_id'])
+        if parent_user and parent_user.role = 'Company Representative'
+          parent_company = Company.find_by(user_id: parent_user.id)
+          @newcompany.parent_id = parent_company.id
+        end
+      end
+      @newcompany.save
+      flash[:info] = "A new company user is created."
+      redirect_to root_url
+    else
+      render 'new'
+    end
+  end
+
   private
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end
-
+    def user_import_params
+      params.require(:user).permit(:name, :email, :parent_login_id)
+    end
     def company_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end

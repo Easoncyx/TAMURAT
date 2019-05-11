@@ -22,7 +22,15 @@ class User < ApplicationRecord
   VALID_ROLE_REGEX = /Decision Maker|Company Representative|Validator|Administrator/i
   validates :role, presence: true, format: { with: VALID_ROLE_REGEX }
 
-
+# virtual attribute for importing company by admin
+  # setter
+  def parent_login_id=(value)
+    @parent_login_id = value
+  end
+  #getter
+  def parent_login_id
+    @parent_login_id
+  end
 
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
