@@ -132,22 +132,42 @@ class UsersController < ApplicationController
     @user.role = "Company Representative"
     @user.activated = true
     @user.activated_at = Time.zone.now
+    if user_import_params['file'] # must have file selected
+      if @user.save
+        @newcompany = Company.new(user_id: @user.id)
 
-    if @user.save
-      @newcompany = Company.new(user_id: @user.id)
-      if user_import_params['parent_login_id']
-        parent_user = User.find_by(login_id: user_import_params['parent_login_id'])
-        if parent_user and parent_user.role = 'Company Representative'
-          parent_company = Company.find_by(user_id: parent_user.id)
-          @newcompany.parent_id = parent_company.id
+        # check to save as subcompany
+        if user_import_params['parent_login_id'] != ""
+          parent_user = User.find_by(login_id: user_import_params['parent_login_id'])
+          if parent_user && (parent_user.role == 'Company Representative')
+            parent_company = Company.find_by(user_id: parent_user.id)
+            if parent_company
+              @newcompany.parent_id = parent_company.id
+              @newcompany.save
+              flash[:info] = "A new company user is created."
+            else
+              flash[:danger] = "Parent user isn't a Company Representative or Company doesn't exist."
+              redirect_to import_users_path and return
+            end
+          else
+            flash[:danger] = "Parent user doesn't exist or Parent user isn't a Company Representative."
+            redirect_to import_users_path and return
+          end
+        else # no parent_login_id
+          @newcompany.save
+          flash[:info] = "A new company user is created."
         end
+
+        Answer.import(user_import_params[:file].path)
+        redirect_to root_url, notice: "Questions added successfully."
+      else
+        render 'new'
       end
-      @newcompany.save
-      flash[:info] = "A new company user is created."
-      redirect_to root_url
     else
-      render 'new'
+      flash[:danger] = "No zip file selected"
+      redirect_to import_users_path and return
     end
+
   end
 
   private
@@ -156,7 +176,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
     end
     def user_import_params
-      params.require(:user).permit(:name, :email, :parent_login_id)
+      params.require(:user).permit(:name, :email, :parent_login_id, :file)
     end
     def company_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :login_id)
