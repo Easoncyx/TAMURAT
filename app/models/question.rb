@@ -36,4 +36,23 @@ class Question < ApplicationRecord
       @question.save
     end
   end
+
+  def self.to_csv(questions_hash)
+    attributes = %w{id category subcategory name level}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      questions_hash.each do |cat, value|
+        value.each do |subcat, questions|
+          questions.each do |q|
+            list = []
+            list << q.id << cat.name << subcat.name << q.name
+            csv << list
+            list = []
+          end
+        end
+      end
+    end
+  end
 end

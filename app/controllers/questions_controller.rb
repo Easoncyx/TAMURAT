@@ -17,6 +17,12 @@ class QuestionsController < ApplicationController
         @result[ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id).order(:id)
       end
     end
+
+# generating csv
+    respond_to do |format|
+      format.html
+      format.csv { send_data Question.to_csv(@result)}
+    end
   end
 
   def show
@@ -31,7 +37,7 @@ class QuestionsController < ApplicationController
         flash[:danger] = "No record found of this question."
         redirect_to questions_url and return
       end
-      
+
       new_subcat = Subcategory.find_by_id(question_params[:subcategory_id])
       unless new_subcat
         flash[:danger] = "No record found of this new_subcat."
@@ -47,8 +53,8 @@ class QuestionsController < ApplicationController
       end
       old_weight_sum = [old_subcat.weight_sum - @question.weight, 0].max
       old_subcat.update_attributes!(weight_sum: old_weight_sum)
-        
-  
+
+
       @question.update_attributes!(question_params)
       flash[:success] = "#{@question.name} was successfully updated."
       redirect_to questions_url
@@ -60,7 +66,7 @@ class QuestionsController < ApplicationController
 
   def create
     if(question_params[:weight] =~ Question.valid_weight_regex)
-      
+
       subcategory = Subcategory.find_by_id(question_params[:subcategory_id])
       unless subcategory
         flash[:danger] = "No record found of this question."
@@ -109,7 +115,7 @@ class QuestionsController < ApplicationController
     flash[:success] = "Question '#{@question.name}' deleted."
     redirect_to questions_url
   end
-  
+
   def import
     if params[:file] == nil
       flash[:warning] = "Please provide csv file."
@@ -142,7 +148,7 @@ class QuestionsController < ApplicationController
         redirect_to root_url and return
       end
     end
-    
+
     def admin_user
       if !admin?
         flash[:danger] = "You do not have permission to edit questions!"

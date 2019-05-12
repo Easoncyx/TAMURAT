@@ -101,12 +101,13 @@
 
   <% if admin? %>
     <div class="panel-footer"><%=button_to 'New Category',new_category_path, method: :get, class: "btn btn-primary short-input" %></div>
-  
+
     <h3>Import Questions</h3>
     <%= form_tag import_questions_path, multipart: true do %>
       <%= file_field_tag :file, class: "short-input" %>
       <%= submit_tag "Upload Questions", class: "short-input"%>
     <% end %>
-
+    <h3>Output Questions</h3>
+    <%= button_to "Output Questions", questions_path(format: :csv), class: 'short-input', method: :get, :form => {"data-type" => "csv" } %>
   <% end %>
 <% end %>

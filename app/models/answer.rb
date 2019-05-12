@@ -1,4 +1,5 @@
 require 'csv'
+require 'zip'
 class Answer < ApplicationRecord
   belongs_to :company, class_name: "Company"
   belongs_to :question, class_name: "Question"
@@ -8,6 +9,11 @@ class Answer < ApplicationRecord
 
 
   def self.import(file)
+    Zip::File.open(file) do |zipfile|
+      zipfile.each do |file|
+        # do something with file
+      end
+    end
     # CSV.foreach(file, headers: true) do |row|
     #   category, subcategory, name, weight = row
     #

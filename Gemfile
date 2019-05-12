@@ -51,6 +51,8 @@ gem 'bulma-rails'
 gem 'jstreejs-rails', '3.3.5.0'
 gem 'ancestry'
 
+gem 'rubyzip', '1.2.2' # will load new rubyzip version
+gem 'zip-zip', '0.3' # will load compatibility for old rubyzip API.
 
 group :development, :test do
   gem 'database_cleaner', '1.4.1'
@@ -65,6 +67,7 @@ group :development, :test do
   gem 'webdrivers', '~> 3.0'
   gem 'fixture'
   gem 'email_spec'
+  gem 'simplecov', :require => false
 end
 
 group :development do
@@ -74,20 +77,16 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
-  gem 'simplecov' #oh god
   gem 'awesome_print' # for display format in rails console
 end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'simplecov', :require => false
   gem 'rails-controller-testing', '1.0.2'
   gem 'minitest-reporters', '1.1.14'
   gem 'guard', '2.13.0'
   gem 'guard-minitest', '2.4.4'
-  gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
   gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
 end

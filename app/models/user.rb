@@ -106,7 +106,6 @@ class User < ApplicationRecord
     end
   end
 
-
   def create_scenario(sn)
     scenarios << sn
   end
