@@ -37,8 +37,9 @@ class Question < ApplicationRecord
     end
   end
 
+# output question spread sheet
   def self.to_csv(questions_hash)
-    attributes = %w{id category subcategory name level}
+    attributes = %w{id category subcategory name level evidences}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

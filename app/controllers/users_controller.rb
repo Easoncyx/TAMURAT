@@ -117,57 +117,61 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def import
-    @user = User.new(name: user_import_params['name'], email: user_import_params['email'])
-    # @user = User.new(user_import_params)
-    if User.maximum(:id)
-      @user.login_id = User.maximum(:id).next + 1000
-    else
-      @user.login_id = 1000
-    end
+  def import #import zip file for company
+    if Answer.csv_check?(user_import_params[:file].path)
+      @user = User.new(name: user_import_params['name'], email: user_import_params['email'])
+      # @user = User.new(user_import_params)
+      if User.maximum(:id)
+        @user.login_id = User.maximum(:id).next + 1000
+      else
+        @user.login_id = 1000
+      end
 
-    password = rand(36 ** 10).to_s(36)
-    @user.password = password
-    @user.password_confirmation = password
-    @user.role = "Company Representative"
-    @user.activated = true
-    @user.activated_at = Time.zone.now
-    if user_import_params['file'] # must have file selected
-      if @user.save
-        @newcompany = Company.new(user_id: @user.id)
+      password = rand(36 ** 10).to_s(36)
+      @user.password = password
+      @user.password_confirmation = password
+      @user.role = "Company Representative"
+      @user.activated = true
+      @user.activated_at = Time.zone.now
+      if user_import_params['file'] # must have file selected
+        if @user.save
+          @newcompany = Company.new(user_id: @user.id)
 
-        # check to save as subcompany
-        if user_import_params['parent_login_id'] != ""
-          parent_user = User.find_by(login_id: user_import_params['parent_login_id'])
-          if parent_user && (parent_user.role == 'Company Representative')
-            parent_company = Company.find_by(user_id: parent_user.id)
-            if parent_company
-              @newcompany.parent_id = parent_company.id
-              @newcompany.save
-              flash[:info] = "A new company user is created."
+          # check to save as subcompany
+          if user_import_params['parent_login_id'] != ""
+            parent_user = User.find_by(login_id: user_import_params['parent_login_id'])
+            if parent_user && (parent_user.role == 'Company Representative')
+              parent_company = Company.find_by(user_id: parent_user.id)
+              if parent_company
+                @newcompany.parent_id = parent_company.id
+                @newcompany.save
+                flash[:info] = "A new company user is created."
+              else
+                flash[:danger] = "Parent user isn't a Company Representative or Company doesn't exist."
+                redirect_to import_users_path and return
+              end
             else
-              flash[:danger] = "Parent user isn't a Company Representative or Company doesn't exist."
+              flash[:danger] = "Parent user doesn't exist or Parent user isn't a Company Representative."
               redirect_to import_users_path and return
             end
-          else
-            flash[:danger] = "Parent user doesn't exist or Parent user isn't a Company Representative."
-            redirect_to import_users_path and return
+          else # no parent_login_id
+            @newcompany.save
+            flash[:info] = "A new company user is created."
           end
-        else # no parent_login_id
-          @newcompany.save
-          flash[:info] = "A new company user is created."
+          # byebug
+          Answer.import(user_import_params[:file].path, @newcompany.id)
+          redirect_to root_url, notice: "Questions added successfully."
+        else
+          render 'new'
         end
-
-        Answer.import(user_import_params[:file].path)
-        redirect_to root_url, notice: "Questions added successfully."
       else
-        render 'new'
+        flash[:danger] = "No zip file selected"
+        redirect_to import_users_path and return
       end
     else
-      flash[:danger] = "No zip file selected"
+      flash[:danger] = "Invalid zip file!"
       redirect_to import_users_path and return
     end
-
   end
 
   private

@@ -1,6 +1,6 @@
 class EvidencesController < ApplicationController
   before_action :logged_in_user,          only: [:index, :edit, :update, :new, :create, :destroy]
-  before_action :correct_user,            only: [:index]  
+  before_action :correct_user,            only: [:index]
   before_action :have_answer_id,          only: [:index, :edit, :new]
   before_action :company_user,            only: [:edit, :update, :new, :create, :destroy]
   before_action :right_user,              only: [:index, :edit, :destroy]
@@ -39,6 +39,7 @@ class EvidencesController < ApplicationController
       attach = ActiveStorage::Attachment.find_by(blob_id: object.id)
       @evidence = Evidence.find(attach.record_id)
     else
+      byebug
       @evidence = Evidence.new(evidence_params)
       @evidence.save
     end
@@ -96,19 +97,19 @@ class EvidencesController < ApplicationController
         end
       end
     end
-    
+
     def have_answer_id
       if !params[:answer_id]
         flash[:danger] = "Please choose an answer!"
         redirect_to answers_url and return
       end
     end
-    
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def evidence_params
-      params.require(:evidence).permit(:name, :file)
+      params.require(:evidence).permit(:file)
     end
-    
+
     def not_validated
       if company_representative? && current_user.company.validated
         flash[:warning] = "You have already been validated!"
