@@ -129,7 +129,41 @@ This is an example csv:
 | **Security**  | Security_2      | Security_2_q1  | 1          |
 | **Security**  | Security_2      | Security_2_q2  | 1          |
 
+# How to import a new company user with their answers and evidence through CSV file?
+
+Log in as an admin and click the `Import` tab, then input the company name and email, if they have a parent company then input their parent company login_id.
+
+Then select a zip file which contains the following:
+
+- questions.csv
+- evidence files
+
+questions.csv is output by click the `Output Questions` button under the `Questions` tab and it have following format:
+
+| id   | category | subcategory | name          | level | evidence          |
+| ---- | -------- | ----------- | ------------- | ----- | ----------------- |
+| 1    | Business | Business_1  | Business_1_q1 | 1     | ev01.pdf;ev02.pdf |
+| 2    | Business | Business_1  | Business_1_q2 | 2     | ev01.pdf          |
+| 3    | Business | Business_1  | Business_1_q3 | 3     |                   |
+| 4    | Business | Business_2  | Business_2_q1 | 1     |                   |
+| 5    | Business | Business_2  | Business_2_q2 | 4     |                   |
+| 6    | Business | Business_2  | Business_2_q3 | 5     |                   |
+| 7    | Business | Business_3  | Business_3_q1 | 2     |                   |
+| 8    | Business | Business_3  | Business_3_q2 | 1     |                   |
+| 9    | Business | Business_3  | Business_3_q3 | 1     |                   |
+| 10   | Security | Security_1  | Security_1_q1 | N/A   |                   |
+| 11   | Security | Security_1  | Security_1_q2 | N/A   |                   |
+| 12   | Security | Security_1  | Security_1_q3 | N/A   |                   |
+
+Here are few points:
+
+- `id` is the question ID
+
+- `name` is the question
+- `level` in the csv have to be the **exact same** as the scales in the system.
+- `evidence` are the file names of evidence which are **exact same** as the evidence files in the zip file. More than two evidence are separated by `;`.
 
 # How to calculate the final score of a company in a certain scenario?
 
 In the `Help` tab, you can see the formulae of calculating the final score and the weight of each category and subcategory.
+

@@ -15,6 +15,7 @@
         <%= f.label :parent_login_id, 'Parent Company Login ID' %>
         <%= f.text_field :parent_login_id, class: 'form-control' %>
 
+        <%= f.label :Zipfile, 'Zip file upload' %>
         <%= f.file_field :file, class: "short-input" %>
         <%= f.submit yield(:button_text), class: "btn btn-primary" %>
       <% end %>

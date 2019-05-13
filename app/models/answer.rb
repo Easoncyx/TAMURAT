@@ -70,7 +70,7 @@ class Answer < ApplicationRecord
 
     CSV.parse(content, headers: true) do |row|
       newanswer = {}
-      id, category, subcategory, name, level, evidences = row
+      id, category, subcategory, name, level, evidence = row
       if level[1] # level not empty
         newanswer['company_id'] = company_id
         newanswer['question_id'] = id[1].to_i
@@ -78,9 +78,9 @@ class Answer < ApplicationRecord
         newanswer['level'] = level[1].to_s
         answer = Answer.create!(newanswer)
 
-        if evidences[1] # evidences not empty
-          evidences_file_names = evidences[1].split(';')
-          evidences_file_names.each do |filename|
+        if evidence[1] # evidence not empty
+          evidence_file_names = evidence[1].split(';')
+          evidence_file_names.each do |filename|
             csvfile = files.select{|f| f.name == filename}
             if csvfile
               @evidence = Evidence.new()
