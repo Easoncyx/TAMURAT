@@ -3,7 +3,7 @@
   <td><%= link_to scenario.name, scenario_url(scenario.id) %></td>
   <td><%= scenario.description %></td>
   <td>Posted <%= time_ago_in_words(scenario.created_at) %> ago</td>
-  <td><%= scenario.score%></td>
+  <td><%= scenario.score.round(5) %></td>
   <% if admin? %>
     <td>
       <%= button_to "delete", scenario, method: :delete, data: { confirm: "You sure?" } %>

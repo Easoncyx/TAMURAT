@@ -1,7 +1,7 @@
 class ActivateController < ApplicationController
   before_action :logged_in_user
   before_action :admin_user
-  
+
   def activate
     @user = User.find_by(login_id: params[:login_id])
     if !@user
@@ -9,7 +9,6 @@ class ActivateController < ApplicationController
     else
       if !@user.activated
         @user.create_activation_digest
-        @user.create_company
         # byebug
         UserMailer.account_activation(@user).deliver_now
         flash[:success] = "Successfully send email"

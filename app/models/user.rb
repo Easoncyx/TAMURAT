@@ -22,7 +22,15 @@ class User < ApplicationRecord
   VALID_ROLE_REGEX = /Decision Maker|Company Representative|Validator|Administrator/i
   validates :role, presence: true, format: { with: VALID_ROLE_REGEX }
 
-
+# virtual attribute for importing company by admin
+  # # setter
+  # def parent_login_id=(value)
+  #   @parent_login_id = value
+  # end
+  # #getter
+  # def parent_login_id
+  #   @parent_login_id
+  # end
 
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
@@ -77,6 +85,15 @@ class User < ApplicationRecord
           # not possible
           # flash[:danger] = "Company saved failed!!"
         end
+      else
+        @company = Company.find_by(user_id: self.id)
+        # add all scenarios to scenario_weight table
+        @scenarios = Scenario.all
+        @scenarios.each do |s|
+          if !@company.scenarios.include?(s)
+            @company.scenarios << s
+          end
+        end
       end
     end
   end
@@ -88,7 +105,6 @@ class User < ApplicationRecord
       User.all
     end
   end
-
 
   def create_scenario(sn)
     scenarios << sn

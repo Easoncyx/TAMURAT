@@ -19,6 +19,7 @@
             <li class="collapse-nav-li-custom"><%= link_to "Scenarios", scenarios_path %></li>
             <li class="collapse-nav-li-custom"><%= link_to "Outputs", outputs_path %></li>
             <li class="collapse-nav-li-custom"><%= link_to "Invite", new_user_path %></li>
+            <li class="collapse-nav-li-custom"><%= link_to "Import", importnew_users_path %></li>
           <% elsif decision_maker? %>
             <li class="collapse-nav-li-custom"><%= link_to "Questions", questions_path %></li>
             <li class="collapse-nav-li-custom"><%= link_to "Scenarios", scenarios_path %></li>
@@ -50,20 +51,20 @@
       </ul>
     </nav>
     <div>
-    
+
     </div>
   </div>
-  
+
 </header>
 <script>
   $("#menu-icon").click(function () {
-      
+
       if($(".collapse-nav-ul-custom").css("display")=="none")
         $(".collapse-nav-ul-custom").css("display", "block");
       else
         $(".collapse-nav-ul-custom").css("display", "none");
   })
-  $(window).resize(function () {   
+  $(window).resize(function () {
     if($(window).width() > 1200){
       $(".collapse-nav-ul-custom").css("display","block");
     }
@@ -71,5 +72,5 @@
       $(".collapse-nav-ul-custom").css("display", "none");
     }
   });
-  
+
 </script>

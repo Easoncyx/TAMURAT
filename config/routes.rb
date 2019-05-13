@@ -12,14 +12,19 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get    '/activate',to: 'activate#activate'
 
-  resources :users
-  
+  resources :users do
+    collection do
+      get 'importnew'
+      post 'import'
+    end
+  end
+
 
   #questions
   resources :questions do
     collection { post :import}
   end
-  
+
   #get '/questions/edit/:id', to: 'questions#edit', as: 'question_edit'
 
   #subcategory

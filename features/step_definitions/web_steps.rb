@@ -85,7 +85,7 @@ Given /^I expect to click "([^"]*)" on a confirmation box saying "([^"]*)"$/ do 
 end
 
 When /^I confirm popup$/ do
-  page.driver.browser.switch_to.alert.accept    
+  page.driver.browser.switch_to.alert.accept
 end
 
 When("I activate a user") do
@@ -255,7 +255,7 @@ end
 
 Given  /^I change password into "([^"]*)"$/ do |pw|
   fill_in "Password", :with => pw
-  
+
 end
 
 #"
@@ -304,7 +304,7 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
 end
 
 Given('I click "Validate" of "Example CR1"') do
-  visit '/answers?company_id=2'
+  visit '/answers?company_id=1'
 end
 
 # Given(/^I go back$/) do
@@ -426,7 +426,7 @@ And /^I am logged into the admin panel$/ do
   else
     assert page.has_content?('Signed in successfully')
   end
-  
+
 end
 
 
@@ -446,7 +446,7 @@ And /^I am signing up as an Admin$/ do
   else
     assert page.has_content?('Welcome! You have signed up successfully.')
   end
-  
+
 end
 
 
@@ -637,7 +637,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
     end
   end
 end
- 
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -651,8 +651,8 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
-  
+  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')}
+
   if actual_params.respond_to? :should
     actual_params.should == expected_params
   else

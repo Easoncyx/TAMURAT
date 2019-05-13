@@ -36,7 +36,7 @@
             <%= fields_for "sw[#{sw.id}]", sw do |item| %>
               <td><%= @companies_loginid[index] %></td>
               <td><%= @companies_name[index] %></td>
-              <td><%= @companies[index].score %></td>
+              <td><%= @companies[index].score.round(5) %></td>
               <td><%= item.text_field :weight %></td>
             <% end %>
           </tr>
