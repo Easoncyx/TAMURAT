@@ -7,7 +7,13 @@
         <h2><%= gravatar_for User.find_by_id(@company.user_id), size: 50 %><%= get_company_name @company %></h2>
       </td>
       
-      <td><h2 class = "pull-right">Score: <%= @company.score.round(4) %></h2></td>
+      <td><h2 class = "pull-right">
+        <% if @company.validated %>
+          Score: <%= @company.score.round(4) %>
+        <% else %>
+          Not validated
+        <% end %>
+      </h2></td>
       </tr> 
     </ul>
   </tbody>
@@ -22,11 +28,7 @@
         <a data-toggle="collapse" href=#<%="collapse_category#{category.id}"%>>
           <span><%= category.name %> </span> 
           <span class = "pull-right">
-            <% if cat_score(@company.id, category.id)%>
-              <%= cat_score(@company.id, category.id).score.round(4)%> 
-            <% else %>
-              No Answers
-            <% end %>
+            <%= cat_score(@company.id, category.id)%>
           </span>
           </br>
         </a>
@@ -44,11 +46,7 @@
                     
                     <span><%=subcat.name %> </span> 
                     <span class = "pull-right">
-                      <% if subcat_score(@company.id, subcat.id)%>
-                        <%= subcat_score(@company.id, subcat.id).score.round(4)%> 
-                      <% else %>
-                        No Answers
-                      <% end %>
+                      <%= subcat_score(@company.id, subcat.id)%> 
                     </span>
                   </a>
                 </h4>

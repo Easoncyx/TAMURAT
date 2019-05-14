@@ -38,11 +38,28 @@ module AnswersHelper
   end
   
   def subcat_score company_id, subcategory_id
-    return SubcategoryScore.find_by({company_id: company_id, subcategory_id: subcategory_id})
+    company = Company.find_by_id(company_id)
+    result = SubcategoryScore.find_by({company_id: company_id, subcategory_id: subcategory_id})
+    if !company.validated
+      return "Not validated"
+    end
+    if result
+      return result.score.round(4)
+    else
+      return "Not Answered"
+    end
   end
   
   def cat_score company_id, category_id
-    return CategoryScore.find_by({company_id: company_id, category_id: category_id})
+    company = Company.find_by_id(company_id)
+    result = CategoryScore.find_by({company_id: company_id, category_id: category_id})
+    if !company.validated
+      return "Not validated"
+    end
+    if result
+      return result.score.round(4)
+    else
+      return "Not Answered"
+    end
   end
-  
 end

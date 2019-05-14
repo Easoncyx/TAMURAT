@@ -129,7 +129,7 @@ end
 subcategories =[{:name => 'Business_1', :weight_sum => 3, category_id:1, :weight => 1},
              {:name => 'Business_2', :weight_sum => 3, category_id:1, :weight => 1},
              {:name => 'Business_3', :weight_sum => 3, category_id:1, :weight => 1},
-             {:name => 'Security_1', :weight_sum => 0, category_id:2, :weight => 1},
+             {:name => 'Security_1', :weight_sum => 3, category_id:2, :weight => 1},
              {:name => 'Security_2', :weight_sum => 0, category_id:2, :weight => 1},
              {:name => 'Security_3', :weight_sum => 0, category_id:2, :weight => 1},
              {:name => 'Finance_1', :weight_sum => 0, category_id:3, :weight => 1},
@@ -150,9 +150,9 @@ questions = [{:name => 'Business_1_q1', :weight => 1, subcategory_id:1},
              {:name => 'Business_3_q1', :weight => 1, subcategory_id:3},
              {:name => 'Business_3_q2', :weight => 1, subcategory_id:3},
              {:name => 'Business_3_q3', :weight => 1, subcategory_id:3},
-             {:name => 'Security_1_q1', :weight => 0, subcategory_id:4},
-             {:name => 'Security_1_q2', :weight => 0, subcategory_id:4},
-             {:name => 'Security_1_q3', :weight => 0, subcategory_id:4},
+             {:name => 'Security_1_q1', :weight => 1, subcategory_id:4},
+             {:name => 'Security_1_q2', :weight => 1, subcategory_id:4},
+             {:name => 'Security_1_q3', :weight => 1, subcategory_id:4},
              ]
 
 questions.each do |q|

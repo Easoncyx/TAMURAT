@@ -10,6 +10,7 @@ class Answer < ApplicationRecord
   # validate the questions.csv in the zip file
   def self.csv_check?(file)
     files = []
+
     Zip::File.open(file) do |zipfile|
       zipfile.each do |file|
         files.push file
@@ -22,9 +23,10 @@ class Answer < ApplicationRecord
       return false
     end
     content = csvfile[0].get_input_stream.read
-
+    #byebug
     CSV.parse(content, headers: true) do |row|
       id, category, subcategory, name, level, evidences = row
+      #byebug
       if level[1] && id[1] # level and id not empty
         if !(id[1].to_s =~ /\A\d+\z/ && Question.exists?(id[1].to_i))
           # byebug
@@ -42,7 +44,7 @@ class Answer < ApplicationRecord
             csvfile = nil
             csvfile = files.select{|f| f.name == filename.strip}
             if csvfile.empty?
-              # byebug
+              
               # flash[:warning] = "No evidence file found."
               return false
             end

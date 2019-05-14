@@ -90,7 +90,13 @@ class AnswersController < ApplicationController
         @result[ctgr][subcate] = Question.where("subcategory_id = ?", subcate.id)
       end
     end
-
+    
+    respond_to do |format|
+      format.html
+      format.csv { send_data Question.to_csv(@result),
+        filename: "questions.csv"
+      }
+    end
   end
 
   private
