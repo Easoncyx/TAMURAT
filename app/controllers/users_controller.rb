@@ -114,7 +114,6 @@ class UsersController < ApplicationController
 
 
   def importnew
-    @user = User.new
   end
 
   def import #import zip file for company
@@ -187,6 +186,7 @@ class UsersController < ApplicationController
           end
         end
       else
+        
         flash[:danger] = "Invalid zip file!"
         redirect_to importnew_users_path and return
       end

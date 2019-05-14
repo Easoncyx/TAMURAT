@@ -5,3 +5,5 @@
   <h1>Questionnaire</h1>
 <% end %>
 <%= render 'questionnaire' %>
+<h3>Output Questions</h3>
+<%= button_to "Output Questions", answers_path(format: :csv), class: 'short-input', method: :get, :form => {"data-type" => "csv" } %>

@@ -31,7 +31,7 @@ $('#tree').on(
       url: data.node.a_attr.href,
     }).done(function (data) {
       var divshow = $("#ContentBody");
-      divshow.text(""); // 清空数据
+      divshow.text(""); // clear data
       divshow.append(data.html);
       //console.log('成功, 收到的数据: ' + JSON.stringify(data.html));
     }).fail(function (xhr, status) {
