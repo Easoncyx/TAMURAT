@@ -39,7 +39,7 @@ class EvidencesController < ApplicationController
       attach = ActiveStorage::Attachment.find_by(blob_id: object.id)
       @evidence = Evidence.find(attach.record_id)
     else
-      byebug
+      #byebug
       @evidence = Evidence.new(evidence_params)
       @evidence.save
     end
