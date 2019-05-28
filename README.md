@@ -1,5 +1,5 @@
 ## Installitation
-This tutorial is about how to deploy this project on AWS cloud9. 
+This tutorial is about how to deploy this project on AWS cloud9.
 
 First install ruby2.4 or use ruby2.6, which is the default setting of AW cloud9.
 `rvm install 2.4.0` or `rvm use 2.6.0`
@@ -14,12 +14,12 @@ Changing to the folder of TAMUART_new and type `bundle install`
 #### Installitation of PG
 Finally we need to do something so that we could use PG on AWS cloud9. Start the PG server:
 
-`sudo service postgresql initdb` 
+`sudo service postgresql initdb`
 
 Then change the setting in postgresql.conf, there are two lines we need to edit.
 
 `sudo vim /var/lib/pgsql9/data/postgresql.conf`
-uncomment 
+uncomment
 ```
 #listen_addresses = 'localhost'
 #port = 5432
@@ -27,7 +27,7 @@ uncomment
 to
 ```
 listen_addresses = 'localhost'
-listen_addresses = 'port = 5432
+port = 5432
 ```
 
 The next is pg_hba.conf, there are many parameters we need to edit, be careful.
@@ -44,7 +44,7 @@ host    all             ec2-user        127.0.0.1/0             trust
 host    all             all             ::1/128                 md5
 ```
 
-The last step, we need to login as Postgres User and change Password / add ec2-user. Just paste the follow commands into the terminate.  
+The last step, we need to login as Postgres User and change Password / add ec2-user. Just paste the follow commands into the terminate.
 `sudo service postgresql restart`
 
 `sudo su - postgres # login as postgres user`
